@@ -5,7 +5,8 @@
   "description": "Noter Desktop production",
   "main": "./main.prod.js",
   "author": {
-    "name": " "
+    "name": "hasan kataya",
+    "email": "hasankataya10@gmail.com"
   },
   "scripts": {
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
