@@ -5,13 +5,14 @@
   "description": "Noter Desktop production",
   "main": "./main.prod.js",
   "author": {
-    "name": "hasan kataya",
-    "email": "hasankataya10@gmail.com"
+    "name": "Noter maintainers",
+    "email": "electronreactboilerplate@gmail.com",
+    "url":"https://github.com/Sami-Sh99/Noter"
   },
   "scripts": {
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
     "postinstall": "yarn electron-rebuild"
   },
-  "license": "",
+  "license": "MIT",
   "dependencies": {}
 }
