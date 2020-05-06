@@ -199,6 +199,7 @@
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux-logger": "^3.0.7",
     "@types/sinon": "^7.5.2",
+    "@types/styled-components": "4.1.8",
     "@types/tapable": "^1.0.5",
     "@types/vfile-message": "^2.0.0",
     "@types/webpack": "^4.41.3",
@@ -295,6 +296,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.16",
+    "styled-components": "^5.1.0",
     "tailwindcss": "^1.4.4"
   },
   "devEngines": {
