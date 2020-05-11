@@ -1,13 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../Button/Button';
 
+type Props = {
+  cname: string;
+  chapters?: Array<Record<string, unknown>>;
+  id: string;
+  videos?: Array<Record<string, unknown>>;
+  thumbnail?: string;
+  key?: string;
+};
+
+type BgProps = {
+  thumbnail: string;
+};
 const Background = styled.div.attrs({
   className: 'flex overflow-hidden bg-cover bg-center'
-})`
-  background-image: url(${(props: any) => props.thumbnail});
+})<BgProps>`
+  background-image: url(${p => p.thumbnail});
 `;
 
 const LeftItem = styled.div.attrs({
@@ -41,21 +51,11 @@ const ListItem = styled.li.attrs({
   className: 'mt-1'
 })``;
 
-type Props = {
-  cname: string;
-  chapters: Array<Record<string, unknown>>;
-  id: string;
-  videos: Array<Record<string, unknown>>;
-  thumbnail: string;
-  key: string;
-};
-
 const CourseCard = (props: Props) => {
   const { cname, chapters, videos, thumbnail } = props;
-  const bgprop = { thumbnail };
   return (
     <div className="w-108 shadow-lg rounded-lg overflow-hidden m-5">
-      <Background {...bgprop}>
+      <Background thumbnail={thumbnail || ''}>
         <LeftItem />
         <RightItem>
           <Title>{cname}</Title>
@@ -65,11 +65,11 @@ const CourseCard = (props: Props) => {
             <ul>
               <ListItem>
                 nb of chapters:
-                {chapters.length}
+                {chapters ? chapters.length : 0}
               </ListItem>
               <ListItem>
                 nb of videos:
-                {videos.length}
+                {videos ? videos.length : 0}
               </ListItem>
               <ListItem>duration: </ListItem>
             </ul>
