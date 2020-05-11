@@ -1,0 +1,128 @@
+{
+  "id": "1",
+  "username": "hasank",
+  "courses": [
+    {
+      "id": "100",
+      "thumbnail": "https://miro.medium.com/max/2000/1*oZqGznbYXJfBlvGp5gQlYQ.jpeg",
+      "cname": "Vue.Js",
+      "chapters": [
+        {
+          "id": "2012010210",
+          "name": "chapter1",
+          "videos": ["1558196567543","1558196569460"]
+        }
+      ],
+      "videos": [
+        {
+          "notes": [
+            {
+              "id": "1558196597470",
+              "title": "Learn Redux",
+              "description": "I heard that it can help, but it looks like it has a lot of boilerplate!"
+            },
+            {
+              "id": "1558196612656",
+              "title": "Learn MobX",
+              "description": "I heard that's what all of the cool kids were doing these days."
+            }
+          ],
+          "id": "1558196567543",
+          "title": "Backburner"
+        },
+        {
+          "notes": [
+            {
+              "id": "1558196631373",
+              "title": "Master React state",
+              "description": "It looks like it's come a long way. The Context API seems cool."
+            },
+            {
+              "id": "1558196612656",
+              "title": "Learn MobX",
+              "description": "I heard that's what all of the cool kids were doing these days."
+            },
+            {
+              "id": "1558196612657",
+              "title": "Learn TailwindCSS",
+              "description": "I heard that's what all of the cool kids were doing these days."
+            }
+          ],
+          "id": "1558196569460",
+          "title": "Doing"
+        }
+      ]
+    },
+
+    {
+      "id": "200",
+      "cname": "Physics",
+      "thumbnail": "https://www.insidescience.org/sites/default/files/sites/default/files/images/articles/top-images/2018/physics-chalkboard_cropped.jpg",
+      "chapters": [],
+      "videos": [
+        {
+          "notes": [
+            {
+              "id": "01",
+              "title": "atoms",
+              "description": "I heard that it can help, but it looks like it has a lot of boilerplate!"
+            },
+            {
+              "id": "02",
+              "title": "sreduce",
+              "description": "I heard that's what all of the cool kids were doing these days."
+            }
+          ],
+          "id": "1334584343196567543",
+          "title": "CHAA"
+        }]
+    },
+
+    {
+      "id": "300",
+      "cname": "Chemistry",
+      "thumbnail": "https://jobs.newscientist.com/getasset/c40a5488-11be-43b0-843f-a2e6ef9f0612/",
+      "chapters": [
+        {
+          "id": "3012010210",
+          "name": "chapter1",
+          "videos": ["2558196567543","2558196569460"]
+        }
+      ],
+      "videos": [
+        {
+          "notes": [
+            {
+              "id": "2558196597470",
+              "title": "Learn Redux",
+              "description": "I heard that it can help, but it looks like it has a lot of boilerplate!"
+            },
+            {
+              "id": "2558196612656",
+              "title": "Learn MobX",
+              "description": "I heard that's what all of the cool kids were doing these days."
+            }
+          ],
+          "id": "2558196567543",
+          "title": "Backburner"
+        },
+        {
+          "notes": [
+            {
+              "id": "2558196631373",
+              "title": "Master React state",
+              "description": "It looks like it's come a long way. The Context API seems cool."
+            },
+            {
+              "id": "2558196612656",
+              "title": "Learn MobX",
+              "description": "I heard that's what all of the cool kids were doing these days."
+            }
+          ],
+          "id": "2558196569460",
+          "title": "Doing"
+        }
+      ]
+    }
+  ]
+}
