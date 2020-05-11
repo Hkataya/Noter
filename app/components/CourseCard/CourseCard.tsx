@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../Button/Button';
 
 const Background = styled.div.attrs({
-  className: 'flex overflow-hidden bg-cover'
+  className: 'flex overflow-hidden bg-cover bg-center'
 })`
-  background-image: url('https://miro.medium.com/max/2000/1*oZqGznbYXJfBlvGp5gQlYQ.jpeg');
+  background-image: url(${(props: any) => props.thumbnail});
 `;
 
 const LeftItem = styled.div.attrs({
@@ -17,8 +20,8 @@ const RightItem = styled.div.attrs({
   background: rgb(28, 26, 46);
   background: linear-gradient(
     120deg,
-    rgba(28, 26, 46, 0.9699230033810399) 0%,
-    rgba(28, 26, 46, 0.9699230033810399) 100%
+    rgba(28, 26, 46, 0.8999230033810399) 0%,
+    rgba(28, 26, 46, 0.8999230033810399) 100%
   );
 `;
 
@@ -38,28 +41,44 @@ const ListItem = styled.li.attrs({
   className: 'mt-1'
 })``;
 
-const CourseCard = () => {
+type Props = {
+  cname: string;
+  chapters: Array<Record<string, unknown>>;
+  id: string;
+  videos: Array<Record<string, unknown>>;
+  thumbnail: string;
+};
+
+const CourseCard = (props: Props) => {
+  const { cname, chapters, videos, thumbnail } = props;
+  const bgprop = { thumbnail };
   return (
-    <div className="h-90 max-w-md shadow-lg rounded-lg overflow-hidden">
-      <Background>
+    <div className="w-108 shadow-lg rounded-lg overflow-hidden m-5">
+      <Background {...bgprop}>
         <LeftItem />
         <RightItem>
-          <Title>props.title</Title>
+          <Title>{cname}</Title>
           <hr />
-          <Description>props.description</Description>
+          <Description>description</Description>
           <ListItemWrapper>
             <ul>
-              <ListItem>nb of courses: props.chapters.length </ListItem>
-              <ListItem>nb of videos: props.videos.length </ListItem>
-              <ListItem>duration: props.duration </ListItem>
+              <ListItem>
+                nb of chapters:
+                {chapters.length}
+              </ListItem>
+              <ListItem>
+                nb of videos:
+                {videos.length}
+              </ListItem>
+              <ListItem>duration: </ListItem>
             </ul>
           </ListItemWrapper>
-          <button type="button"> Watch </button>
+          <Button>Watch</Button>
         </RightItem>
       </Background>
-      <div className="shadow w-full bg-grey-light">
+      <div className="shadow w-full  rounded-lg bg-grey-light">
         <div
-          className="bg-blue-300 py-1 text-center"
+          className="bg-purple-900 py-1 text-center"
           style={{ width: '45%' }}
         />
       </div>

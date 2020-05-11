@@ -3,19 +3,18 @@ import styled from 'styled-components';
 
 const SearchOuter = styled.div.attrs({
   className:
-    'text-gray-600 text-left bg-white  border-solid border rounded-full'
+    'text-gray-600 text-left bg-white  border-solid border rounded-full flex space-between w-108 ml-auto mr-auto'
 })``;
 
 const SearchInput = styled.input.attrs({
-  className: 'h-10 w-full  pl-10 pr-10 rounded-full text-sm focus:outline-none'
+  className: 'h-12 w-11/12 pl-5 rounded-full text-sm focus:outline-none'
 })``;
 
 const SearchBar = () => {
   return (
     <SearchOuter>
       <SearchInput placeholder="search" />
-
-      <button type="submit" className="absolute right-0 top-0 mt-6 mr-6">
+      <button type="submit" className=" w-1/12">
         <svg
           className="h-4 w-4 fill-current"
           xmlns="http://www.w3.org/2000/svg"
