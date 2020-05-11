@@ -47,6 +47,7 @@ type Props = {
   id: string;
   videos: Array<Record<string, unknown>>;
   thumbnail: string;
+  key: string;
 };
 
 const CourseCard = (props: Props) => {

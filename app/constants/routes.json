@@ -1,4 +1,7 @@
 {
   "HOME": "/",
-  "COUNTER": "/counter"
+  "COUNTER": "/counter",
+  "COURSE": "/course",
+  "MEDIA": "/media"
+
 }
