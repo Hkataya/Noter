@@ -2,6 +2,6 @@
 import { Action } from 'redux';
 import { allcourses } from '../../normalized-state';
 
-export default function course(state = allcourses, _action: Action<string>) {
+export default function courses(state = allcourses, _action: Action<string>) {
   return state;
 }
