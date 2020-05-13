@@ -22,10 +22,6 @@ const ModalHeader = styled.div.attrs({
   className: 'text-gray-900 font-medium text-lg'
 })``;
 
-const ModalFooterWrapper = styled.div.attrs({
-  className: 'ml-auto'
-})``;
-
 type Props = {
   handleClose: () => void;
   children: React.ReactNode;
@@ -52,18 +48,6 @@ const Modal = (props: Props) => {
           </ModalHeaderWrapper>
           <hr />
           {children}
-          <hr />
-          <ModalFooterWrapper>
-            <button
-              type="button"
-              className="bg-purple-900 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => {
-                console.log('sss');
-              }}
-            >
-              Agree
-            </button>
-          </ModalFooterWrapper>
         </ModalInner>
       </ModalOuter>
     </ModalBg>
