@@ -1,15 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../Button/Button';
-
-type Props = {
-  cname: string;
-  chapters?: Array<Record<string, unknown>>;
-  id: string;
-  videos?: Array<Record<string, unknown>>;
-  thumbnail?: string;
-  key?: string;
-};
+import { CourseType } from '../../reducers/entities/types';
+import { CourseActionCreatorType } from '../../actions/courses';
 
 type BgProps = {
   thumbnail: string;
@@ -51,14 +44,16 @@ const ListItem = styled.li.attrs({
   className: 'mt-1'
 })``;
 
+type Props = CourseType & CourseActionCreatorType;
+
 const CourseCard = (props: Props) => {
-  const { cname, chapters, videos, thumbnail } = props;
+  const { title, chapters, videos, thumbnail } = props;
   return (
     <div className="w-108 shadow-lg rounded-lg overflow-hidden m-5">
       <Background thumbnail={thumbnail || ''}>
         <LeftItem />
         <RightItem>
-          <Title>{cname}</Title>
+          <Title>{title}</Title>
           <hr />
           <Description>description</Description>
           <ListItemWrapper>
