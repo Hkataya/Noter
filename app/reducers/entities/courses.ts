@@ -3,6 +3,7 @@ import { allcourses } from '../../normalized-state';
 import {
   ADD_COURSE,
   REMOVE_COURSE,
+  UPDATE_COURSE,
   CourseActionType
 } from '../../actions/courses';
 
@@ -17,6 +18,11 @@ export default function courses(state = allcourses, action: CourseActionType) {
       // Temporary solution ... deleting will only remove references but the data is still cached
       // Might look into alternative solutions (such as tracking data)
       if (action.payload) delete newState[action.payload];
+      return newState;
+
+    case UPDATE_COURSE:
+      if (action.payload && action.payload.id)
+        newState[action.payload.id] = action.payload;
       return newState;
     default:
       return state;

@@ -2,6 +2,7 @@ import { CourseType } from '../reducers/entities/types';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
+export const UPDATE_COURSE = 'UPDATE_COURSE';
 
 type AddCourseAction = {
   type: typeof ADD_COURSE;
@@ -13,12 +14,21 @@ type RemoveCourseAction = {
   payload: CourseType['id'];
 };
 
+type UpdateCourseAction = {
+  type: typeof UPDATE_COURSE;
+  payload: CourseType;
+};
+
 export type CourseActionCreatorType = {
   addCourse?: (courseData: CourseType) => void;
   removeCourse?: (courseId: CourseType['id']) => void;
+  updateCourse?: (courseData: CourseType) => void;
 };
 
-export type CourseActionType = AddCourseAction | RemoveCourseAction;
+export type CourseActionType =
+  | AddCourseAction
+  | RemoveCourseAction
+  | UpdateCourseAction;
 
 export function addCourse(courseData: CourseType) {
   // Generate Unique ID
@@ -37,5 +47,12 @@ export function removeCourse(courseId: CourseType['id']) {
   return {
     type: REMOVE_COURSE,
     payload: courseId
+  };
+}
+
+export function updateCourse(courseData: CourseType) {
+  return {
+    type: UPDATE_COURSE,
+    payload: courseData
   };
 }
