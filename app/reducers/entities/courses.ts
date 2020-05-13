@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { allcourses } from '../../normalized-state';
 
 import {
@@ -8,10 +9,12 @@ import {
 } from '../../actions/courses';
 
 export default function courses(state = allcourses, action: CourseActionType) {
-  const newState = { ...state };
+  const newState: any = { ...state };
   switch (action.type) {
     case ADD_COURSE:
-      if (action.payload.id) newState[action.payload.id] = action.payload;
+      if (action.payload && action.payload.id)
+        newState[action.payload.id] = action.payload;
+
       return newState;
 
     case REMOVE_COURSE:
