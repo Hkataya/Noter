@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 // Button Styles....
 
 const ButtonWrapper = styled.div.attrs({
@@ -14,13 +13,14 @@ const InnerButton = styled.button.attrs({
 
 type Props = {
   children: React.ReactNode;
+  handleButtonClick: () => void;
 };
 
 const Button = (props: Props) => {
-  const { children } = props;
+  const { children, handleButtonClick } = props;
   return (
     <ButtonWrapper>
-      <InnerButton>{children}</InnerButton>
+      <InnerButton onClick={() => handleButtonClick()}>{children}</InnerButton>
     </ButtonWrapper>
   );
 };
