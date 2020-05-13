@@ -2,4 +2,10 @@
 import { connect } from 'react-redux';
 import HomePage from './HomePage';
 
-export default connect()(HomePage);
+function mapStateToProps(state: any) {
+  return {
+    courses: state.entities.courses
+  };
+}
+
+export default connect(mapStateToProps)(HomePage);
