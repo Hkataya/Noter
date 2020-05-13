@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import styled from 'styled-components';
 import SearchBar from '../SearchBar/SearchBar';
 import CourseCard from '../CourseCard/CourseCard';
-import { CourseType } from '../../reducers/entities/types';
 import { CourseActionCreatorType } from '../../actions/courses';
+import { EntityStateType } from '../../reducers/types';
 
 const CourseWrapper = styled.div.attrs({
   className: 'm-10 flex flex-wrap'
@@ -14,10 +13,10 @@ const HomeWrapper = styled.div.attrs({
   className: 'mx-auto p-5 bg-gray-100 align-center'
 })``;
 
-type Props = CourseType & CourseActionCreatorType;
+type Props = EntityStateType & CourseActionCreatorType;
 
 export default function HomePage(props: Props) {
-  const { courses, removeCourse, addCourse } = props;
+  const { courses, removeCourse } = props;
 
   return (
     <HomeWrapper>
