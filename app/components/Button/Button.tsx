@@ -13,14 +13,20 @@ const InnerButton = styled.button.attrs({
 
 type Props = {
   children: React.ReactNode;
-  handleButtonClick: () => void;
+  handleButtonClick?: () => void;
 };
 
 const Button = (props: Props) => {
   const { children, handleButtonClick } = props;
   return (
     <ButtonWrapper>
-      <InnerButton onClick={() => handleButtonClick()}>{children}</InnerButton>
+      <InnerButton
+        onClick={() => {
+          if (handleButtonClick) handleButtonClick();
+        }}
+      >
+        {children}
+      </InnerButton>
     </ButtonWrapper>
   );
 };

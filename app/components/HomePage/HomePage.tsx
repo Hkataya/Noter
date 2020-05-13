@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../SearchBar/SearchBar';
 import CourseCard from '../CourseCard/CourseCard';
@@ -7,6 +8,7 @@ import Modal from '../Modal/Modal';
 import AddCourseForm from '../Form/AddCourseForm';
 import { CourseActionCreatorType } from '../../actions/courses';
 import { EntityStateType } from '../../reducers/types';
+import routes from '../../constants/routes.json';
 
 const CourseWrapper = styled.div.attrs({
   className: 'm-10 flex flex-wrap'
@@ -20,6 +22,7 @@ type Props = EntityStateType & CourseActionCreatorType;
 
 export default function HomePage(props: Props) {
   const [modalVisibile, setModalVisible] = useState(false);
+  const history = useHistory();
   const { courses, removeCourse, addCourse } = props;
 
   return (
@@ -48,6 +51,7 @@ export default function HomePage(props: Props) {
             duration={courses[k].duration}
             thumbnail={courses[k].thumbnail}
             removeCourse={removeCourse}
+            directToCoursePage={() => history.push(`${routes.COURSE}/${k}`)}
           />
         ))}
       </CourseWrapper>

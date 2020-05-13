@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../Button/Button';
 import { CourseType } from '../../reducers/entities/types';
 import { CourseActionCreatorType } from '../../actions/courses';
 
@@ -28,7 +29,7 @@ const RightItem = styled.div.attrs({
 `;
 
 const TitleWrapper = styled.div.attrs({
-  className: 'flex justify-around text-white'
+  className: 'flex justify-around  text-white'
 })``;
 const Title = styled.h1.attrs({
   className: 'text-white font-bold text-lg text-justify mb-4'
@@ -46,10 +47,21 @@ const ListItem = styled.li.attrs({
   className: 'mt-1'
 })``;
 
-type Props = CourseType & CourseActionCreatorType;
+type Props = CourseType &
+  CourseActionCreatorType & {
+    directToCoursePage: () => void;
+  };
 
 const CourseCard = (props: Props) => {
-  const { id, title, chapters, videos, thumbnail, removeCourse } = props;
+  const {
+    id,
+    title,
+    chapters,
+    videos,
+    thumbnail,
+    removeCourse,
+    directToCoursePage
+  } = props;
   return (
     <div className="w-108 shadow-lg rounded-lg overflow-hidden m-5">
       <Background thumbnail={thumbnail || ''}>
@@ -62,8 +74,9 @@ const CourseCard = (props: Props) => {
                 if (removeCourse) removeCourse(id);
               }}
               type="button"
+              className="ml-10"
             >
-              remove
+              <i className="fas fa-trash" />
             </button>
           </TitleWrapper>
           <hr />
@@ -81,7 +94,7 @@ const CourseCard = (props: Props) => {
               <ListItem>duration: </ListItem>
             </ul>
           </ListItemWrapper>
-          <button type="button">Watch</button>
+          <Button handleButtonClick={directToCoursePage}> Watch </Button>
         </RightItem>
       </Background>
       <div className="shadow w-full  rounded-lg bg-grey-light">
