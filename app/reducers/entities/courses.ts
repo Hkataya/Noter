@@ -8,7 +8,12 @@ import {
   CourseActionType
 } from '../../actions/courses';
 
-export default function courses(state = allcourses, action: CourseActionType) {
+import { ADD_VIDEO, REMOVE_VIDEO, VideoActionType } from '../../actions/videos';
+
+export default function courses(
+  state = allcourses,
+  action: CourseActionType | VideoActionType
+) {
   const newState: any = { ...state };
   switch (action.type) {
     case ADD_COURSE:
@@ -27,6 +32,26 @@ export default function courses(state = allcourses, action: CourseActionType) {
       if (action.payload && action.payload.id)
         newState[action.payload.id] = action.payload;
       return newState;
+
+    case ADD_VIDEO:
+      if (action.payload && action.payload.courseId && action.payload.videoId) {
+        const videolist: Array<string> =
+          newState[action.payload.courseId].videos;
+        videolist.push(action.payload.videoId);
+        newState[action.payload.courseId].videos = videolist;
+      }
+      return newState;
+
+    case REMOVE_VIDEO:
+      if (action.payload && action.payload.courseId && action.payload.videoId) {
+        const videolist: Array<string> =
+          newState[action.payload.courseId].videos;
+        const index = videolist.indexOf(action.payload.videoId);
+        if (index > -1) videolist.splice(index, 1);
+        newState[action.payload.courseId].videos = videolist;
+      }
+      return newState;
+
     default:
       return state;
   }
