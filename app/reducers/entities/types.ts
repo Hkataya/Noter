@@ -15,3 +15,9 @@ export type VideoType = {
   thumbnail?: string;
   notes?: Array<string>;
 };
+
+export type NoteType = {
+  id?: string;
+  title: string;
+  description: string;
+};
