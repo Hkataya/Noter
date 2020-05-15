@@ -6,6 +6,9 @@ import { VideoActionCreatorType } from '../../actions/videos';
 import VideoCard from '../VideoCard/VideoCard';
 import routes from '../../constants/routes.json';
 
+const placeholderThumbnail =
+  'https://i1.wp.com/wp.laravel-news.com/wp-content/uploads/2016/09/vuejs.png?resize=2200%2C1125';
+
 type Props = VideoActionCreatorType & {
   course: CourseType;
   videos: EntityStateType['videos'];
@@ -20,14 +23,17 @@ export default function VideoList(props: Props) {
       {course.videos &&
         course.videos.map(id => (
           <VideoCard
-            thumbnail="https://i1.wp.com/wp.laravel-news.com/wp-content/uploads/2016/09/vuejs.png?resize=2200%2C1125"
+            thumbnail={placeholderThumbnail}
             key={id}
             title={videos[id].title}
+            directToMediaPage={() => {
+              history.push(
+                `${routes.COURSE}/${course.id}${routes.MEDIA}/${id}`
+              );
+            }}
             onRemoveClick={() => {
               if (removeVideo) removeVideo(id, course.id);
             }}
-            directToMediaPage={() =>
-              history.push(`${routes.COURSE}/${course.id}${routes.MEDIA}/${id}`)}
           />
         ))}
       <div className="'max-w-sm w-full lg:max-w-full lg:flex border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r mr-5 mb-5">
