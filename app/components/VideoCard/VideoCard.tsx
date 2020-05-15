@@ -28,17 +28,22 @@ type Props = {
   thumbnail: string;
   title: string;
   onRemoveClick: () => void;
+  directToMediaPage: () => void;
 };
 
 const VideoCard = (props: Props) => {
-  const { thumbnail, title, onRemoveClick } = props;
+  const { thumbnail, title, onRemoveClick, directToMediaPage } = props;
 
   return (
     <Wrapper>
       <First thumbnail={thumbnail}> </First>
       <Second>
         <div className="mb-8">
-          <div className="text-gray-900 font-bold text-xl mb-2">{title}</div>
+          <div className="text-gray-900 font-bold text-xl mb-2">
+            <button onClick={directToMediaPage} type="button">
+              {title}
+            </button>
+          </div>
         </div>
       </Second>
       <Third>
