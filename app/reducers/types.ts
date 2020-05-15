@@ -1,5 +1,5 @@
 import { Dispatch as ReduxDispatch, Store as ReduxStore, Action } from 'redux';
-import { CourseType, VideoType } from './entities/types';
+import { CourseType, VideoType, NoteType } from './entities/types';
 
 export type counterStateType = {
   counter: number;
@@ -8,6 +8,7 @@ export type counterStateType = {
 export type EntityStateType = {
   courses: Record<string, CourseType>;
   videos: Record<string, VideoType>;
+  notes: Record<string, NoteType>;
 };
 export type GetState = () => counterStateType;
 
