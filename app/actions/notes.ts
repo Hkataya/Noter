@@ -22,7 +22,7 @@ type RemoveNoteAction = {
 
 export type NoteActionCreatorType = {
   addNote?: (noteData: NoteType, videoId: VideoType['id']) => void;
-  removeNote?: (noteId: NoteType['id'], courseId: VideoType['id']) => void;
+  removeNote?: (noteId: NoteType['id'], videoId: VideoType['id']) => void;
 };
 
 export type NoteActionType = AddNoteAction | RemoveNoteAction;

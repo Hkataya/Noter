@@ -8,28 +8,30 @@
       "title": "Vue Js",
       "description": "JS Framework",
       "duration": 0,
+      "progress": 0,
       "chapters": [
         {
           "id": "2012010210",
           "title": "chapter1",
-          "videos": ["1558196567543","1558196569460"]
-        }
-      ],
-      "videos": [
-        {
-          "id": "1558196567543",
-          "title": "Introduction to Vue",
-          "url": "",
-          "notes": [
+          "videos": [
             {
-              "id": "1558196597470",
-              "title": "Learn Redux",
-              "description": "I heard that it can help, but it looks like it has a lot of boilerplate!"
-            },
-            {
-              "id": "1558196612656",
-              "title": "Learn MobX",
-              "description": "I heard that's what all of the cool kids were doing these days."
+              "id": "1558196567543",
+              "title": "Introduction to Vue",
+              "url": "",
+              "watched": false,
+              "notes": [
+                {
+                  "id": "1558196597470",
+                  "title": "Learn Redux",
+                  "description": "I heard that it can help, but it looks like it has a lot of boilerplate!"
+                },
+                {
+                  "id": "1558196612656",
+                  "title": "Learn MobX",
+                  "description": "I heard that's what all of the cool kids were doing these days.",
+                  "timestamp": 0
+                }
+              ]
             }
           ]
         }

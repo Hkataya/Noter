@@ -6,7 +6,7 @@ import defaultState from './constants/default-state.json';
 
 const note = new schema.Entity('notes');
 const video = new schema.Entity('videos', { notes: [note] });
-const chapter = new schema.Entity('chapters');
+const chapter = new schema.Entity('chapters', { videos: [video] });
 const course = new schema.Entity('courses', {
   videos: [video],
   chapters: [chapter],
