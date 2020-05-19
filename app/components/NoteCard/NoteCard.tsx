@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import TextareaAutosize from 'react-autosize-textarea';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 
@@ -28,7 +29,7 @@ const TitleInput = styled.input.attrs({
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
 })``;
 
-const DescriptionInput = styled.textarea.attrs({
+const StyledTextareaAutosize = styled(TextareaAutosize).attrs({
   className:
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
 })``;
@@ -52,8 +53,7 @@ const NoteCard = (props: Props) => {
             />
           </Header>
           <Body>
-            <DescriptionInput
-              rows={updatedDescription.split('\n').length + 1}
+            <StyledTextareaAutosize
               onChange={e => setDescription(e.target.value)}
               value={updatedDescription}
             />
