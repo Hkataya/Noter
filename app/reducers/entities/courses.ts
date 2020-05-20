@@ -8,11 +8,15 @@ import {
   CourseActionType
 } from '../../actions/courses';
 
-import { ADD_VIDEO, REMOVE_VIDEO, VideoActionType } from '../../actions/videos';
+import {
+  ADD_SECTION,
+  REMOVE_SECTION,
+  SectionActionType
+} from '../../actions/sections';
 
 export default function courses(
   state = allcourses,
-  action: CourseActionType | VideoActionType
+  action: CourseActionType | SectionActionType
 ) {
   const newState: any = { ...state };
   switch (action.type) {
@@ -33,22 +37,30 @@ export default function courses(
         newState[action.payload.id] = action.payload;
       return newState;
 
-    case ADD_VIDEO:
-      if (action.payload && action.payload.courseId && action.payload.videoId) {
-        const videolist: Array<string> =
-          newState[action.payload.courseId].videos;
-        videolist.push(action.payload.videoId);
-        newState[action.payload.courseId].videos = videolist;
+    case ADD_SECTION:
+      if (
+        action.payload &&
+        action.payload.courseId &&
+        action.payload.sectionId
+      ) {
+        const sectionlist: Array<string> =
+          newState[action.payload.courseId].sections;
+        sectionlist.push(action.payload.sectionId);
+        newState[action.payload.courseId].sections = sectionlist;
       }
       return newState;
 
-    case REMOVE_VIDEO:
-      if (action.payload && action.payload.courseId && action.payload.videoId) {
-        const videolist: Array<string> =
-          newState[action.payload.courseId].videos;
-        const index = videolist.indexOf(action.payload.videoId);
-        if (index > -1) videolist.splice(index, 1);
-        newState[action.payload.courseId].videos = videolist;
+    case REMOVE_SECTION:
+      if (
+        action.payload &&
+        action.payload.courseId &&
+        action.payload.sectionId
+      ) {
+        const sectionlist: Array<string> =
+          newState[action.payload.courseId].sections;
+        const index = sectionlist.indexOf(action.payload.sectionId);
+        if (index > -1) sectionlist.splice(index, 1);
+        newState[action.payload.courseId].sections = sectionlist;
       }
       return newState;
 

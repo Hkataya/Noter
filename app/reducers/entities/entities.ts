@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import courses from './courses';
-import chapters from './chapters';
+import sections from './sections';
 import videos from './videos';
 import notes from './notes';
 
 const entities = combineReducers({
   courses,
   notes,
-  chapters,
+  sections,
   videos
 });
 

@@ -1,4 +1,4 @@
-import { VideoType, CourseType } from '../reducers/entities/types';
+import { VideoType, SectionType } from '../reducers/entities/types';
 
 export const ADD_VIDEO = 'ADD_VIDEO';
 export const REMOVE_VIDEO = 'REMOVE_VIDEO';
@@ -6,7 +6,7 @@ export const REMOVE_VIDEO = 'REMOVE_VIDEO';
 type AddVideoAction = {
   type: typeof ADD_VIDEO;
   payload: {
-    courseId: CourseType['id'];
+    sectionId: SectionType['id'];
     videoId: VideoType['id'];
     videoData: VideoType;
   };
@@ -16,18 +16,21 @@ type RemoveVideoAction = {
   type: typeof REMOVE_VIDEO;
   payload: {
     videoId: VideoType['id'];
-    courseId: CourseType['id'];
+    sectionId: SectionType['id'];
   };
 };
 
 export type VideoActionCreatorType = {
-  addVideo?: (videoData: VideoType, courseId: CourseType['id']) => void;
-  removeVideo?: (videoId: VideoType['id'], courseId: CourseType['id']) => void;
+  addVideo?: (videoData: VideoType, sectionId: SectionType['id']) => void;
+  removeVideo?: (
+    videoId: VideoType['id'],
+    sectionId: SectionType['id']
+  ) => void;
 };
 
 export type VideoActionType = AddVideoAction | RemoveVideoAction;
 
-export function addVideo(videoData: VideoType, courseId: CourseType['id']) {
+export function addVideo(videoData: VideoType, sectionId: SectionType['id']) {
   // Generate Unique ID
   const videoId = Date.now().toString();
   const video = {
@@ -37,7 +40,7 @@ export function addVideo(videoData: VideoType, courseId: CourseType['id']) {
   return {
     type: ADD_VIDEO,
     payload: {
-      courseId,
+      sectionId,
       videoId,
       videoData: video
     }
@@ -46,13 +49,13 @@ export function addVideo(videoData: VideoType, courseId: CourseType['id']) {
 
 export function removeVideo(
   videoId: VideoType['id'],
-  courseId: CourseType['id']
+  sectionId: SectionType['id']
 ) {
   return {
     type: REMOVE_VIDEO,
     payload: {
       videoId,
-      courseId
+      sectionId
     }
   };
 }
