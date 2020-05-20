@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { addVideo, removeVideo } from '../../actions/videos';
+import { addVideo } from '../../actions/videos';
+import { addSection } from '../../actions/sections';
 import CoursePage from './CoursePage';
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: any, ownProps: any) {
+  const course = state.entities.courses[ownProps.match.params.id];
   return {
-    courses: state.entities.courses,
-    videos: state.entities.videos
+    course
   };
 }
 
@@ -15,7 +16,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
       addVideo,
-      removeVideo
+      addSection
     },
     dispatch
   );
