@@ -1,30 +1,27 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import React, { useState } from 'react';
-import { VideoActionCreatorType } from '../../actions/videos';
+import { SectionActionCreatorType } from '../../actions/sections';
 
-type Props = VideoActionCreatorType & {
+type Props = SectionActionCreatorType & {
   closeModal: () => void;
-  sectionId: string;
+  courseId: string;
 };
 
-const AddVideoForm = (props: Props) => {
+const AddSectionForm = (props: Props) => {
   const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
 
-  const { addVideo, closeModal, sectionId } = props;
+  const { addSection, closeModal, courseId } = props;
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    const video = {
+    const section = {
       title,
-      url,
-      thumbnail: '',
-      watched: false
+      videos: []
     };
 
-    if (addVideo) {
-      addVideo(video, sectionId);
+    if (addSection) {
+      addSection(section, courseId);
       closeModal();
     }
   };
@@ -49,24 +46,6 @@ const AddVideoForm = (props: Props) => {
           />
         </div>
       </div>
-      <div className="md:flex md:items-center mb-6">
-        <div className="md:w-1/3">
-          <label
-            className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-            htmlFor="inline-username"
-          >
-            URL
-          </label>
-        </div>
-        <div className="md:w-2/3">
-          <input
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            type="text"
-            placeholder="url"
-            onChange={e => setUrl(e.target.value)}
-          />
-        </div>
-      </div>
       <div className="md:flex md:items-center">
         <div className="md:w-1/3" />
         <div className="md:w-2/3">
@@ -82,4 +61,4 @@ const AddVideoForm = (props: Props) => {
   );
 };
 
-export default AddVideoForm;
+export default AddSectionForm;
