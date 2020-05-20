@@ -46,8 +46,7 @@ export default function HomePage(props: Props) {
             key={k}
             title={courses[k].title}
             id={k}
-            chapters={courses[k].chapters}
-            videos={courses[k].videos}
+            sections={courses[k].sections}
             duration={courses[k].duration}
             thumbnail={courses[k].thumbnail}
             removeCourse={removeCourse}

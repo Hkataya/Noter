@@ -56,9 +56,9 @@ const CourseCard = (props: Props) => {
   const {
     id,
     title,
-    chapters,
-    videos,
+    sections,
     thumbnail,
+    duration,
     removeCourse,
     directToCoursePage
   } = props;
@@ -84,14 +84,13 @@ const CourseCard = (props: Props) => {
           <ListItemWrapper>
             <ul>
               <ListItem>
-                nb of chapters:
-                {chapters ? chapters.length : 0}
+                nb of Sections:
+                {sections ? sections.length : 0}
               </ListItem>
               <ListItem>
-                nb of videos:
-                {videos ? videos.length : 0}
+                duration:
+                {duration}
               </ListItem>
-              <ListItem>duration: </ListItem>
             </ul>
           </ListItemWrapper>
           <Button handleButtonClick={directToCoursePage}> Watch </Button>
