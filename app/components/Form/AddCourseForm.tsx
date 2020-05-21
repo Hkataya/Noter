@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { CourseActionCreatorType } from '../../actions/courses';
+import { CourseType } from '../../reducers/entities/types';
 
 type Props = CourseActionCreatorType & {
   closeModal: () => void;
@@ -15,11 +16,10 @@ const AddCourseForm = (props: Props) => {
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    const course = {
+    const course: CourseType = {
       title,
       description,
-      videos: [],
-      chapters: [],
+      sections: [],
       duration: '0'
     };
 

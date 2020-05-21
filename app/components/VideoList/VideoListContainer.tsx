@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { addVideo, removeVideo } from '../../actions/videos';
+import { openModal } from '../../actions/ui';
 import VideoList from './VideoList';
 import { VideoType } from '../../reducers/entities/types';
 
@@ -22,7 +23,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
       addVideo,
-      removeVideo
+      removeVideo,
+      openModal
     },
     dispatch
   );
