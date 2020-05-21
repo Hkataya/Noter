@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { allvideos } from '../../normalized-state';
 
-import { ADD_VIDEO, REMOVE_VIDEO, VideoActionType } from '../../actions/videos';
+import {
+  ADD_VIDEO,
+  REMOVE_VIDEO,
+  VideoActionType,
+  TOGGLE_WATCHED
+} from '../../actions/videos';
 import { ADD_NOTE, REMOVE_NOTE, NoteActionType } from '../../actions/notes';
 
 export default function videos(
@@ -34,6 +39,16 @@ export default function videos(
         const index = noteList.indexOf(action.payload.noteId);
         if (index > -1) noteList.splice(index, 1);
         newState[action.payload.videoId].notes = noteList;
+      }
+      return newState;
+
+    case TOGGLE_WATCHED:
+      if (action.payload && action.payload.videoId) {
+        const updatedVideo = newState[action.payload.videoId];
+        const val = newState[action.payload.videoId].watched;
+        if (val) updatedVideo.watched = false;
+        else updatedVideo.watched = true;
+        newState[action.payload.videoId] = updatedVideo;
       }
       return newState;
 

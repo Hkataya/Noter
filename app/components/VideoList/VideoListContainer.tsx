@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { addVideo, removeVideo } from '../../actions/videos';
+import { addVideo, removeVideo, toggleWatched } from '../../actions/videos';
 import { openModal } from '../../actions/ui';
 import VideoList from './VideoList';
 import { VideoType } from '../../reducers/entities/types';
@@ -24,7 +24,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
     {
       addVideo,
       removeVideo,
-      openModal
+      openModal,
+      toggleWatched
     },
     dispatch
   );

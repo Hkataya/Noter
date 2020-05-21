@@ -16,15 +16,20 @@ type Props = VideoActionCreatorType &
   };
 
 export default function VideoList(props: Props) {
-  const { sectionId, videos, removeVideo, openModal } = props;
+  const { sectionId, videos, removeVideo, toggleWatched, openModal } = props;
   const history = useHistory();
 
   return (
     <div>
       {videos.map(video => (
         <VideoCard
+          onToggleClick={() => {
+            if (toggleWatched) toggleWatched(video.id);
+          }}
           thumbnail={placeholderThumbnail}
           key={video.id}
+          watched={video.watched}
+          url={video.url}
           title={video.title}
           directToMediaPage={() => {
             history.push(

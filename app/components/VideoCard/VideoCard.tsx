@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { VideoType } from '../../reducers/entities/types';
 
 const Wrapper = styled.div.attrs({
   className:
@@ -24,19 +25,25 @@ const Third = styled.div.attrs({
   className: ' p-4 flex leading-normal justify-center'
 })``;
 
-type Props = {
-  thumbnail: string;
-  title: string;
+type Props = VideoType & {
   onRemoveClick: () => void;
   directToMediaPage: () => void;
+  onToggleClick: () => void;
 };
 
 const VideoCard = (props: Props) => {
-  const { thumbnail, title, onRemoveClick, directToMediaPage } = props;
+  const {
+    thumbnail,
+    title,
+    onRemoveClick,
+    directToMediaPage,
+    onToggleClick,
+    watched
+  } = props;
 
   return (
     <Wrapper>
-      <First thumbnail={thumbnail}> </First>
+      <First thumbnail={thumbnail || ''}> </First>
       <Second>
         <div className="mb-8">
           <div className="text-gray-900 font-bold text-xl mb-2">
@@ -50,6 +57,10 @@ const VideoCard = (props: Props) => {
         <button type="button" onClick={() => onRemoveClick()}>
           <i className="fas fa-trash-alt" />
         </button>
+        <button type="button" onClick={() => onToggleClick()}>
+          toggle
+        </button>
+        {watched ? <h1> Yes </h1> : <h1> No </h1>}
       </Third>
     </Wrapper>
   );
