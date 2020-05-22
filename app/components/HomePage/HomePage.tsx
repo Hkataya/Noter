@@ -5,7 +5,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import CourseCard from '../CourseCard/CourseCard';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
-import AddCourseForm from '../Form/AddCourseForm';
+import CourseForm from '../Form/CourseForm';
 import { CourseActionCreatorType } from '../../actions/courses';
 import { EntityStateType } from '../../reducers/types';
 import routes from '../../constants/routes.json';
@@ -30,7 +30,7 @@ export default function HomePage(props: Props) {
       <h2>Home</h2>
       {modalVisibile && (
         <Modal handleClose={() => setModalVisible(false)} title="Add Course">
-          <AddCourseForm
+          <CourseForm
             addCourse={addCourse}
             closeModal={() => setModalVisible(false)}
           />
