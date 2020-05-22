@@ -6,10 +6,10 @@ import routes from '../../constants/routes.json';
 import TitleBar from '../TitleBar/TitleBar';
 import { EntityStateType } from '../../reducers/types';
 import { VideoActionCreatorType } from '../../actions/videos';
-import AddVideoForm from '../Form/AddVideoForm';
+import VideoForm from '../Form/VideoForm';
 import { SectionActionCreatorType } from '../../actions/sections';
 import { CourseType } from '../../reducers/entities/types';
-import AddSectionForm from '../Form/AddSectionForm';
+import SectionForm from '../Form/SectionForm';
 import SectionListContainer from '../SectionList/SectionListContainer';
 import { UIActionCreatorType } from '../../actions/ui';
 import { ModalType } from '../../reducers/ui/types';
@@ -44,7 +44,7 @@ export default function CoursePage(props: Props) {
             if (closeModal) closeModal();
           }}
         >
-          <AddVideoForm
+          <VideoForm
             closeModal={() => {
               if (closeModal) closeModal();
             }}
@@ -60,7 +60,7 @@ export default function CoursePage(props: Props) {
             if (closeModal) closeModal();
           }}
         >
-          <AddSectionForm
+          <SectionForm
             closeModal={() => {
               if (closeModal) closeModal();
             }}
