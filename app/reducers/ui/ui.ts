@@ -1,4 +1,9 @@
-import { OPEN_MODAL, CLOSE_MODAL, UIActionType } from '../../actions/ui';
+import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
+  UIActionType,
+  SET_CURRENTLY_SELECTED
+} from '../../actions/ui';
 
 const initialState = {
   modal: {
@@ -6,7 +11,8 @@ const initialState = {
     type: '',
     data: {},
     parentId: ''
-  }
+  },
+  currentlySelected: ''
 };
 
 export default function ui(state = initialState, action: UIActionType) {
@@ -23,6 +29,10 @@ export default function ui(state = initialState, action: UIActionType) {
 
     case CLOSE_MODAL:
       newState.modal = initialState.modal;
+      return newState;
+
+    case SET_CURRENTLY_SELECTED:
+      newState.currentlySelected = action.payload;
       return newState;
 
     default:

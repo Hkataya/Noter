@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Resizable } from 're-resizable';
 import Modal from '../Modal/Modal';
 import routes from '../../constants/routes.json';
 import TitleBar from '../TitleBar/TitleBar';
@@ -12,6 +13,8 @@ import AddSectionForm from '../Form/AddSectionForm';
 import SectionListContainer from '../SectionList/SectionListContainer';
 import { UIActionCreatorType } from '../../actions/ui';
 import { ModalType } from '../../reducers/ui/types';
+import Button from '../Button/Button';
+import NoteListContainer from '../NoteList/NoteListContainer';
 
 type Props = EntityStateType &
   VideoActionCreatorType &
@@ -19,12 +22,21 @@ type Props = EntityStateType &
   SectionActionCreatorType & {
     course: CourseType;
     modal: ModalType;
+    currentlySelected: string;
   };
 
 export default function CoursePage(props: Props) {
-  const { course, addVideo, addSection, modal, closeModal, openModal } = props;
+  const {
+    course,
+    addVideo,
+    addSection,
+    modal,
+    currentlySelected,
+    closeModal,
+    openModal
+  } = props;
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col">
       {modal.visible && modal.type === 'VIDEO' && (
         <Modal
           title="Add Video"
@@ -57,24 +69,29 @@ export default function CoursePage(props: Props) {
           />
         </Modal>
       )}
-      <button
-        type="button"
-        onClick={() => {
-          if (openModal) openModal({}, 'SECTION', course.id);
-        }}
-      >
-        Add Section +
-      </button>
       <Link to={routes.HOME}>
-        <i className="fa fa-arrow-left fa-2x mt-3 ml-3" />
+        <i className="fa fa-arrow-left fa-x mt-3 ml-3" />
       </Link>
+      <div className="flex justify-end mt-3 mr-5">
+        <Button
+          handleButtonClick={() => {
+            if (openModal) openModal({}, 'SECTION', course.id);
+          }}
+        >
+          Add Section +
+        </Button>
+      </div>
+
       <TitleBar title={course.title} />
-      <div className="w-full bg-gray-100 flex-grow">
-        <div className="h-full flex flex-row">
-          <div className=" w-2/4 h-full p-5 overflow-y-scroll">
+      <div className="w-full bg-gray-100 flex-grow flex">
+        <Resizable minWidth={450}>
+          <div className="h-full p-4">
             <SectionListContainer courseId={course.id} />
           </div>
-          <div className="bg-purple-900 w-2/4 h-full p-5 overflow-y-scroll" />
+        </Resizable>
+
+        <div className="bg-gray-800 h-full p-5 flex-auto">
+          <NoteListContainer videoId={currentlySelected} />
         </div>
       </div>
     </div>

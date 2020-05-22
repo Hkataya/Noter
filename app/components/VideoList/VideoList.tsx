@@ -16,7 +16,14 @@ type Props = VideoActionCreatorType &
   };
 
 export default function VideoList(props: Props) {
-  const { sectionId, videos, removeVideo, toggleWatched, openModal } = props;
+  const {
+    sectionId,
+    videos,
+    removeVideo,
+    toggleWatched,
+    openModal,
+    setCurrentlySelected
+  } = props;
   const history = useHistory();
 
   return (
@@ -38,6 +45,9 @@ export default function VideoList(props: Props) {
           }}
           onRemoveClick={() => {
             if (removeVideo) removeVideo(video.id, sectionId);
+          }}
+          onVideoCardClick={() => {
+            if (setCurrentlySelected) setCurrentlySelected(video.id || '');
           }}
         />
       ))}

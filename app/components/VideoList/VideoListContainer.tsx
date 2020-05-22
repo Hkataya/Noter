@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { addVideo, removeVideo, toggleWatched } from '../../actions/videos';
-import { openModal } from '../../actions/ui';
+import { openModal, setCurrentlySelected } from '../../actions/ui';
 import VideoList from './VideoList';
 import { VideoType } from '../../reducers/entities/types';
 
@@ -25,7 +25,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
       addVideo,
       removeVideo,
       openModal,
-      toggleWatched
+      toggleWatched,
+      setCurrentlySelected
     },
     dispatch
   );

@@ -20,7 +20,8 @@ const AddVideoForm = (props: Props) => {
       title,
       url,
       thumbnail: '',
-      watched: false
+      watched: false,
+      notes: []
     };
 
     if (addVideo) {

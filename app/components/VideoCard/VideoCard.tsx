@@ -1,34 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 import { VideoType } from '../../reducers/entities/types';
+import MenuButton from '../Button/MenuButton';
 
 const Wrapper = styled.div.attrs({
   className:
-    'max-w-sm w-full lg:max-w-full lg:flex border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r mr-5 mb-5'
+    'w-full flex border-r border-b border-l border-gray-400 border-l-0 border-t border-gray-400 bg-white rounded-b rounded-b-none rounded-r mr-5 mb-5'
 })``;
 
 type BgProps = {
   thumbnail: string;
 };
 const First = styled.div.attrs({
-  className:
-    'h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden'
+  className: 'w-32 h-auto bg-cover bg-center rounded-t rounded-l'
 })<BgProps>`
   background-image: url(${p => p.thumbnail});
 `;
 
 const Second = styled.div.attrs({
-  className: 'p-4 flex flex-col justify-between leading-normal'
+  className: 'p-3 flex-auto flex flex-col justify-between'
 })``;
 
 const Third = styled.div.attrs({
-  className: ' p-4 flex leading-normal justify-center'
+  className: ' p-3 flex justify-center'
+})``;
+
+const Fourth = styled.div.attrs({
+  className: ' pr-2 pl-3'
 })``;
 
 type Props = VideoType & {
   onRemoveClick: () => void;
   directToMediaPage: () => void;
   onToggleClick: () => void;
+  onVideoCardClick: () => void;
 };
 
 const VideoCard = (props: Props) => {
@@ -38,30 +43,50 @@ const VideoCard = (props: Props) => {
     onRemoveClick,
     directToMediaPage,
     onToggleClick,
+    onVideoCardClick,
     watched
   } = props;
 
+  const checkColor: string = watched ? 'text-green-500' : 'text-gray-500';
+  const items = [
+    {
+      label: 'remove',
+      action: onRemoveClick
+    }
+  ];
   return (
-    <Wrapper>
-      <First thumbnail={thumbnail || ''}> </First>
+    <Wrapper onClick={onVideoCardClick}>
+      <First thumbnail={thumbnail || ''} />
       <Second>
         <div className="mb-8">
-          <div className="text-gray-900 font-bold text-xl mb-2">
-            <button onClick={directToMediaPage} type="button">
+          <div className="text-gray-900 font-bold text-lg mb-2">
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                directToMediaPage();
+              }}
+              type="button"
+            >
               {title}
             </button>
           </div>
         </div>
       </Second>
       <Third>
-        <button type="button" onClick={() => onRemoveClick()}>
-          <i className="fas fa-trash-alt" />
+        <button
+          className="focus:outline-none"
+          type="button"
+          onClick={e => {
+            e.stopPropagation();
+            onToggleClick();
+          }}
+        >
+          <i className={`fas fa-check fa-2x ${checkColor} `} />
         </button>
-        <button type="button" onClick={() => onToggleClick()}>
-          toggle
-        </button>
-        {watched ? <h1> Yes </h1> : <h1> No </h1>}
       </Third>
+      <Fourth>
+        <MenuButton items={items} />
+      </Fourth>
     </Wrapper>
   );
 };

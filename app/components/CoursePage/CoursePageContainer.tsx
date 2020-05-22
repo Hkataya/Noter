@@ -10,7 +10,8 @@ function mapStateToProps(state: any, ownProps: any) {
   const course = state.entities.courses[ownProps.match.params.id];
   return {
     course,
-    modal: state.ui.modal
+    modal: state.ui.modal,
+    currentlySelected: state.ui.currentlySelected
   };
 }
 
