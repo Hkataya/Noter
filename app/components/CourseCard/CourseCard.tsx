@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import Button from '../Button/Button';
 import { CourseType } from '../../reducers/entities/types';
 import { CourseActionCreatorType } from '../../actions/courses';
+import MenuButton from '../Button/MenuButton';
 
 type BgProps = {
   thumbnail: string;
 };
 const Background = styled.div.attrs({
-  className: 'flex overflow-hidden bg-cover bg-center'
+  className: 'flex  bg-cover bg-center rounded-t-lg'
 })<BgProps>`
   background-image: url(${p => p.thumbnail});
 `;
@@ -18,7 +19,7 @@ const LeftItem = styled.div.attrs({
 })``;
 
 const RightItem = styled.div.attrs({
-  className: 'w-2/3 p-4 bg-white rounded-lg'
+  className: 'w-2/3 p-5 bg-white rounded-lg'
 })`
   background: rgb(28, 26, 46);
   background: linear-gradient(
@@ -29,14 +30,14 @@ const RightItem = styled.div.attrs({
 `;
 
 const TitleWrapper = styled.div.attrs({
-  className: 'flex justify-around  text-white'
+  className: 'flex text-white mb-4'
 })``;
 const Title = styled.h1.attrs({
-  className: 'text-white font-bold text-lg text-justify mb-4'
+  className: 'text-white font-bold text-lg text-justify break-all'
 })``;
 
 const Description = styled.p.attrs({
-  className: 'mt-4 text-gray-600 text-sm text-justify'
+  className: 'mt-4 text-gray-600 text-sm text-justify break-all'
 })``;
 
 const ListItemWrapper = styled.div.attrs({
@@ -62,43 +63,51 @@ const CourseCard = (props: Props) => {
     removeCourse,
     directToCoursePage
   } = props;
+
+  const items = [
+    {
+      label: 'Remove',
+      action: () => {
+        if (removeCourse) removeCourse(id);
+      }
+    }
+  ];
+
   return (
-    <div className="w-108 shadow-lg rounded-lg overflow-hidden m-5">
+    <div className="w-96 shadow-lg rounded-t-lg m-5">
       <Background thumbnail={thumbnail || ''}>
         <LeftItem />
         <RightItem>
+          <div className="flex justify-end -mt-4">
+            <MenuButton items={items} />
+          </div>
           <TitleWrapper>
             <Title>{title}</Title>
-            <button
-              onClick={() => {
-                if (removeCourse) removeCourse(id);
-              }}
-              type="button"
-              className="ml-10"
-            >
-              <i className="fas fa-trash" />
-            </button>
           </TitleWrapper>
           <hr />
           <Description>description</Description>
           <ListItemWrapper>
             <ul>
               <ListItem>
-                nb of Sections:
+                <i className="fas fa-stream mr-3" />
+                Sections: &nbsp;
                 {sections ? sections.length : 0}
               </ListItem>
               <ListItem>
-                duration:
+                <i className="fas fa-clock mr-3" />
+                duration: &nbsp;
                 {duration}
               </ListItem>
             </ul>
           </ListItemWrapper>
-          <Button handleButtonClick={directToCoursePage}> Watch </Button>
+          <div className="flex justify-end mt-3">
+            <Button handleButtonClick={directToCoursePage}> Watch </Button>
+          </div>
         </RightItem>
       </Background>
-      <div className="shadow w-full  rounded-lg bg-grey-light">
+      <div className="shadow w-full rounded-b-lg bg-grey-light">
         <div
-          className="bg-purple-900 py-1 text-center"
+          className="bg-purple-900 py-1 text-center rounded-b-lg"
           style={{ width: '45%' }}
         />
       </div>

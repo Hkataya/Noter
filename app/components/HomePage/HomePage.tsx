@@ -37,9 +37,12 @@ export default function HomePage(props: Props) {
         </Modal>
       )}
       <SearchBar />
-      <Button handleButtonClick={() => setModalVisible(true)}>
-        Add Course +
-      </Button>
+      <div className="flex justify-end mt-3">
+        <Button handleButtonClick={() => setModalVisible(true)}>
+          Add Course +
+        </Button>
+      </div>
+
       <CourseWrapper>
         {Object.keys(courses).map(k => (
           <CourseCard

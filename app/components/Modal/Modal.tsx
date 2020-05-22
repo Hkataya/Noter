@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ModalBg = styled.div.attrs({
   className:
-    'flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-900'
+    'flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-900 z-10'
 })``;
 
 const ModalOuter = styled.div.attrs({
