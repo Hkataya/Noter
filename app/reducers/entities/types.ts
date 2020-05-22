@@ -21,7 +21,7 @@ export type NoteType = {
   id?: string;
   title: string;
   description: string;
-  timestamp?: number;
+  timestamp: string;
 };
 
 export type SectionType = {

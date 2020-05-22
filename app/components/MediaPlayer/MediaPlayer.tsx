@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 
 type Props = {
   url: string;
-  getProgress: () => void;
+  getProgress?: () => void;
 };
 
 const MediaPlayer = ({ url, getProgress }: Props) => {

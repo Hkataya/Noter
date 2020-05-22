@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
 import { NoteActionCreatorType } from '../../actions/notes';
+import { NoteType, VideoType } from '../../reducers/entities/types';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -32,19 +33,21 @@ const StyledTextareaAutosize = styled(TextareaAutosize).attrs({
 })``;
 
 type Props = NoteActionCreatorType & {
-  videoId: string;
+  videoId: VideoType['id'];
+  timestamp: NoteType['timestamp'];
 };
 
 const CreateNote = (props: Props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { addNote, videoId } = props;
+  const { addNote, videoId, timestamp } = props;
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     const note = {
       title,
-      description
+      description,
+      timestamp
     };
 
     if (addNote) addNote(note, videoId);

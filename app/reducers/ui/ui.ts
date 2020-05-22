@@ -2,7 +2,9 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   UIActionType,
-  SET_CURRENTLY_SELECTED
+  SET_CURRENTLY_SELECTED,
+  SET_CURRENT_TIMESTAMP,
+  SET_TARGET_TIMESTAMP
 } from '../../actions/ui';
 
 const initialState = {
@@ -12,7 +14,9 @@ const initialState = {
     data: {},
     parentId: ''
   },
-  currentlySelected: ''
+  currentlySelected: '',
+  currentTimestamp: '',
+  targetTimestamp: ''
 };
 
 export default function ui(state = initialState, action: UIActionType) {
@@ -33,6 +37,14 @@ export default function ui(state = initialState, action: UIActionType) {
 
     case SET_CURRENTLY_SELECTED:
       newState.currentlySelected = action.payload;
+      return newState;
+
+    case SET_CURRENT_TIMESTAMP:
+      newState.currentTimestamp = action.payload;
+      return newState;
+
+    case SET_TARGET_TIMESTAMP:
+      newState.targetTimestamp = action.payload;
       return newState;
 
     default:

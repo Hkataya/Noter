@@ -1,43 +1,54 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import routes from '../../constants/routes.json';
+import { useHistory } from 'react-router-dom';
 import MediaPlayer from '../MediaPlayer/MediaPlayer';
-import { EntityStateType } from '../../reducers/types';
-import NoteList from '../NoteList/NoteList';
+import { VideoType, NoteType } from '../../reducers/entities/types';
+import NoteListContainer from '../NoteList/NoteListContainer';
+import TitleBar from '../TitleBar/TitleBar';
+import CreateNote from '../CreateNote/CreateNote';
 import { NoteActionCreatorType } from '../../actions/notes';
+import { UIActionCreatorType } from '../../actions/ui';
 
-type Props = EntityStateType & NoteActionCreatorType;
-type RouteParams = {
-  id: string;
-  vid: string;
-};
+type Props = NoteActionCreatorType &
+  UIActionCreatorType & {
+    video: VideoType;
+    currentTimestamp: NoteType['timestamp'];
+    targetTimestamp: NoteType['timestamp'];
+  };
 
 export default function MediaPage(props: Props) {
-  const { videos, notes, addNote, removeNote } = props;
-  const params = useParams<RouteParams>();
-  const courseId = params.id;
-  const videoId = params.vid;
-  const currentVideo = videos[videoId];
-  const getProgress = () => {};
+  const {
+    video,
+    currentTimestamp,
+    targetTimestamp,
+    setCurrentTimestamp,
+    addNote
+  } = props;
+  const history = useHistory();
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <Link to={`${routes.COURSE}/${courseId}`}>
-        <i className="fa fa-arrow-left fa-2x mt-3 ml-3" />
-      </Link>
-      <h1>{currentVideo.title}</h1>
+      <div>
+        <button type="button" onClick={() => history.goBack()}>
+          <i className="fa fa-arrow-left fa-x mt-3 ml-3" />
+        </button>
+      </div>
+      <TitleBar title={video.title} />
       <div className="w-full bg-gray-100 flex-grow">
         <div className="h-full flex flex-row">
           <div className="w-3/4 h-full p-5">
-            <MediaPlayer getProgress={getProgress} url={currentVideo.url} />
+            <MediaPlayer url={video.url} />
           </div>
-          <div className="bg-purple-900 w-1/4 h-full p-5 overflow-y-scroll">
-            <NoteList
-              video={currentVideo}
-              notes={notes}
-              addNote={addNote}
-              removeNote={removeNote}
-            />
+          <div className="bg-purple-700 w-1/4 h-full flex flex-col p-1">
+            <div className=" flex-auto">
+              <NoteListContainer videoId={video.id} />
+            </div>
+            <div>
+              <CreateNote
+                timestamp={currentTimestamp}
+                addNote={addNote}
+                videoId={video.id || ''}
+              />
+            </div>
           </div>
         </div>
       </div>
