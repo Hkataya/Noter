@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import NoteList from './NoteList';
 import { NoteType } from '../../reducers/entities/types';
+import { setTargetTimestamp } from '../../actions/ui';
 
 function mapStateToProps(state: any, ownProps: any) {
   const { videoId } = ownProps;
@@ -21,7 +22,12 @@ function mapStateToProps(state: any, ownProps: any) {
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators(
+    {
+      setTargetTimestamp
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteList);

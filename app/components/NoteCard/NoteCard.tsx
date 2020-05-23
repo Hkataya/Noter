@@ -34,10 +34,20 @@ const StyledTextareaAutosize = styled(TextareaAutosize).attrs({
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
 })``;
 
-type Props = NoteType & NoteActionCreatorType;
+type Props = NoteType &
+  NoteActionCreatorType & {
+    timestampVisible: boolean;
+    onTimestampClick: () => void;
+  };
 
 const NoteCard = (props: Props) => {
-  const { title, description } = props;
+  const {
+    title,
+    description,
+    timestamp,
+    timestampVisible,
+    onTimestampClick
+  } = props;
   const [editable, setEditable] = useState(false);
   const [updatedTitle, setTitle] = useState(title);
   const [updatedDescription, setDescription] = useState(description);
@@ -82,6 +92,13 @@ const NoteCard = (props: Props) => {
       ) : (
         <>
           <Header>
+            {timestampVisible && (
+              <h1>
+                <button type="button" onClick={onTimestampClick}>
+                  {timestamp}
+                </button>
+              </h1>
+            )}
             <Title>{title}</Title>
             {/* more options button */}
           </Header>

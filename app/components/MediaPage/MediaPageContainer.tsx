@@ -3,7 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import MediaPage from './MediaPage';
 import { addNote, removeNote } from '../../actions/notes';
-import { setCurrentTimestamp } from '../../actions/ui';
+import { setCurrentTimestamp, setTargetTimestamp } from '../../actions/ui';
 
 function mapStateToProps(state: any, ownProps: any) {
   const video = state.entities.videos[ownProps.match.params.vid];
@@ -19,7 +19,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
     {
       addNote,
       removeNote,
-      setCurrentTimestamp
+      setCurrentTimestamp,
+      setTargetTimestamp
     },
     dispatch
   );

@@ -2,14 +2,16 @@ import React from 'react';
 import { VideoType, NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
+import { UIActionCreatorType } from '../../actions/ui';
 
-type Props = NoteActionCreatorType & {
-  videoId: VideoType['id'];
-  notes: Array<NoteType>;
-};
+type Props = NoteActionCreatorType &
+  UIActionCreatorType & {
+    videoId: VideoType['id'];
+    notes: Array<NoteType>;
+  };
 
 export default function NoteList(props: Props) {
-  const { notes } = props;
+  const { notes, setTargetTimestamp } = props;
   return (
     <div>
       {notes.length ? (
@@ -18,6 +20,11 @@ export default function NoteList(props: Props) {
             key={note.id}
             title={note.title}
             description={note.description}
+            timestamp={note.timestamp}
+            timestampVisible
+            onTimestampClick={() => {
+              if (setTargetTimestamp) setTargetTimestamp(note.timestamp);
+            }}
           />
         ))
       ) : (

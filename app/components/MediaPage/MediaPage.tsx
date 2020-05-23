@@ -21,6 +21,7 @@ export default function MediaPage(props: Props) {
     currentTimestamp,
     targetTimestamp,
     setCurrentTimestamp,
+    setTargetTimestamp,
     addNote
   } = props;
   const history = useHistory();
@@ -36,7 +37,12 @@ export default function MediaPage(props: Props) {
       <div className="w-full bg-gray-100 flex-grow">
         <div className="h-full flex flex-row">
           <div className="w-3/4 h-full p-5">
-            <MediaPlayer url={video.url} />
+            <MediaPlayer
+              targetTimestamp={targetTimestamp}
+              setCurrentTimestamp={setCurrentTimestamp}
+              setTargetTimestamp={setTargetTimestamp}
+              url={video.url}
+            />
           </div>
           <div className="bg-purple-700 w-1/4 h-full flex flex-col p-1">
             <div className=" flex-auto">
