@@ -38,9 +38,7 @@ export default function HomePage(props: Props) {
       )}
       <SearchBar />
       <div className="flex justify-end mt-3">
-        <Button handleButtonClick={() => setModalVisible(true)}>
-          Add Course +
-        </Button>
+        <Button onClick={() => setModalVisible(true)}>Add Course +</Button>
       </div>
 
       <CourseWrapper>
@@ -52,7 +50,9 @@ export default function HomePage(props: Props) {
             sections={courses[k].sections}
             duration={courses[k].duration}
             thumbnail={courses[k].thumbnail}
-            removeCourse={removeCourse}
+            removeCourse={() => {
+              if (removeCourse) removeCourse(k);
+            }}
             directToCoursePage={() => history.push(`${routes.COURSE}/${k}`)}
           />
         ))}

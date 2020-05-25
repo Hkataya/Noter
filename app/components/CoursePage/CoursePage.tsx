@@ -74,7 +74,7 @@ export default function CoursePage(props: Props) {
       </Link>
       <div className="flex justify-end mt-3 mr-5">
         <Button
-          handleButtonClick={() => {
+          onClick={() => {
             if (openModal) openModal({}, 'SECTION', course.id);
           }}
         >
