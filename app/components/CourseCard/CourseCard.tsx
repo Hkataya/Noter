@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../Button/Button';
 import { CourseType } from '../../reducers/entities/types';
-import { CourseActionCreatorType } from '../../actions/courses';
 import MenuButton from '../Button/MenuButton';
+import Button from '../Button/Button';
 
 type BgProps = {
   thumbnail: string;
@@ -48,14 +47,13 @@ const ListItem = styled.li.attrs({
   className: 'mt-1'
 })``;
 
-type Props = CourseType &
-  CourseActionCreatorType & {
-    directToCoursePage: () => void;
-  };
+type Props = CourseType & {
+  removeCourse: () => void;
+  directToCoursePage: () => void;
+};
 
 const CourseCard = (props: Props) => {
   const {
-    id,
     title,
     sections,
     thumbnail,
@@ -67,9 +65,7 @@ const CourseCard = (props: Props) => {
   const items = [
     {
       label: 'Remove',
-      action: () => {
-        if (removeCourse) removeCourse(id);
-      }
+      action: removeCourse
     }
   ];
 
@@ -101,7 +97,9 @@ const CourseCard = (props: Props) => {
             </ul>
           </ListItemWrapper>
           <div className="flex justify-end mt-3">
-            <Button handleButtonClick={directToCoursePage}> Watch </Button>
+            <Button type="button" onClick={directToCoursePage}>
+              Watch
+            </Button>
           </div>
         </RightItem>
       </Background>
