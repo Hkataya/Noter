@@ -9,10 +9,10 @@ function mapStateToProps(state: any, ownProps: any) {
   const { videoId } = ownProps;
   const filteredNotes: Array<NoteType> = [];
   if (videoId !== '' && state.entities.videos[videoId]) {
-    const video = state.entities.videos[videoId];
-    video.notes.forEach((noteId: string) =>
-      filteredNotes.push(state.entities.notes[noteId])
-    );
+    Object.keys(state.entities.notes).forEach((noteId: string) => {
+      if (state.entities.notes[noteId].video === videoId)
+        filteredNotes.push(state.entities.notes[noteId]);
+    });
   }
 
   return {

@@ -1,7 +1,10 @@
 import { SectionType, CourseType } from '../reducers/entities/types';
+import { createSection, deleteSection, getSectionsByCourseId } from '../db/db';
+import { Dispatch } from '../reducers/types';
 
 export const ADD_SECTION = 'ADD_SECTION';
 export const REMOVE_SECTION = 'REMOVE_SECTION';
+export const FETCH_SECTIONS_BY_COURSE = 'FETCH_SECTIONS_BY_COURSE';
 
 type addSectionAction = {
   type: typeof ADD_SECTION;
@@ -16,49 +19,95 @@ type removeSectionAction = {
   type: typeof REMOVE_SECTION;
   payload: {
     sectionId: SectionType['id'];
-    courseId: CourseType['id'];
+  };
+};
+
+type FetchSectionsByCourseAction = {
+  type: typeof FETCH_SECTIONS_BY_COURSE;
+  payload: {
+    sections: Array<SectionType>;
   };
 };
 
 export type SectionActionCreatorType = {
-  addSection?: (sectionData: SectionType, courseId: CourseType['id']) => void;
-  removeSection?: (
-    sectionId: SectionType['id'],
-    courseId: CourseType['id']
-  ) => void;
+  addSectionDb?: (sectionData: SectionType) => any;
+  removeSectionDb?: (sectionId: SectionType['id']) => any;
+  fetchSectionsByCourseDb?: (courseId: CourseType['id']) => any;
 };
 
-export type SectionActionType = addSectionAction | removeSectionAction;
+export type SectionActionType =
+  | addSectionAction
+  | removeSectionAction
+  | FetchSectionsByCourseAction;
 
-export function addSection(
-  sectionData: SectionType,
-  courseId: CourseType['id']
-) {
-  // Generate Unique ID
-  const sectionId = Date.now().toString();
+export function addSection(sectionData: SectionType) {
+  const sectionId = sectionData.id;
   const section = {
-    id: sectionId,
     ...sectionData
   };
   return {
     type: ADD_SECTION,
     payload: {
-      courseId,
       sectionId,
       sectionData: section
     }
   };
 }
 
-export function removeSection(
-  sectionId: SectionType['id'],
-  courseId: CourseType['id']
-) {
+export function removeSection(sectionId: SectionType['id']) {
   return {
     type: REMOVE_SECTION,
     payload: {
-      sectionId,
-      courseId
+      sectionId
+    }
+  };
+}
+
+export function fetchSectionsByCourse(sectionsData: Array<SectionType>) {
+  return {
+    type: FETCH_SECTIONS_BY_COURSE,
+    payload: {
+      sections: sectionsData
+    }
+  };
+}
+
+export function addSectionDb(sectionData: SectionType) {
+  return (dispatch: Dispatch) => {
+    createSection(sectionData)
+      .then(updatedData => {
+        Object.assign(sectionData, updatedData);
+        return dispatch(addSection(sectionData));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+}
+
+export function removeSectionDb(sectionId: SectionType['id']) {
+  return (dispatch: Dispatch) => {
+    deleteSection(sectionId)
+      .then(res => {
+        if (res) return dispatch(removeSection(sectionId));
+        return null;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+}
+
+export function fetchSectionsByCourseDb(courseId: CourseType['id']) {
+  return (dispatch: Dispatch) => {
+    if (courseId) {
+      getSectionsByCourseId(courseId)
+        .then((sections: Array<SectionType>) => {
+          return dispatch(fetchSectionsByCourse(sections));
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   };
 }

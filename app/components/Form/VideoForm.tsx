@@ -13,7 +13,7 @@ const VideoForm = (props: Props) => {
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
 
-  const { addVideo, closeModal, sectionId } = props;
+  const { addVideoDb, closeModal, sectionId } = props;
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
@@ -22,11 +22,11 @@ const VideoForm = (props: Props) => {
       url,
       thumbnail: '',
       watched: false,
-      notes: []
+      section: sectionId
     };
 
-    if (addVideo) {
-      addVideo(video, sectionId);
+    if (addVideoDb) {
+      addVideoDb(video);
       closeModal();
     }
   };

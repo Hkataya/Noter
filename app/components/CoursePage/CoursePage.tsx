@@ -28,8 +28,8 @@ type Props = EntityStateType &
 export default function CoursePage(props: Props) {
   const {
     course,
-    addVideo,
-    addSection,
+    addVideoDb,
+    addSectionDb,
     modal,
     currentlySelected,
     closeModal,
@@ -49,7 +49,7 @@ export default function CoursePage(props: Props) {
               if (closeModal) closeModal();
             }}
             sectionId={modal.parentId || ''}
-            addVideo={addVideo}
+            addVideoDb={addVideoDb}
           />
         </Modal>
       )}
@@ -65,7 +65,7 @@ export default function CoursePage(props: Props) {
               if (closeModal) closeModal();
             }}
             courseId={modal.parentId || ''}
-            addSection={addSection}
+            addSectionDb={addSectionDb}
           />
         </Modal>
       )}

@@ -4,13 +4,13 @@ import { allsections } from '../../normalized-state';
 import {
   ADD_SECTION,
   REMOVE_SECTION,
+  FETCH_SECTIONS_BY_COURSE,
   SectionActionType
 } from '../../actions/sections';
-import { ADD_VIDEO, REMOVE_VIDEO, VideoActionType } from '../../actions/videos';
 
 export default function sections(
   state = allsections,
-  action: VideoActionType | SectionActionType
+  action: SectionActionType
 ) {
   const newState: any = { ...state };
   switch (action.type) {
@@ -24,31 +24,13 @@ export default function sections(
         delete newState[action.payload.sectionId];
       return newState;
 
-    case ADD_VIDEO:
-      if (
-        action.payload &&
-        action.payload.videoId &&
-        action.payload.sectionId
-      ) {
-        const videoList: Array<string> =
-          newState[action.payload.sectionId].videos;
-        videoList.push(action.payload.videoId);
-        newState[action.payload.sectionId].videos = videoList;
+    case FETCH_SECTIONS_BY_COURSE:
+      if (action.payload && action.payload.sections) {
+        action.payload.sections.forEach(section => {
+          if (section.id) newState[section.id] = section;
+        });
       }
-      return newState;
 
-    case REMOVE_VIDEO:
-      if (
-        action.payload &&
-        action.payload.videoId &&
-        action.payload.sectionId
-      ) {
-        const videoList: Array<string> =
-          newState[action.payload.sectionId].videos;
-        const index = videoList.indexOf(action.payload.videoId);
-        if (index > -1) videoList.splice(index, 1);
-        newState[action.payload.sectionId].videos = videoList;
-      }
       return newState;
 
     default:

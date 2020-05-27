@@ -11,19 +11,18 @@ const CourseForm = (props: Props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const { addCourse, closeModal } = props;
+  const { addCourseDb, closeModal } = props;
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     const course: CourseType = {
       title,
       description,
-      sections: [],
       duration: '0'
     };
 
-    if (addCourse) {
-      addCourse(course);
+    if (addCourseDb) {
+      addCourseDb(course);
       closeModal();
     }
   };

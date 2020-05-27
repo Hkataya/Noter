@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { SectionType, VideoType } from '../../reducers/entities/types';
 import { VideoActionCreatorType } from '../../actions/videos';
@@ -19,13 +19,20 @@ export default function VideoList(props: Props) {
   const {
     sectionId,
     videos,
-    removeVideo,
+    removeVideoDb,
+    fetchVideosBySectionDb,
     toggleWatched,
     openModal,
     setCurrentlySelected
   } = props;
   const history = useHistory();
-
+  useEffect(() => {
+    console.log(fetchVideosBySectionDb);
+    if (fetchVideosBySectionDb) {
+      console.log('Fetching Data');
+      fetchVideosBySectionDb(sectionId);
+    }
+  }, []);
   return (
     <div>
       {videos.map(video => (
@@ -37,6 +44,7 @@ export default function VideoList(props: Props) {
           key={video.id}
           watched={video.watched}
           url={video.url}
+          section={sectionId}
           title={video.title}
           directToMediaPage={() => {
             history.push(
@@ -44,7 +52,7 @@ export default function VideoList(props: Props) {
             );
           }}
           onRemoveClick={() => {
-            if (removeVideo) removeVideo(video.id, sectionId);
+            if (removeVideoDb) removeVideoDb(video.id);
           }}
           onVideoCardClick={() => {
             if (setCurrentlySelected) setCurrentlySelected(video.id || '');

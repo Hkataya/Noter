@@ -12,17 +12,17 @@ type Props = SectionActionCreatorType & {
 const AddSectionForm = (props: Props) => {
   const [title, setTitle] = useState('');
 
-  const { addSection, closeModal, courseId } = props;
+  const { addSectionDb, closeModal, courseId } = props;
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     const section = {
       title,
-      videos: []
+      course: courseId
     };
 
-    if (addSection) {
-      addSection(section, courseId);
+    if (addSectionDb) {
+      addSectionDb(section);
       closeModal();
     }
   };

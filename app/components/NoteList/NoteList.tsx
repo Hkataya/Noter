@@ -11,7 +11,7 @@ type Props = NoteActionCreatorType &
   };
 
 export default function NoteList(props: Props) {
-  const { notes, setTargetTimestamp } = props;
+  const { notes, setTargetTimestamp, videoId } = props;
   return (
     <div>
       {notes.length ? (
@@ -19,6 +19,7 @@ export default function NoteList(props: Props) {
           <NoteCard
             key={note.id}
             title={note.title}
+            video={videoId}
             description={note.description}
             timestamp={note.timestamp}
             timestampVisible

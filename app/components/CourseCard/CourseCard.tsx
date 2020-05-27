@@ -55,7 +55,6 @@ type Props = CourseType & {
 const CourseCard = (props: Props) => {
   const {
     title,
-    sections,
     thumbnail,
     duration,
     removeCourse,
@@ -86,8 +85,7 @@ const CourseCard = (props: Props) => {
             <ul>
               <ListItem>
                 <i className="fas fa-stream mr-3" />
-                Sections: &nbsp;
-                {sections ? sections.length : 0}
+                Sections: &nbsp; 0
               </ListItem>
               <ListItem>
                 <i className="fas fa-clock mr-3" />

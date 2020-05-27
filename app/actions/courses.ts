@@ -1,4 +1,6 @@
 import { CourseType } from '../reducers/entities/types';
+import { Dispatch } from '../reducers/types';
+import { createCourse, deleteCourse } from '../db/db';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
@@ -20,8 +22,8 @@ type UpdateCourseAction = {
 };
 
 export type CourseActionCreatorType = {
-  addCourse?: (courseData: CourseType) => void;
-  removeCourse?: (courseId: CourseType['id']) => void;
+  addCourseDb?: (courseData: CourseType) => any;
+  removeCourseDb?: (courseId: CourseType['id']) => any;
   updateCourse?: (courseData: CourseType) => void;
 };
 
@@ -31,15 +33,9 @@ export type CourseActionType =
   | UpdateCourseAction;
 
 export function addCourse(courseData: CourseType) {
-  // Generate Unique ID
-  const courseId = Date.now().toString();
-  const course = {
-    id: courseId,
-    ...courseData
-  };
   return {
     type: ADD_COURSE,
-    payload: course
+    payload: courseData
   };
 }
 
@@ -54,5 +50,31 @@ export function updateCourse(courseData: CourseType) {
   return {
     type: UPDATE_COURSE,
     payload: courseData
+  };
+}
+
+export function addCourseDb(courseData: CourseType) {
+  return (dispatch: Dispatch) => {
+    createCourse(courseData)
+      .then(updatedData => {
+        Object.assign(courseData, updatedData);
+        return dispatch(addCourse(courseData));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+}
+
+export function removeCourseDb(courseId: CourseType['id']) {
+  return (dispatch: Dispatch) => {
+    deleteCourse(courseId)
+      .then(res => {
+        if (res) dispatch(removeCourse(courseId));
+        return null;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 }

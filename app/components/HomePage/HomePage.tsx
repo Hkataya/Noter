@@ -23,7 +23,7 @@ type Props = EntityStateType & CourseActionCreatorType;
 export default function HomePage(props: Props) {
   const [modalVisibile, setModalVisible] = useState(false);
   const history = useHistory();
-  const { courses, removeCourse, addCourse } = props;
+  const { courses, removeCourseDb, addCourseDb } = props;
 
   return (
     <HomeWrapper>
@@ -31,7 +31,7 @@ export default function HomePage(props: Props) {
       {modalVisibile && (
         <Modal handleClose={() => setModalVisible(false)} title="Add Course">
           <CourseForm
-            addCourse={addCourse}
+            addCourseDb={addCourseDb}
             closeModal={() => setModalVisible(false)}
           />
         </Modal>
@@ -47,11 +47,10 @@ export default function HomePage(props: Props) {
             key={k}
             title={courses[k].title}
             id={k}
-            sections={courses[k].sections}
             duration={courses[k].duration}
             thumbnail={courses[k].thumbnail}
             removeCourse={() => {
-              if (removeCourse) removeCourse(k);
+              if (removeCourseDb) removeCourseDb(k);
             }}
             directToCoursePage={() => history.push(`${routes.COURSE}/${k}`)}
           />

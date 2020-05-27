@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import { SectionType } from '../../reducers/entities/types';
 import { SectionActionCreatorType } from '../../actions/sections';
 import { VideoActionCreatorType } from '../../actions/videos';
@@ -12,7 +13,17 @@ type Props = SectionActionCreatorType &
   };
 
 export default function SectionList(props: Props) {
-  const { courseId, sections, removeSection } = props;
+  const {
+    courseId,
+    sections,
+    removeSectionDb,
+    fetchSectionsByCourseDb
+  } = props;
+  useEffect(() => {
+    console.log('Fetching Data from db');
+    if (fetchSectionsByCourseDb) fetchSectionsByCourseDb(courseId);
+  }, []);
+
   return (
     <div>
       {sections.map((section: SectionType) => (
@@ -24,7 +35,7 @@ export default function SectionList(props: Props) {
                 {
                   label: 'remove',
                   action: () => {
-                    if (removeSection) removeSection(section.id, courseId);
+                    if (removeSectionDb) removeSectionDb(section.id);
                   }
                 }
               ]}

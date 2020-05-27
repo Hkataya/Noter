@@ -47,7 +47,8 @@ const CreateNote = (props: Props) => {
     const note = {
       title,
       description,
-      timestamp
+      timestamp,
+      video: videoId
     };
 
     if (addNote) addNote(note, videoId);

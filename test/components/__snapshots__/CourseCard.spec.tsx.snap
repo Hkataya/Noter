@@ -58,8 +58,7 @@ exports[`CourseCard component should match exact snapshot 1`] = `
               <i
                 className="fas fa-stream mr-3"
               />
-              Sections:  
-              0
+              Sections:   0
             </li>
             <li
               className="sc-fzpans kkFAbe mt-1"

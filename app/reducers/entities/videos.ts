@@ -5,7 +5,8 @@ import {
   ADD_VIDEO,
   REMOVE_VIDEO,
   VideoActionType,
-  TOGGLE_WATCHED
+  TOGGLE_WATCHED,
+  FETCH_VIDEOS_BY_SECTION
 } from '../../actions/videos';
 import { ADD_NOTE, REMOVE_NOTE, NoteActionType } from '../../actions/notes';
 
@@ -25,23 +26,6 @@ export default function videos(
         delete newState[action.payload.videoId];
       return newState;
 
-    case ADD_NOTE:
-      if (action.payload && action.payload.noteId && action.payload.videoId) {
-        const noteList: Array<string> = newState[action.payload.videoId].notes;
-        noteList.push(action.payload.noteId);
-        newState[action.payload.videoId].notes = noteList;
-      }
-      return newState;
-
-    case REMOVE_NOTE:
-      if (action.payload && action.payload.videoId && action.payload.noteId) {
-        const noteList: Array<string> = newState[action.payload.videoId].notes;
-        const index = noteList.indexOf(action.payload.noteId);
-        if (index > -1) noteList.splice(index, 1);
-        newState[action.payload.videoId].notes = noteList;
-      }
-      return newState;
-
     case TOGGLE_WATCHED:
       if (action.payload && action.payload.videoId) {
         const updatedVideo = newState[action.payload.videoId];
@@ -49,6 +33,14 @@ export default function videos(
         if (val) updatedVideo.watched = false;
         else updatedVideo.watched = true;
         newState[action.payload.videoId] = updatedVideo;
+      }
+      return newState;
+
+    case FETCH_VIDEOS_BY_SECTION:
+      if (action.payload && action.payload.videos) {
+        action.payload.videos.forEach(video => {
+          if (video.id) newState[video.id] = video;
+        });
       }
       return newState;
 

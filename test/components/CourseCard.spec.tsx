@@ -16,13 +16,7 @@ function setup() {
     directToCoursePage: spy()
   };
   const component = shallow(
-    <CourseCard
-      id="100"
-      title="test"
-      description="test"
-      sections={[]}
-      {...actions}
-    />
+    <CourseCard id="100" title="test" description="test" {...actions} />
   );
 
   return {
@@ -38,13 +32,7 @@ describe('CourseCard component', () => {
     const courseCard = (
       <div>
         <Router>
-          <CourseCard
-            id="100"
-            title="test"
-            description="test"
-            sections={[]}
-            {...actions}
-          />
+          <CourseCard id="100" title="test" description="test" {...actions} />
         </Router>
       </div>
     );
