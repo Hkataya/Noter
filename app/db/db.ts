@@ -103,7 +103,9 @@ export const deleteCourse = (courseId: CourseType['id']) => {
 export const createSection = (sectionData: SectionType) => {
   return relDB.rel.save('section', sectionData);
 };
-
+export const createNote = (noteData: NoteType) => {
+  return relDB.rel.save('note', noteData);
+};
 export const deleteSection = (sectionId: SectionType['id']) => {
   let retrievedSection: SectionType;
   return relDB.rel
@@ -120,7 +122,21 @@ export const deleteSection = (sectionId: SectionType['id']) => {
       console.log(err);
     });
 };
-
+export const deleteNote = (noteId: NoteType['id']) => {
+  let retrievedNote: NoteType;
+  return relDB.rel
+    .find('note', noteId)
+    .then(data => {
+      data.notes.forEach((note: NoteType) => {
+        if (note.id === noteId) retrievedNote = note;
+      });
+      if (retrievedNote) return relDB.rel.del('note', retrievedNote);
+      return null;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 export const createVideo = (videoData: VideoType) => {
   return relDB.rel.save('video', videoData);
 };

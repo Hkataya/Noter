@@ -1,4 +1,11 @@
+/* eslint-disable import/named */
+/* eslint-disable import/no-cycle */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
+// import { Dispatch } from 'react';
 import { VideoType, NoteType } from '../reducers/entities/types';
+import { Dispatch } from '../reducers/types';
+import { createNote, deleteNote } from '../db/db';
 
 export const ADD_NOTE = 'ADD_NOTE';
 export const REMOVE_NOTE = 'REMOVE_NOTE';
@@ -51,5 +58,29 @@ export function removeNote(noteId: NoteType['id'], videoId: VideoType['id']) {
       noteId,
       videoId
     }
+  };
+}
+export function addNoteDb(noteData: NoteType, videoId: VideoType['id']) {
+  return (dispatch: Dispatch) => {
+    createNote(noteData)
+      .then((updatedData: any) => {
+        Object.assign(noteData, updatedData);
+        return dispatch(addNote(noteData, videoId));
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+}
+export function removeNoteDb(noteId: NoteType['id'], videoId: VideoType['id']) {
+  return (dispatch: Dispatch) => {
+    deleteNote(noteId)
+      .then((res: any) => {
+        if (res) return dispatch(removeNote(noteId, videoId));
+        return null;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   };
 }
