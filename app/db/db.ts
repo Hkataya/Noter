@@ -10,7 +10,30 @@ import {
 
 PouchDB.plugin(find).plugin(rel);
 
+const dbName = 'mydb';
+const remoteCouch = `http://admin:admin@127.0.0.1:5984/${dbName}`;
 const db = new PouchDB('mydb');
+
+// Fetch all documents from DB (including deleted docs)
+db.changes({
+  since: 0,
+  include_docs: true
+})
+  .then(changes => {
+    return console.log(changes);
+  })
+  .catch(e => console.log(e));
+
+// Sync PouchDB with Online CouchDB
+db.sync(remoteCouch, { live: true })
+  .on('complete', () => {
+    console.log('success sync');
+  })
+  .on('error', err => {
+    console.log('Error sync');
+    console.log(err);
+  });
+
 const relDB = db.setSchema([
   {
     singular: 'course',
