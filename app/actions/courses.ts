@@ -69,10 +69,7 @@ export function addCourseDb(courseData: CourseType) {
 export function removeCourseDb(courseId: CourseType['id']) {
   return (dispatch: Dispatch) => {
     deleteCourse(courseId)
-      .then(res => {
-        if (res) dispatch(removeCourse(courseId));
-        return null;
-      })
+      .then(() => dispatch(removeCourse(courseId)))
       .catch(err => {
         console.log(err);
       });

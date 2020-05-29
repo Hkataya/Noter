@@ -54,11 +54,11 @@ function removeNote(noteId: NoteType['id']) {
 export function addNoteDb(noteData: NoteType) {
   return (dispatch: Dispatch) => {
     createNote(noteData)
-      .then((updatedData: any) => {
+      .then(updatedData => {
         Object.assign(noteData, updatedData);
         return dispatch(addNote(noteData));
       })
-      .catch((err: any) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -66,11 +66,8 @@ export function addNoteDb(noteData: NoteType) {
 export function removeNoteDb(noteId: NoteType['id']) {
   return (dispatch: Dispatch) => {
     deleteNote(noteId)
-      .then((res: any) => {
-        if (res) return dispatch(removeNote(noteId));
-        return null;
-      })
-      .catch((err: any) => {
+      .then(() => dispatch(removeNote(noteId)))
+      .catch(err => {
         console.log(err);
       });
   };

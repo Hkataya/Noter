@@ -107,11 +107,7 @@ export function addVideoDb(videoData: VideoType) {
 export function removeVideoDb(videoId: VideoType['id']) {
   return (dispatch: Dispatch) => {
     deleteVideo(videoId)
-      .then(res => {
-        console.log(res);
-        if (res) return dispatch(removeVideo(videoId));
-        return null;
-      })
+      .then(() => dispatch(removeVideo(videoId)))
       .catch(err => {
         console.log(err);
       });

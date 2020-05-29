@@ -10,6 +10,7 @@ import {
 
 PouchDB.plugin(find).plugin(rel);
 
+// Initialize DB
 const dbName = 'mydb';
 const remoteCouch = `http://admin:admin@127.0.0.1:5984/${dbName}`;
 const db = new PouchDB('mydb');
@@ -34,6 +35,7 @@ db.sync(remoteCouch, { live: true })
     console.log(err);
   });
 
+// Define Relational Schema
 const relDB = db.setSchema([
   {
     singular: 'course',
@@ -84,79 +86,46 @@ export const createCourse = (courseData: CourseType) => {
 };
 
 export const deleteCourse = (courseId: CourseType['id']) => {
-  let retrievedCourse: CourseType;
-  return relDB.rel
-    .find('course', courseId)
-    .then(data => {
-      data.courses.forEach((course: CourseType) => {
-        if (course.id === courseId) retrievedCourse = course;
-      });
-
-      if (retrievedCourse) return relDB.rel.del('course', retrievedCourse);
-      return null;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  const generatedCourseId: string = relDB.rel.makeDocID({
+    type: 'course',
+    id: courseId
+  });
+  return db.get(generatedCourseId).then(course => db.remove(course));
 };
 
 export const createSection = (sectionData: SectionType) => {
   return relDB.rel.save('section', sectionData);
 };
+export const deleteSection = (sectionId: SectionType['id']) => {
+  const generatedSectionId: string = relDB.rel.makeDocID({
+    type: 'section',
+    id: sectionId
+  });
+  return db.get(generatedSectionId).then(section => db.remove(section));
+};
+
 export const createNote = (noteData: NoteType) => {
   return relDB.rel.save('note', noteData);
 };
-export const deleteSection = (sectionId: SectionType['id']) => {
-  let retrievedSection: SectionType;
-  return relDB.rel
-    .find('section', sectionId)
-    .then(data => {
-      data.sections.forEach((section: SectionType) => {
-        if (section.id === sectionId) retrievedSection = section;
-      });
 
-      if (retrievedSection) return relDB.rel.del('section', retrievedSection);
-      return null;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
 export const deleteNote = (noteId: NoteType['id']) => {
-  let retrievedNote: NoteType;
-  return relDB.rel
-    .find('note', noteId)
-    .then(data => {
-      data.notes.forEach((note: NoteType) => {
-        if (note.id === noteId) retrievedNote = note;
-      });
-      if (retrievedNote) return relDB.rel.del('note', retrievedNote);
-      return null;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  const generatedNoteId: string = relDB.rel.makeDocID({
+    type: 'note',
+    id: noteId
+  });
+  return db.get(generatedNoteId).then(note => db.remove(note));
 };
+
 export const createVideo = (videoData: VideoType) => {
   return relDB.rel.save('video', videoData);
 };
 
 export const deleteVideo = (videoId: VideoType['id']) => {
-  let retrievedVideo: VideoType;
-  return relDB.rel
-    .find('video', videoId)
-    .then(data => {
-      data.videos.forEach((video: VideoType) => {
-        console.log(video);
-        if (video.id === videoId) retrievedVideo = video;
-      });
-
-      if (retrievedVideo) return relDB.rel.del('video', retrievedVideo);
-      return null;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  const generatedVideoId: string = relDB.rel.makeDocID({
+    type: 'video',
+    id: videoId
+  });
+  return db.get(generatedVideoId).then(video => db.remove(video));
 };
 
 export const getSectionsByCourseId = (courseId: CourseType['id']) => {

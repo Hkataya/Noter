@@ -88,10 +88,7 @@ export function addSectionDb(sectionData: SectionType) {
 export function removeSectionDb(sectionId: SectionType['id']) {
   return (dispatch: Dispatch) => {
     deleteSection(sectionId)
-      .then(res => {
-        if (res) return dispatch(removeSection(sectionId));
-        return null;
-      })
+      .then(() => dispatch(removeSection(sectionId)))
       .catch(err => {
         console.log(err);
       });
