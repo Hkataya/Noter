@@ -166,3 +166,7 @@ export const getSectionsByCourseId = (courseId: CourseType['id']) => {
 export const getVideosBySectionId = (sectionId: SectionType['id']) => {
   return relDB.rel.find('section', sectionId).then(data => data.videos);
 };
+
+export const getNotesByVideoId = (videoId: SectionType['id']) => {
+  return relDB.rel.find('video', videoId).then(data => data.notes);
+};

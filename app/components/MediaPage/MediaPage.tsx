@@ -22,7 +22,7 @@ export default function MediaPage(props: Props) {
     targetTimestamp,
     setCurrentTimestamp,
     setTargetTimestamp,
-    addNote
+    addNoteDb
   } = props;
   const history = useHistory();
 
@@ -51,7 +51,7 @@ export default function MediaPage(props: Props) {
             <div>
               <CreateNote
                 timestamp={currentTimestamp}
-                addNote={addNote}
+                addNoteDb={addNoteDb}
                 videoId={video.id || ''}
               />
             </div>

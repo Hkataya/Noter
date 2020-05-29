@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 // import { Dispatch } from 'react';
-import { VideoType, NoteType } from '../reducers/entities/types';
+import { NoteType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
 import { createNote, deleteNote } from '../db/db';
 
@@ -14,7 +14,6 @@ type AddNoteAction = {
   type: typeof ADD_NOTE;
   payload: {
     noteId: NoteType['id'];
-    videoId: VideoType['id'];
     noteData: NoteType;
   };
 };
@@ -22,61 +21,53 @@ type AddNoteAction = {
 type RemoveNoteAction = {
   type: typeof REMOVE_NOTE;
   payload: {
-    videoId: VideoType['id'];
     noteId: NoteType['id'];
   };
 };
 
 export type NoteActionCreatorType = {
-  addNote?: (noteData: NoteType, videoId: VideoType['id']) => void;
-  removeNote?: (noteId: NoteType['id'], videoId: VideoType['id']) => void;
+  addNoteDb?: (noteData: NoteType) => void;
+  removeNoteDb?: (noteId: NoteType['id']) => void;
 };
 
 export type NoteActionType = AddNoteAction | RemoveNoteAction;
 
-export function addNote(noteData: NoteType, videoId: VideoType['id']) {
-  // Generate Unique ID
-  const noteId = Date.now().toString();
-  const note = {
-    id: noteId,
-    ...noteData
-  };
+function addNote(noteData: NoteType) {
+  const noteId = noteData.id;
   return {
     type: ADD_NOTE,
     payload: {
       noteId,
-      videoId,
-      noteData: note
+      noteData
     }
   };
 }
 
-export function removeNote(noteId: NoteType['id'], videoId: VideoType['id']) {
+function removeNote(noteId: NoteType['id']) {
   return {
     type: REMOVE_NOTE,
     payload: {
-      noteId,
-      videoId
+      noteId
     }
   };
 }
-export function addNoteDb(noteData: NoteType, videoId: VideoType['id']) {
+export function addNoteDb(noteData: NoteType) {
   return (dispatch: Dispatch) => {
     createNote(noteData)
       .then((updatedData: any) => {
         Object.assign(noteData, updatedData);
-        return dispatch(addNote(noteData, videoId));
+        return dispatch(addNote(noteData));
       })
       .catch((err: any) => {
         console.log(err);
       });
   };
 }
-export function removeNoteDb(noteId: NoteType['id'], videoId: VideoType['id']) {
+export function removeNoteDb(noteId: NoteType['id']) {
   return (dispatch: Dispatch) => {
     deleteNote(noteId)
       .then((res: any) => {
-        if (res) return dispatch(removeNote(noteId, videoId));
+        if (res) return dispatch(removeNote(noteId));
         return null;
       })
       .catch((err: any) => {

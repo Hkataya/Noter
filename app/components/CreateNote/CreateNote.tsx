@@ -40,7 +40,7 @@ type Props = NoteActionCreatorType & {
 const CreateNote = (props: Props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { addNote, videoId, timestamp } = props;
+  const { addNoteDb, videoId, timestamp } = props;
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
@@ -51,7 +51,7 @@ const CreateNote = (props: Props) => {
       video: videoId
     };
 
-    if (addNote) addNote(note, videoId);
+    if (addNoteDb) addNoteDb(note);
   };
 
   return (

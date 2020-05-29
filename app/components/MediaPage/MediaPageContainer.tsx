@@ -2,7 +2,7 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import MediaPage from './MediaPage';
-import { addNote, removeNote } from '../../actions/notes';
+import { addNoteDb, removeNoteDb } from '../../actions/notes';
 import { setCurrentTimestamp, setTargetTimestamp } from '../../actions/ui';
 
 function mapStateToProps(state: any, ownProps: any) {
@@ -17,8 +17,8 @@ function mapStateToProps(state: any, ownProps: any) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      addNote,
-      removeNote,
+      addNoteDb,
+      removeNoteDb,
       setCurrentTimestamp,
       setTargetTimestamp
     },
