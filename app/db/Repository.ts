@@ -1,8 +1,4 @@
-type DefaultModel = {
-  id?: string;
-};
-
-export default class Repository<T extends DefaultModel> {
+export default class Repository<T> {
   db: PouchDB.Database;
 
   relDB: PouchDB.RelDatabase;
@@ -19,11 +15,11 @@ export default class Repository<T extends DefaultModel> {
     this.entityType = entityType;
   }
 
-  createEntity = (entityData: T) => {
+  createEntity = (entityData: Omit<T, 'id'>) => {
     return this.relDB.rel.save(this.entityType, entityData);
   };
 
-  deleteEntity = (entityId: T['id']) => {
+  deleteEntity = (entityId: string) => {
     const generatedEntityId: string = this.relDB.rel.makeDocID({
       type: this.entityType,
       id: entityId

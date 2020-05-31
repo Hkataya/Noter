@@ -15,7 +15,7 @@ const CourseForm = (props: Props) => {
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    const course: CourseType = {
+    const course = {
       title,
       description,
       duration: '0'

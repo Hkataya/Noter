@@ -1,12 +1,6 @@
 import PouchDB from 'pouchdb-browser';
 import find from 'pouchdb-find';
 import rel from 'relational-pouch';
-import {
-  CourseType,
-  VideoType,
-  SectionType,
-  NoteType
-} from '../reducers/entities/types';
 
 PouchDB.plugin(find).plugin(rel);
 
@@ -80,62 +74,3 @@ export const relDB = db.setSchema([
     }
   }
 ]);
-
-export const createCourse = (courseData: CourseType) => {
-  return relDB.rel.save('course', courseData);
-};
-
-export const deleteCourse = (courseId: CourseType['id']) => {
-  const generatedCourseId: string = relDB.rel.makeDocID({
-    type: 'course',
-    id: courseId
-  });
-  return db.get(generatedCourseId).then(course => db.remove(course));
-};
-
-export const createSection = (sectionData: SectionType) => {
-  return relDB.rel.save('section', sectionData);
-};
-export const deleteSection = (sectionId: SectionType['id']) => {
-  const generatedSectionId: string = relDB.rel.makeDocID({
-    type: 'section',
-    id: sectionId
-  });
-  return db.get(generatedSectionId).then(section => db.remove(section));
-};
-
-export const createNote = (noteData: NoteType) => {
-  return relDB.rel.save('note', noteData);
-};
-
-export const deleteNote = (noteId: NoteType['id']) => {
-  const generatedNoteId: string = relDB.rel.makeDocID({
-    type: 'note',
-    id: noteId
-  });
-  return db.get(generatedNoteId).then(note => db.remove(note));
-};
-
-export const createVideo = (videoData: VideoType) => {
-  return relDB.rel.save('video', videoData);
-};
-
-export const deleteVideo = (videoId: VideoType['id']) => {
-  const generatedVideoId: string = relDB.rel.makeDocID({
-    type: 'video',
-    id: videoId
-  });
-  return db.get(generatedVideoId).then(video => db.remove(video));
-};
-
-export const getSectionsByCourseId = (courseId: CourseType['id']) => {
-  return relDB.rel.find('course', courseId).then(data => data.sections);
-};
-
-export const getVideosBySectionId = (sectionId: SectionType['id']) => {
-  return relDB.rel.find('section', sectionId).then(data => data.videos);
-};
-
-export const getNotesByVideoId = (videoId: SectionType['id']) => {
-  return relDB.rel.find('video', videoId).then(data => data.notes);
-};

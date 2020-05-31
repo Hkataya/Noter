@@ -1,6 +1,6 @@
 import { VideoType, SectionType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import  VideoRepository from '../db/VideoRepository';
+import VideoRepository from '../db/VideoRepository';
 
 export const ADD_VIDEO = 'ADD_VIDEO';
 export const REMOVE_VIDEO = 'REMOVE_VIDEO';
@@ -37,7 +37,7 @@ type FetchVideosBySectionAction = {
 };
 
 export type VideoActionCreatorType = {
-  addVideoDb?: (videoData: VideoType) => any;
+  addVideoDb?: (videoData: Omit<VideoType, 'id'>) => any;
   removeVideoDb?: (videoId: VideoType['id']) => any;
   toggleWatched?: (videoId: VideoType['id']) => void;
   fetchVideosBySectionDb?: (sectionId: SectionType['id']) => any;
@@ -91,13 +91,12 @@ export function fetchVideosBySection(videosData: Array<VideoType>) {
   };
 }
 
-export function addVideoDb(videoData: VideoType) {
+export function addVideoDb(videoData: Omit<VideoType, 'id'>) {
   return (dispatch: Dispatch) => {
     VideoRepository.createEntity(videoData)
-      .then(updatedData => {
-        Object.assign(videoData, updatedData);
-        return dispatch(addVideo(videoData));
-      })
+      .then(updatedData =>
+        dispatch(addVideo(Object.assign(videoData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });

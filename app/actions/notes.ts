@@ -21,7 +21,7 @@ type RemoveNoteAction = {
 };
 
 export type NoteActionCreatorType = {
-  addNoteDb?: (noteData: NoteType) => void;
+  addNoteDb?: (noteData: Omit<NoteType, 'id'>) => void;
   removeNoteDb?: (noteId: NoteType['id']) => void;
 };
 
@@ -46,13 +46,12 @@ function removeNote(noteId: NoteType['id']) {
     }
   };
 }
-export function addNoteDb(noteData: NoteType) {
+export function addNoteDb(noteData: Omit<NoteType, 'id'>) {
   return (dispatch: Dispatch) => {
     NoteRepository.createEntity(noteData)
-      .then(updatedData => {
-        Object.assign(noteData, updatedData);
-        return dispatch(addNote(noteData));
-      })
+      .then(updatedData =>
+        dispatch(addNote(Object.assign(noteData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });

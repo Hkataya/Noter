@@ -22,7 +22,7 @@ type UpdateCourseAction = {
 };
 
 export type CourseActionCreatorType = {
-  addCourseDb?: (courseData: CourseType) => any;
+  addCourseDb?: (courseData: Omit<CourseType, 'id'>) => any;
   removeCourseDb?: (courseId: CourseType['id']) => any;
   updateCourse?: (courseData: CourseType) => void;
 };
@@ -53,13 +53,12 @@ export function updateCourse(courseData: CourseType) {
   };
 }
 
-export function addCourseDb(courseData: CourseType) {
+export function addCourseDb(courseData: Omit<CourseType, 'id'>) {
   return (dispatch: Dispatch) => {
     CourseRepository.createEntity(courseData)
-      .then(updatedData => {
-        Object.assign(courseData, updatedData);
-        return dispatch(addCourse(courseData));
-      })
+      .then(updatedData =>
+        dispatch(addCourse(Object.assign(courseData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });

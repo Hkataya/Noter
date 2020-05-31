@@ -30,7 +30,7 @@ type FetchSectionsByCourseAction = {
 };
 
 export type SectionActionCreatorType = {
-  addSectionDb?: (sectionData: SectionType) => any;
+  addSectionDb?: (sectionData: Omit<SectionType, 'id'>) => any;
   removeSectionDb?: (sectionId: SectionType['id']) => any;
   fetchSectionsByCourseDb?: (courseId: CourseType['id']) => any;
 };
@@ -72,13 +72,12 @@ export function fetchSectionsByCourse(sectionsData: Array<SectionType>) {
   };
 }
 
-export function addSectionDb(sectionData: SectionType) {
+export function addSectionDb(sectionData: Omit<SectionType, 'id'>) {
   return (dispatch: Dispatch) => {
     SectionRepository.createEntity(sectionData)
-      .then(updatedData => {
-        Object.assign(sectionData, updatedData);
-        return dispatch(addSection(sectionData));
-      })
+      .then(updatedData =>
+        dispatch(addSection(Object.assign(sectionData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });

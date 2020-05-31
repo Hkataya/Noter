@@ -17,6 +17,7 @@ export default function NoteList(props: Props) {
       {notes.length ? (
         notes.map(note => (
           <NoteCard
+            id={note.id}
             key={note.id}
             title={note.title}
             video={videoId}
