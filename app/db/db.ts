@@ -1,12 +1,20 @@
 import PouchDB from 'pouchdb-browser';
 import find from 'pouchdb-find';
 import rel from 'relational-pouch';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import debug from 'pouchdb-debug';
 
 PouchDB.plugin(find).plugin(rel);
 
+if (process.env.NODE_ENV !== 'production') {
+  PouchDB.plugin(debug);
+  PouchDB.debug.enable('*');
+}
+
 // Initialize DB
 const dbName = 'mydb';
-const remoteCouch = `http://admin:admin@127.0.0.1:5984/${dbName}`;
+const remoteCouch = `${process.env.COUCHDB_URL}${dbName}`;
 export const db = new PouchDB('mydb');
 
 // Fetch all documents from DB (including deleted docs)
