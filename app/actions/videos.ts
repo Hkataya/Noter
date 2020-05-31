@@ -37,10 +37,10 @@ type FetchVideosBySectionAction = {
 };
 
 export type VideoActionCreatorType = {
-  addVideoDb?: (videoData: Omit<VideoType, 'id'>) => any;
-  removeVideoDb?: (videoId: VideoType['id']) => any;
+  addVideoDb?: (videoData: Omit<VideoType, 'id'>) => unknown;
+  removeVideoDb?: (videoId: VideoType['id']) => unknown;
   toggleWatched?: (videoId: VideoType['id']) => void;
-  fetchVideosBySectionDb?: (sectionId: SectionType['id']) => any;
+  fetchVideosBySectionDb?: (sectionId: SectionType['id']) => unknown;
 };
 
 export type VideoActionType =

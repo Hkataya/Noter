@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
@@ -64,6 +65,7 @@ const NoteCard = (props: Props) => {
           </Header>
           <Body>
             <StyledTextareaAutosize
+              // @ts-ignore
               onChange={e => setDescription(e.target.value)}
               value={updatedDescription}
             />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import React, { useState } from 'react';
@@ -66,6 +67,7 @@ const CreateNote = (props: Props) => {
         <Body>
           <StyledTextareaAutosize
             placeholder="descrtipion"
+            // @ts-ignore
             onChange={e => setDescription(e.target.value)}
           />
         </Body>

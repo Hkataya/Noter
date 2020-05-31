@@ -22,8 +22,8 @@ type UpdateCourseAction = {
 };
 
 export type CourseActionCreatorType = {
-  addCourseDb?: (courseData: Omit<CourseType, 'id'>) => any;
-  removeCourseDb?: (courseId: CourseType['id']) => any;
+  addCourseDb?: (courseData: Omit<CourseType, 'id'>) => unknown;
+  removeCourseDb?: (courseId: CourseType['id']) => unknown;
   updateCourse?: (courseData: CourseType) => void;
 };
 

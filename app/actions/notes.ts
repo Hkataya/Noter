@@ -21,8 +21,8 @@ type RemoveNoteAction = {
 };
 
 export type NoteActionCreatorType = {
-  addNoteDb?: (noteData: Omit<NoteType, 'id'>) => void;
-  removeNoteDb?: (noteId: NoteType['id']) => void;
+  addNoteDb?: (noteData: Omit<NoteType, 'id'>) => unknown;
+  removeNoteDb?: (noteId: NoteType['id']) => unknown;
 };
 
 export type NoteActionType = AddNoteAction | RemoveNoteAction;

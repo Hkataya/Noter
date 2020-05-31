@@ -8,7 +8,7 @@ import {
   TOGGLE_WATCHED,
   FETCH_VIDEOS_BY_SECTION
 } from '../../actions/videos';
-import { ADD_NOTE, REMOVE_NOTE, NoteActionType } from '../../actions/notes';
+import { NoteActionType } from '../../actions/notes';
 
 export default function videos(
   state = allvideos,

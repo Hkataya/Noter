@@ -30,9 +30,9 @@ type FetchSectionsByCourseAction = {
 };
 
 export type SectionActionCreatorType = {
-  addSectionDb?: (sectionData: Omit<SectionType, 'id'>) => any;
-  removeSectionDb?: (sectionId: SectionType['id']) => any;
-  fetchSectionsByCourseDb?: (courseId: CourseType['id']) => any;
+  addSectionDb?: (sectionData: Omit<SectionType, 'id'>) => unknown;
+  removeSectionDb?: (sectionId: SectionType['id']) => unknown;
+  fetchSectionsByCourseDb?: (courseId: CourseType['id']) => unknown;
 };
 
 export type SectionActionType =
