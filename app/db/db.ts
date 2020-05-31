@@ -13,7 +13,7 @@ PouchDB.plugin(find).plugin(rel);
 // Initialize DB
 const dbName = 'mydb';
 const remoteCouch = `http://admin:admin@127.0.0.1:5984/${dbName}`;
-const db = new PouchDB('mydb');
+export const db = new PouchDB('mydb');
 
 // Fetch all documents from DB (including deleted docs)
 db.changes({
@@ -36,7 +36,7 @@ db.sync(remoteCouch, { live: true })
   });
 
 // Define Relational Schema
-const relDB = db.setSchema([
+export const relDB = db.setSchema([
   {
     singular: 'course',
     plural: 'courses',

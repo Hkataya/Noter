@@ -1,6 +1,6 @@
 import { VideoType, SectionType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import { createVideo, deleteVideo, getVideosBySectionId } from '../db/db';
+import  VideoRepository from '../db/VideoRepository';
 
 export const ADD_VIDEO = 'ADD_VIDEO';
 export const REMOVE_VIDEO = 'REMOVE_VIDEO';
@@ -93,7 +93,7 @@ export function fetchVideosBySection(videosData: Array<VideoType>) {
 
 export function addVideoDb(videoData: VideoType) {
   return (dispatch: Dispatch) => {
-    createVideo(videoData)
+    VideoRepository.createEntity(videoData)
       .then(updatedData => {
         Object.assign(videoData, updatedData);
         return dispatch(addVideo(videoData));
@@ -106,7 +106,7 @@ export function addVideoDb(videoData: VideoType) {
 
 export function removeVideoDb(videoId: VideoType['id']) {
   return (dispatch: Dispatch) => {
-    deleteVideo(videoId)
+    VideoRepository.deleteEntity(videoId)
       .then(() => dispatch(removeVideo(videoId)))
       .catch(err => {
         console.log(err);
@@ -117,7 +117,7 @@ export function removeVideoDb(videoId: VideoType['id']) {
 export function fetchVideosBySectionDb(sectionId: SectionType['id']) {
   return (dispatch: Dispatch) => {
     if (sectionId) {
-      getVideosBySectionId(sectionId)
+      VideoRepository.getVideosBySectionId(sectionId)
         .then((videos: Array<VideoType>) => {
           return dispatch(fetchVideosBySection(videos));
         })

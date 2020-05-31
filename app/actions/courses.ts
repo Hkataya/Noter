@@ -1,6 +1,6 @@
 import { CourseType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import { createCourse, deleteCourse } from '../db/db';
+import CourseRepository from '../db/CourseRepository';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
@@ -55,7 +55,7 @@ export function updateCourse(courseData: CourseType) {
 
 export function addCourseDb(courseData: CourseType) {
   return (dispatch: Dispatch) => {
-    createCourse(courseData)
+    CourseRepository.createEntity(courseData)
       .then(updatedData => {
         Object.assign(courseData, updatedData);
         return dispatch(addCourse(courseData));
@@ -68,7 +68,7 @@ export function addCourseDb(courseData: CourseType) {
 
 export function removeCourseDb(courseId: CourseType['id']) {
   return (dispatch: Dispatch) => {
-    deleteCourse(courseId)
+    CourseRepository.deleteEntity(courseId)
       .then(() => dispatch(removeCourse(courseId)))
       .catch(err => {
         console.log(err);

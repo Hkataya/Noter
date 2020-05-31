@@ -1,6 +1,6 @@
 import { SectionType, CourseType } from '../reducers/entities/types';
-import { createSection, deleteSection, getSectionsByCourseId } from '../db/db';
 import { Dispatch } from '../reducers/types';
+import SectionRepository from '../db/SectionRepository';
 
 export const ADD_SECTION = 'ADD_SECTION';
 export const REMOVE_SECTION = 'REMOVE_SECTION';
@@ -74,7 +74,7 @@ export function fetchSectionsByCourse(sectionsData: Array<SectionType>) {
 
 export function addSectionDb(sectionData: SectionType) {
   return (dispatch: Dispatch) => {
-    createSection(sectionData)
+    SectionRepository.createEntity(sectionData)
       .then(updatedData => {
         Object.assign(sectionData, updatedData);
         return dispatch(addSection(sectionData));
@@ -87,7 +87,7 @@ export function addSectionDb(sectionData: SectionType) {
 
 export function removeSectionDb(sectionId: SectionType['id']) {
   return (dispatch: Dispatch) => {
-    deleteSection(sectionId)
+    SectionRepository.deleteEntity(sectionId)
       .then(() => dispatch(removeSection(sectionId)))
       .catch(err => {
         console.log(err);
@@ -98,7 +98,7 @@ export function removeSectionDb(sectionId: SectionType['id']) {
 export function fetchSectionsByCourseDb(courseId: CourseType['id']) {
   return (dispatch: Dispatch) => {
     if (courseId) {
-      getSectionsByCourseId(courseId)
+      SectionRepository.getSectionsByCourseId(courseId)
         .then((sections: Array<SectionType>) => {
           return dispatch(fetchSectionsByCourse(sections));
         })

@@ -1,11 +1,6 @@
-/* eslint-disable import/named */
-/* eslint-disable import/no-cycle */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
-// import { Dispatch } from 'react';
 import { NoteType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import { createNote, deleteNote } from '../db/db';
+import NoteRepository from '../db/NoteRepository';
 
 export const ADD_NOTE = 'ADD_NOTE';
 export const REMOVE_NOTE = 'REMOVE_NOTE';
@@ -53,7 +48,7 @@ function removeNote(noteId: NoteType['id']) {
 }
 export function addNoteDb(noteData: NoteType) {
   return (dispatch: Dispatch) => {
-    createNote(noteData)
+    NoteRepository.createEntity(noteData)
       .then(updatedData => {
         Object.assign(noteData, updatedData);
         return dispatch(addNote(noteData));
@@ -65,7 +60,7 @@ export function addNoteDb(noteData: NoteType) {
 }
 export function removeNoteDb(noteId: NoteType['id']) {
   return (dispatch: Dispatch) => {
-    deleteNote(noteId)
+    NoteRepository.deleteEntity(noteId)
       .then(() => dispatch(removeNote(noteId)))
       .catch(err => {
         console.log(err);
