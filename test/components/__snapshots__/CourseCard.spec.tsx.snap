@@ -1,81 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CourseCard component should match exact snapshot 1`] = `
-<div>
+exports[`loads and displays course card 1`] = `
+<DocumentFragment>
   <div
-    className="w-96 shadow-lg rounded-t-lg m-5"
+    class="w-96 shadow-lg rounded-t-lg m-5"
   >
     <div
-      className="sc-AxhUy dBRLnL flex  bg-cover bg-center rounded-t-lg"
+      class="sc-AxhUy dBRLnL flex  bg-cover bg-center rounded-t-lg"
     >
       <div
-        className="sc-AxgMl fFPQpl w-1/3"
+        class="sc-AxgMl fFPQpl w-1/3"
       />
       <div
-        className="sc-AxheI bMWDco w-2/3 p-5 bg-white rounded-lg"
+        class="sc-AxheI bMWDco w-2/3 p-5 bg-white rounded-lg"
       >
         <div
-          className="flex justify-end -mt-4"
+          class="flex justify-end -mt-4"
         >
           <div
-            className="relative inline-block"
+            class="relative inline-block"
           >
             <div>
               <button
-                className="sc-AxjAm StDqN inline-flex justify-center w-full rounded-md  text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
-                onClick={[Function]}
+                class="sc-AxjAm StDqN inline-flex justify-center w-full rounded-md  text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+                role="button"
                 type="button"
               >
                 <i
-                  className="fas fa-ellipsis-v"
+                  class="fas fa-ellipsis-v"
                 />
               </button>
             </div>
           </div>
         </div>
         <div
-          className="sc-Axmtr hBVTto flex text-white mb-4"
+          class="sc-Axmtr hBVTto flex text-white mb-4"
         >
           <h1
-            className="sc-AxmLO cAKCgh text-white font-bold text-lg text-justify break-all"
+            class="sc-AxmLO cAKCgh text-white font-bold text-lg text-justify break-all"
           >
             test
           </h1>
         </div>
         <hr />
         <p
-          className="sc-fzozJi jxgYyc mt-4 text-gray-600 text-sm text-justify break-all"
+          class="sc-fzozJi jxgYyc mt-4 text-gray-600 text-sm text-justify break-all"
         >
           description
         </p>
         <div
-          className="sc-fzoLsD fqEnxe mt-4 text-gray-600 text-sm mt-4 text-justify"
+          class="sc-fzoLsD fqEnxe mt-4 text-gray-600 text-sm mt-4 text-justify"
         >
           <ul>
             <li
-              className="sc-fzpans kkFAbe mt-1"
+              class="sc-fzpans kkFAbe mt-1"
             >
               <i
-                className="fas fa-stream mr-3"
+                class="fas fa-stream mr-3"
               />
               Sections:   0
             </li>
             <li
-              className="sc-fzpans kkFAbe mt-1"
+              class="sc-fzpans kkFAbe mt-1"
             >
               <i
-                className="fas fa-clock mr-3"
+                class="fas fa-clock mr-3"
               />
               duration:  
             </li>
           </ul>
         </div>
         <div
-          className="flex justify-end mt-3"
+          class="flex justify-end mt-3"
         >
           <button
-            className="sc-AxhCb ccMvAG px-3 py-2 bg-purple-900 text-white text-xs font-bold uppercase rounded"
-            onClick={[Function]}
+            class="sc-AxhCb ccMvAG px-3 py-2 bg-purple-900 text-white text-xs font-bold uppercase rounded"
             type="button"
           >
             Watch
@@ -84,17 +83,13 @@ exports[`CourseCard component should match exact snapshot 1`] = `
       </div>
     </div>
     <div
-      className="shadow w-full rounded-b-lg bg-grey-light"
+      class="shadow w-full rounded-b-lg bg-grey-light"
     >
       <div
-        className="bg-purple-900 py-1 text-center rounded-b-lg"
-        style={
-          Object {
-            "width": "45%",
-          }
-        }
+        class="bg-purple-900 py-1 text-center rounded-b-lg"
+        style="width: 45%;"
       />
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;

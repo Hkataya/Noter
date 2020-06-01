@@ -38,6 +38,7 @@ const Modal = (props: Props) => {
           <ModalHeaderWrapper>
             <ModalHeader>{title}</ModalHeader>
             <svg
+              role="button"
               className="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 18 18"

@@ -1,48 +1,32 @@
-/* eslint react/jsx-props-no-spreading: off */
-import { spy } from 'sinon';
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { BrowserRouter as Router } from 'react-router-dom';
-import renderer from 'react-test-renderer';
+import { render, fireEvent, screen } from '@testing-library/react';
 import CourseCard from '../../app/components/CourseCard/CourseCard';
-import Button from '../../app/components/Button/Button';
 
-Enzyme.configure({ adapter: new Adapter() });
+test('loads and displays course card', async () => {
+  const { asFragment } = render(
+    <CourseCard
+      id="123"
+      title="test"
+      removeCourse={() => {}}
+      directToCoursePage={() => {}}
+    />
+  );
+  expect(asFragment()).toMatchSnapshot();
+});
 
-function setup() {
-  const actions = {
-    removeCourse: spy(),
-    directToCoursePage: spy()
-  };
-  const component = shallow(
-    <CourseCard id="100" title="test" description="test" {...actions} />
+test('clicks direct to course page button', async () => {
+  const directToCoursePage = jest.fn();
+
+  render(
+    <CourseCard
+      id="123"
+      title="test"
+      description="description"
+      removeCourse={() => {}}
+      directToCoursePage={directToCoursePage}
+    />
   );
 
-  return {
-    component,
-    actions,
-    button: component.find(Button)
-  };
-}
-
-describe('CourseCard component', () => {
-  it('should match exact snapshot', () => {
-    const { actions } = setup();
-    const courseCard = (
-      <div>
-        <Router>
-          <CourseCard id="100" title="test" description="test" {...actions} />
-        </Router>
-      </div>
-    );
-    const tree = renderer.create(courseCard).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(' Watch button should call directToCoursePage', () => {
-    const { button, actions } = setup();
-    button.simulate('click');
-    expect(actions.directToCoursePage.called).toBe(true);
-  });
+  fireEvent.click(screen.getByText('Watch'));
+  expect(directToCoursePage).toHaveBeenCalled();
 });

@@ -32,6 +32,7 @@ function MenuButton(props: Props) {
     <div className="relative inline-block">
       <div>
         <ButtonWrapper
+          role="button"
           type="button"
           onClick={e => {
             e.stopPropagation();

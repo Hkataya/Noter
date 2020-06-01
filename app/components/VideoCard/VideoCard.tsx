@@ -74,6 +74,7 @@ const VideoCard = (props: Props) => {
       </Second>
       <Third>
         <button
+          data-testid="watched-toggle"
           className="focus:outline-none"
           type="button"
           onClick={e => {
