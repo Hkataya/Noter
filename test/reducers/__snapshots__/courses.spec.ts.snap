@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`courses should handle ADD_COURSE 1`] = `
+Object {
+  "123": Object {
+    "description": "test",
+    "id": "123",
+    "title": "test",
+  },
+}
+`;
+
+exports[`courses should handle REMOVE_COURSE 1`] = `Object {}`;
