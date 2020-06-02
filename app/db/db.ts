@@ -11,7 +11,7 @@ PouchDB.plugin(find).plugin(rel);
 
 if (process.env.NODE_ENV !== 'production') {
   PouchDB.plugin(debug);
-  PouchDB.debug.enable('*');
+  PouchDB.debug.enable('pouchdb:api');
 }
 
 // Initialize DB
