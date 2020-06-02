@@ -1,6 +1,6 @@
 import { CourseType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import CourseRepository from '../db/CourseRepository';
+import CourseRepository from '../db/RepositoryInitializer';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';

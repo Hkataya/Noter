@@ -1,9 +1,7 @@
 import * as actions from '../../app/actions/courses';
 
-jest.mock('../../app/db/CourseRepository', () => ({
-  __esModule: true,
-  default: 'mockedDefaultExport',
-  namedExport: jest.fn()
+jest.mock('../../app/db/RepositoryInitializer', () => ({
+  __esModule: true
 }));
 describe('actions', () => {
   it('should create new course', () => {

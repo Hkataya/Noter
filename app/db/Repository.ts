@@ -1,4 +1,4 @@
-import { getRelMany, Schemas } from './Schema';
+import { getRelMany } from './Schema';
 
 export default class Repository<T> {
   db: PouchDB.Database;
@@ -22,7 +22,7 @@ export default class Repository<T> {
   };
 
   deleteEntity = (entityId: string) => {
-    console.log('original id',entityId);
+    console.log('original id', entityId);
     return this.relDB.rel
       .findHasMany(getRelMany(this.entityType), this.entityType, entityId)
       .then(async subDocs => {

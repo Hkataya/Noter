@@ -1,7 +1,7 @@
 import courses from '../../app/reducers/entities/courses';
 import { ADD_COURSE, REMOVE_COURSE } from '../../app/actions/courses';
 
-jest.mock('../../app/db/CourseRepository', () => ({
+jest.mock('../../app/db/RepositoryInitializer', () => ({
   __esModule: true,
   default: 'mockedDefaultExport',
   namedExport: jest.fn()
