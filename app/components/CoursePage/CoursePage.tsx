@@ -14,7 +14,7 @@ import SectionListContainer from '../SectionList/SectionListContainer';
 import { UIActionCreatorType } from '../../actions/ui';
 import { ModalType } from '../../reducers/ui/types';
 import Button from '../Button/Button';
-import NoteListContainer from '../NoteList/NoteListContainer';
+import TabList from '../TabList/TabList';
 
 type Props = EntityStateType &
   VideoActionCreatorType &
@@ -91,7 +91,7 @@ export default function CoursePage(props: Props) {
         </Resizable>
 
         <div className="bg-gray-800 h-full p-5 flex-auto">
-          <NoteListContainer videoId={currentlySelected} />
+          <TabList itemId={currentlySelected} />
         </div>
       </div>
     </div>
