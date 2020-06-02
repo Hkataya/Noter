@@ -5,6 +5,8 @@ import rel from 'relational-pouch';
 // @ts-ignore
 import debug from 'pouchdb-debug';
 
+import { Schemas } from './Schema';
+
 PouchDB.plugin(find).plugin(rel);
 
 if (process.env.NODE_ENV !== 'production') {
@@ -38,47 +40,4 @@ db.sync(remoteCouch, { live: true })
   });
 
 // Define Relational Schema
-export const relDB = db.setSchema([
-  {
-    singular: 'course',
-    plural: 'courses',
-    relations: {
-      sections: {
-        hasMany: { type: 'section', options: { queryInverse: 'course' } }
-      }
-    }
-  },
-  {
-    singular: 'section',
-    plural: 'sections',
-    relations: {
-      course: {
-        belongsTo: 'course'
-      },
-      videos: {
-        hasMany: { type: 'video', options: { queryInverse: 'section' } }
-      }
-    }
-  },
-  {
-    singular: 'video',
-    plural: 'videos',
-    relations: {
-      section: {
-        belongsTo: 'section'
-      },
-      notes: {
-        hasMany: { type: 'note', options: { queryInverse: 'video' } }
-      }
-    }
-  },
-  {
-    singular: 'note',
-    plural: 'notes',
-    relations: {
-      video: {
-        belongsTo: 'video'
-      }
-    }
-  }
-]);
+export const relDB = db.setSchema(Object.values(Schemas));
