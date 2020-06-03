@@ -348,5 +348,10 @@
     "extends": [
       "bliss"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn test"
+    }
   }
 }
