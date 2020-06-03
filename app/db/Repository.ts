@@ -17,9 +17,9 @@ export default class Repository<T> {
     this.entityType = entityType;
   }
 
-  createEntity = (entityData: Omit<T, 'id'>) => {
+  createEntity(entityData: Omit<T, 'id'>) {
     return this.relDB.rel.save(this.entityType, entityData);
-  };
+  }
 
   deleteEntity = (entityId: string) => {
     console.log('original id', entityId);
