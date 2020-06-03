@@ -1,10 +1,15 @@
-/* eslint-disable promise/always-return */
 import PouchDB from 'pouchdb-browser';
 import find from 'pouchdb-find';
 import rel from 'relational-pouch';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import debug from 'pouchdb-debug';
+import {
+  NoteType,
+  VideoType,
+  SectionType,
+  CourseType
+} from '../reducers/entities/types';
 
 PouchDB.plugin(find).plugin(rel);
 
@@ -83,7 +88,6 @@ export const relDB = db.setSchema([
     }
   }
 ]);
-<<<<<<< HEAD
 
 export const createCourse = (courseData: CourseType) => {
   return relDB.rel.save('course', courseData);
@@ -144,24 +148,15 @@ export const deleteNote = (noteId: NoteType['id']) => {
     });
 };
 // update note
-export const updateNote = (noteId: NoteType['id'], noteData: NoteType) => {
-  let retrievedNote: NoteType;
-  return relDB.rel
-    .find('note', noteId)
-    .then(data => {
-      data.notes.foreach((note: NoteType) => {
-        console.log(note);
-        if (note.id === noteId) retrievedNote = note;
-      });
-      if (retrievedNote) {
-        retrievedNote = noteData;
-        return relDB.rel.put(noteId, retrievedNote);
-      }
-      return null;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+export const updateNote = (
+  noteId: NoteType['id'],
+  updatedNoteData: NoteType
+) => {
+  return relDB.rel.find('note', noteId).then(oldData => {
+    const newData = oldData;
+    newData.notes[0] = updatedNoteData;
+    return relDB.rel.save('note', oldData.notes[0]);
+  });
 };
 export const createVideo = (videoData: VideoType) => {
   return relDB.rel.save('video', videoData);
@@ -192,5 +187,3 @@ export const getSectionsByCourseId = (courseId: CourseType['id']) => {
 export const getVideosBySectionId = (sectionId: SectionType['id']) => {
   return relDB.rel.find('section', sectionId).then(data => data.videos);
 };
-=======
->>>>>>> 5e330a867a9beb46a12d4e7026bc6090adf42228

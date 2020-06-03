@@ -1,10 +1,7 @@
 import { NoteType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-<<<<<<< HEAD
-import { updateNote, createNote, deleteNote } from '../db/db';
-=======
+// import { updateNote, createNote, deleteNote } from '../db/db';
 import NoteRepository from '../db/NoteRepository';
->>>>>>> 5e330a867a9beb46a12d4e7026bc6090adf42228
 
 export const ADD_NOTE = 'ADD_NOTE';
 export const REMOVE_NOTE = 'REMOVE_NOTE';
@@ -33,12 +30,15 @@ type UpdateNoteAction = {
 export type NoteActionCreatorType = {
   addNoteDb?: (noteData: Omit<NoteType, 'id'>) => unknown;
   removeNoteDb?: (noteId: NoteType['id']) => unknown;
+  updateNoteDb?: (noteData: NonNullable<NoteType>) => unknown;
 };
 
-export type NoteActionType = AddNoteAction | RemoveNoteAction;
+export type NoteActionType =
+  | AddNoteAction
+  | RemoveNoteAction
+  | UpdateNoteAction;
 
-<<<<<<< HEAD
-export function UpdateNote(noteData: NoteType, noteId: NoteType['id']) {
+export function updateNote(noteData: NoteType, noteId: NoteType['id']) {
   return {
     type: UPDATE_NOTE,
     payload: {
@@ -46,18 +46,8 @@ export function UpdateNote(noteData: NoteType, noteId: NoteType['id']) {
     }
   };
 }
-
-export function addNote(noteData: NoteType, videoId: VideoType['id']) {
-  // Generate Unique ID
-  const noteId = Date.now().toString();
-  const note = {
-    id: noteId,
-    ...noteData
-  };
-=======
 function addNote(noteData: NoteType) {
   const noteId = noteData.id;
->>>>>>> 5e330a867a9beb46a12d4e7026bc6090adf42228
   return {
     type: ADD_NOTE,
     payload: {
@@ -95,13 +85,12 @@ export function removeNoteDb(noteId: NoteType['id']) {
       });
   };
 }
-export function updateNoteDb(noteId: NoteType['id'], noteData: NoteType) {
+
+export function updateNoteDb(noteData: NonNullable<NoteType>) {
+  console.log('updating note', noteData);
   return (dispatch: Dispatch) => {
-    updateNote(noteId, noteData)
-      .then((updatedData: any) => {
-        Object.assign(noteData, updatedData);
-        return dispatch(updateNote(noteId, noteData));x
-      })
+    NoteRepository.updateEntity(noteData)
+      .then(updatedData => dispatch(updateNote(noteData, updatedData.id)))
       .catch((err: any) => {
         console.log(err);
       });
