@@ -5,7 +5,7 @@ import SectionRepository from '../db/SectionRepository';
 export const ADD_SECTION = 'ADD_SECTION';
 export const REMOVE_SECTION = 'REMOVE_SECTION';
 export const FETCH_SECTIONS_BY_COURSE = 'FETCH_SECTIONS_BY_COURSE';
-
+export const UPDATE_SECTION = 'UPDATE_SECTION';
 type addSectionAction = {
   type: typeof ADD_SECTION;
   payload: {
@@ -14,7 +14,13 @@ type addSectionAction = {
     sectionData: SectionType;
   };
 };
-
+type updateSection = {
+  type: typeof UPDATE_SECTION;
+  payload: {
+    sectionId: SectionType['id'];
+    sectionData: SectionType;
+  };
+};
 type removeSectionAction = {
   type: typeof REMOVE_SECTION;
   payload: {
@@ -33,12 +39,14 @@ export type SectionActionCreatorType = {
   addSectionDb?: (sectionData: Omit<SectionType, 'id'>) => unknown;
   removeSectionDb?: (sectionId: SectionType['id']) => unknown;
   fetchSectionsByCourseDb?: (courseId: CourseType['id']) => unknown;
+  updateSection?: (sectionId: SectionType['id']) => unknown;
 };
 
 export type SectionActionType =
   | addSectionAction
   | removeSectionAction
-  | FetchSectionsByCourseAction;
+  | FetchSectionsByCourseAction
+  | updateSection;
 
 export function addSection(sectionData: SectionType) {
   const sectionId = sectionData.id;
@@ -62,7 +70,17 @@ export function removeSection(sectionId: SectionType['id']) {
     }
   };
 }
-
+export function updateSection(
+  sectionId: SectionType['id'],
+  sectionData: SectionType
+) {
+  return {
+    type: UPDATE_SECTION,
+    payload: {
+      sectionData
+    }
+  };
+}
 export function fetchSectionsByCourse(sectionsData: Array<SectionType>) {
   return {
     type: FETCH_SECTIONS_BY_COURSE,
@@ -105,5 +123,15 @@ export function fetchSectionsByCourseDb(courseId: CourseType['id']) {
           console.log(err);
         });
     }
+  };
+}
+export function updatedDataDb(sectionData: NonNullable<SectionType>) {
+  console.log('updating note', sectionData);
+  return (dispatch: Dispatch) => {
+    SectionRepository.updateEntity(sectionData)
+      .then(updatedData => dispatch(updateSection(sectionData.id, sectionData)))
+      .catch((err: any) => {
+        console.log(err);
+      });
   };
 }

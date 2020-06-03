@@ -6,7 +6,13 @@ export const ADD_VIDEO = 'ADD_VIDEO';
 export const REMOVE_VIDEO = 'REMOVE_VIDEO';
 export const TOGGLE_WATCHED = 'TOGGLE_WATCHED';
 export const FETCH_VIDEOS_BY_SECTION = 'FETCH_VIDEOS_BY_SECTION';
-
+export const UPDATE_VIDEO = 'UPDATE_VIDEO';
+type updateVideo = {
+  type: typeof UPDATE_VIDEO;
+  payload: {
+    videoData: VideoType;
+  };
+};
 type AddVideoAction = {
   type: typeof ADD_VIDEO;
   payload: {
@@ -41,13 +47,15 @@ export type VideoActionCreatorType = {
   removeVideoDb?: (videoId: VideoType['id']) => unknown;
   toggleWatched?: (videoId: VideoType['id']) => void;
   fetchVideosBySectionDb?: (sectionId: SectionType['id']) => unknown;
+  updateVideo?: (videoData: VideoType) => unknown;
 };
 
 export type VideoActionType =
   | AddVideoAction
   | RemoveVideoAction
   | ToggleWatchedAction
-  | FetchVideosBySectionAction;
+  | FetchVideosBySectionAction
+  | updateVideo;
 
 export function addVideo(videoData: VideoType) {
   const videoId = videoData.id;
@@ -72,7 +80,15 @@ export function removeVideo(videoId: VideoType['id']) {
     }
   };
 }
-
+export function updateVideo(videoId: VideoType['id'], videoData: VideoType) {
+  return {
+    type: UPDATE_VIDEO,
+    payload: {
+      videoId,
+      videoData
+    }
+  };
+}
 export function toggleWatched(videoId: VideoType['id']) {
   return {
     type: TOGGLE_WATCHED,
@@ -124,5 +140,15 @@ export function fetchVideosBySectionDb(sectionId: SectionType['id']) {
           console.log(err);
         });
     }
+  };
+}
+export function updateVideoDb(videoData: NonNullable<VideoType>) {
+  console.log('updating video', videoData);
+  return (dispatch: Dispatch) => {
+    VideoRepository.updateEntity(videoData)
+      .then(updatedData => dispatch(updateVideo(videoData.id, updatedData.id)))
+      .catch((err: any) => {
+        console.log(err);
+      });
   };
 }

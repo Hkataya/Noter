@@ -104,3 +104,13 @@ export function fetchAllCoursesDb() {
       });
   };
 }
+export function updateCourseDb(courseData: NonNullable<CourseType>) {
+  console.log('updating course', courseData);
+  return (dispatch: Dispatch) => {
+    CourseRepository.updateEntity(courseData)
+      .then(updatedData => dispatch(updateCourse(courseData)))
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+}
