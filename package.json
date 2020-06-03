@@ -290,6 +290,7 @@
     "electron-log": "^4.0.6",
     "electron-updater": "^4.2.0",
     "history": "^4.10.1",
+    "node-fetch": "^2.6.0",
     "normalizr": "^3.6.0",
     "postcss-loader": "^3.0.0",
     "pouchdb-browser": "^7.2.1",
