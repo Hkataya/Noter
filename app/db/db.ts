@@ -1,3 +1,4 @@
+/* eslint-disable promise/always-return */
 import PouchDB from 'pouchdb-browser';
 import find from 'pouchdb-find';
 import rel from 'relational-pouch';
@@ -131,6 +132,26 @@ export const deleteNote = (noteId: NoteType['id']) => {
         if (note.id === noteId) retrievedNote = note;
       });
       if (retrievedNote) return relDB.rel.del('note', retrievedNote);
+      return null;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+// update note
+export const updateNote = (noteId: NoteType['id'], noteData: NoteType) => {
+  let retrievedNote: NoteType;
+  return relDB.rel
+    .find('note', noteId)
+    .then(data => {
+      data.notes.foreach((note: NoteType) => {
+        console.log(note);
+        if (note.id === noteId) retrievedNote = note;
+      });
+      if (retrievedNote) {
+        retrievedNote = noteData;
+        return relDB.rel.put(noteId, retrievedNote);
+      }
       return null;
     })
     .catch(err => {
