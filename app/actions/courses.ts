@@ -1,6 +1,6 @@
 import { CourseType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import { createCourse, deleteCourse } from '../db/db';
+import CourseRepository from '../db/CourseRepository';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
@@ -22,8 +22,8 @@ type UpdateCourseAction = {
 };
 
 export type CourseActionCreatorType = {
-  addCourseDb?: (courseData: CourseType) => any;
-  removeCourseDb?: (courseId: CourseType['id']) => any;
+  addCourseDb?: (courseData: Omit<CourseType, 'id'>) => unknown;
+  removeCourseDb?: (courseId: CourseType['id']) => unknown;
   updateCourse?: (courseData: CourseType) => void;
 };
 
@@ -53,13 +53,12 @@ export function updateCourse(courseData: CourseType) {
   };
 }
 
-export function addCourseDb(courseData: CourseType) {
+export function addCourseDb(courseData: Omit<CourseType, 'id'>) {
   return (dispatch: Dispatch) => {
-    createCourse(courseData)
-      .then(updatedData => {
-        Object.assign(courseData, updatedData);
-        return dispatch(addCourse(courseData));
-      })
+    CourseRepository.createEntity(courseData)
+      .then(updatedData =>
+        dispatch(addCourse(Object.assign(courseData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });
@@ -68,11 +67,8 @@ export function addCourseDb(courseData: CourseType) {
 
 export function removeCourseDb(courseId: CourseType['id']) {
   return (dispatch: Dispatch) => {
-    deleteCourse(courseId)
-      .then(res => {
-        if (res) dispatch(removeCourse(courseId));
-        return null;
-      })
+    CourseRepository.deleteEntity(courseId)
+      .then(() => dispatch(removeCourse(courseId)))
       .catch(err => {
         console.log(err);
       });

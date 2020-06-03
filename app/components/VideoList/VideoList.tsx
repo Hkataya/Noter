@@ -42,6 +42,7 @@ export default function VideoList(props: Props) {
           }}
           thumbnail={placeholderThumbnail}
           key={video.id}
+          id={video.id}
           watched={video.watched}
           url={video.url}
           section={sectionId}

@@ -1,5 +1,5 @@
 export type CourseType = {
-  id?: string;
+  id: string;
   title: string;
   description?: string;
   duration?: string;
@@ -8,7 +8,7 @@ export type CourseType = {
 };
 
 export type VideoType = {
-  id?: string;
+  id: string;
   title: string;
   url: string;
   watched: boolean;
@@ -17,7 +17,7 @@ export type VideoType = {
 };
 
 export type NoteType = {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   timestamp: string;
@@ -25,7 +25,7 @@ export type NoteType = {
 };
 
 export type SectionType = {
-  id?: string;
+  id: string;
   title: string;
   course: CourseType['id'];
 };

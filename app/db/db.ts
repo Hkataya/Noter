@@ -2,18 +2,21 @@
 import PouchDB from 'pouchdb-browser';
 import find from 'pouchdb-find';
 import rel from 'relational-pouch';
-import {
-  CourseType,
-  VideoType,
-  SectionType,
-  NoteType
-} from '../reducers/entities/types';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import debug from 'pouchdb-debug';
 
 PouchDB.plugin(find).plugin(rel);
 
+if (process.env.NODE_ENV !== 'production') {
+  PouchDB.plugin(debug);
+  PouchDB.debug.enable('*');
+}
+
+// Initialize DB
 const dbName = 'mydb';
-const remoteCouch = `http://admin:admin@127.0.0.1:5984/${dbName}`;
-const db = new PouchDB('mydb');
+const remoteCouch = `${process.env.COUCHDB_URL}${dbName}`;
+export const db = new PouchDB('mydb');
 
 // Fetch all documents from DB (including deleted docs)
 db.changes({
@@ -35,7 +38,8 @@ db.sync(remoteCouch, { live: true })
     console.log(err);
   });
 
-const relDB = db.setSchema([
+// Define Relational Schema
+export const relDB = db.setSchema([
   {
     singular: 'course',
     plural: 'courses',
@@ -79,6 +83,7 @@ const relDB = db.setSchema([
     }
   }
 ]);
+<<<<<<< HEAD
 
 export const createCourse = (courseData: CourseType) => {
   return relDB.rel.save('course', courseData);
@@ -187,3 +192,5 @@ export const getSectionsByCourseId = (courseId: CourseType['id']) => {
 export const getVideosBySectionId = (sectionId: SectionType['id']) => {
   return relDB.rel.find('section', sectionId).then(data => data.videos);
 };
+=======
+>>>>>>> 5e330a867a9beb46a12d4e7026bc6090adf42228

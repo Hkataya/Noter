@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CourseActionCreatorType } from '../../actions/courses';
-import { CourseType } from '../../reducers/entities/types';
 import { WrapperForm, FormButton, FormInput, FormLabel } from './FormStyle';
 
 type Props = CourseActionCreatorType & {
@@ -15,7 +14,7 @@ const CourseForm = (props: Props) => {
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    const course: CourseType = {
+    const course = {
       title,
       description,
       duration: '0'
