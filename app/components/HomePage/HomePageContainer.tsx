@@ -2,7 +2,11 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import HomePage from './HomePage';
-import { addCourseDb, removeCourseDb } from '../../actions/courses';
+import {
+  addCourseDb,
+  removeCourseDb,
+  fetchAllCoursesDb
+} from '../../actions/courses';
 
 function mapStateToProps(state: any) {
   return {
@@ -14,7 +18,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
       addCourseDb,
-      removeCourseDb
+      removeCourseDb,
+      fetchAllCoursesDb
     },
     dispatch
   );

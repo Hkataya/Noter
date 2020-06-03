@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { allvideos } from '../../normalized-state';
 
 import {
   ADD_VIDEO,
@@ -11,7 +10,7 @@ import {
 import { NoteActionType } from '../../actions/notes';
 
 export default function videos(
-  state = allvideos,
+  state = {},
   action: VideoActionType | NoteActionType
 ) {
   const newState: any = { ...state };

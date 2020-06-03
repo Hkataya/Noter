@@ -5,6 +5,7 @@ import CourseRepository from '../db/RepositoryInitializer';
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
 export const UPDATE_COURSE = 'UPDATE_COURSE';
+export const FETCH_ALL_COURSES = 'FETCH_ALL_COURSES';
 
 type AddCourseAction = {
   type: typeof ADD_COURSE;
@@ -21,16 +22,25 @@ type UpdateCourseAction = {
   payload: CourseType;
 };
 
+type FetchAllCoursesAction = {
+  type: typeof FETCH_ALL_COURSES;
+  payload: {
+    courses: Array<CourseType>;
+  };
+};
+
 export type CourseActionCreatorType = {
   addCourseDb?: (courseData: Omit<CourseType, 'id'>) => unknown;
   removeCourseDb?: (courseId: CourseType['id']) => unknown;
   updateCourse?: (courseData: CourseType) => void;
+  fetchAllCoursesDb?: () => unknown;
 };
 
 export type CourseActionType =
   | AddCourseAction
   | RemoveCourseAction
-  | UpdateCourseAction;
+  | UpdateCourseAction
+  | FetchAllCoursesAction;
 
 export function addCourse(courseData: CourseType) {
   return {
@@ -53,6 +63,15 @@ export function updateCourse(courseData: CourseType) {
   };
 }
 
+export function fetchAllCourses(coursesData: Array<CourseType>) {
+  return {
+    type: FETCH_ALL_COURSES,
+    payload: {
+      courses: coursesData
+    }
+  };
+}
+
 export function addCourseDb(courseData: Omit<CourseType, 'id'>) {
   return (dispatch: Dispatch) => {
     CourseRepository.createEntity(courseData)
@@ -69,6 +88,17 @@ export function removeCourseDb(courseId: CourseType['id']) {
   return (dispatch: Dispatch) => {
     CourseRepository.deleteEntity(courseId)
       .then(() => dispatch(removeCourse(courseId)))
+      .catch(err => {
+        console.log(err);
+      });
+  };
+}
+export function fetchAllCoursesDb() {
+  return (dispatch: Dispatch) => {
+    CourseRepository.getAllCourses()
+      .then((courses: Array<CourseType>) => {
+        return dispatch(fetchAllCourses(courses));
+      })
       .catch(err => {
         console.log(err);
       });

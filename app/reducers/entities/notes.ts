@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { allnotes } from '../../normalized-state';
 
 import { ADD_NOTE, REMOVE_NOTE, NoteActionType } from '../../actions/notes';
 
-export default function notes(state = allnotes, action: NoteActionType) {
+export default function notes(state = {}, action: NoteActionType) {
   const newState: any = { ...state };
   switch (action.type) {
     case ADD_NOTE:

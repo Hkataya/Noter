@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../SearchBar/SearchBar';
@@ -23,7 +23,14 @@ type Props = EntityStateType & CourseActionCreatorType;
 export default function HomePage(props: Props) {
   const [modalVisibile, setModalVisible] = useState(false);
   const history = useHistory();
-  const { courses, removeCourseDb, addCourseDb } = props;
+  const { courses, removeCourseDb, addCourseDb, fetchAllCoursesDb } = props;
+
+  useEffect(() => {
+    if (fetchAllCoursesDb) {
+      console.log('Fetching Data');
+      fetchAllCoursesDb();
+    }
+  }, []);
 
   return (
     <HomeWrapper>

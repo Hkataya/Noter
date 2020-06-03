@@ -8,7 +8,9 @@ class VideoRepository extends Repository<VideoType> {
   }
 
   getVideosBySectionId = (sectionId: SectionType['id']) => {
-    return relDB.rel.find('section', sectionId).then(data => data.videos);
+    return relDB.rel
+      .findHasMany('video', 'section', sectionId)
+      .then(data => data.videos);
   };
 }
 

@@ -13,14 +13,10 @@ function mapStateToProps(state: any, ownProps: any) {
   const filteredSections: Array<SectionType> = [];
   if (state.entities.sections) {
     Object.keys(state.entities.sections).forEach((sectionId: string) => {
-      if (
-        state.entities.sections[sectionId].course &&
-        state.entities.sections[sectionId].course === courseId
-      )
+      if (state.entities.sections[sectionId].course === courseId)
         filteredSections.push(state.entities.sections[sectionId]);
     });
   }
-
   return {
     courseId,
     sections: filteredSections

@@ -8,7 +8,9 @@ class SectionRepository extends Repository<SectionType> {
   }
 
   getSectionsByCourseId = (courseId: CourseType['id']) => {
-    return relDB.rel.find('course', courseId).then(data => data.sections);
+    return relDB.rel
+      .findHasMany('section', 'course', courseId)
+      .then(data => data.sections);
   };
 }
 

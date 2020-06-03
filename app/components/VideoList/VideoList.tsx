@@ -27,7 +27,6 @@ export default function VideoList(props: Props) {
   } = props;
   const history = useHistory();
   useEffect(() => {
-    console.log(fetchVideosBySectionDb);
     if (fetchVideosBySectionDb) {
       console.log('Fetching Data');
       fetchVideosBySectionDb(sectionId);

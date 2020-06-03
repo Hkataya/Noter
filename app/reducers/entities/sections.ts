@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { allsections } from '../../normalized-state';
 
 import {
   ADD_SECTION,
@@ -8,10 +7,7 @@ import {
   SectionActionType
 } from '../../actions/sections';
 
-export default function sections(
-  state = allsections,
-  action: SectionActionType
-) {
+export default function sections(state = {}, action: SectionActionType) {
   const newState: any = { ...state };
   switch (action.type) {
     case ADD_SECTION:
@@ -27,7 +23,7 @@ export default function sections(
     case FETCH_SECTIONS_BY_COURSE:
       if (action.payload && action.payload.sections) {
         action.payload.sections.forEach(section => {
-          if (section.id) newState[section.id] = section;
+          newState[section.id] = section;
         });
       }
 
