@@ -39,13 +39,14 @@ const VideoForm = (props: Props) => {
           type="text"
           placeholder="title"
           onChange={e => setTitle(e.target.value)}
+          required
         />
       </div>
 
       <div className="mt-5">
         <FormLabel>URL</FormLabel>
         <FormInput
-          type="text"
+          type="url"
           placeholder="url"
           onChange={e => setUrl(e.target.value)}
         />
