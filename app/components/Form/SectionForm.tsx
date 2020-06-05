@@ -35,6 +35,7 @@ const AddSectionForm = (props: Props) => {
           type="text"
           placeholder="title"
           onChange={e => setTitle(e.target.value)}
+          required
         />
       </div>
       <div className="mt-5">
