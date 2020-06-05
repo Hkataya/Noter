@@ -34,6 +34,7 @@ const CourseForm = (props: Props) => {
           type="text"
           placeholder="title"
           onChange={e => setTitle(e.target.value)}
+          required
         />
       </div>
       <div className="mt-5">
@@ -42,6 +43,7 @@ const CourseForm = (props: Props) => {
           type="text"
           placeholder="description"
           onChange={e => setDescription(e.target.value)}
+          required
         />
       </div>
       <div className="mt-5">

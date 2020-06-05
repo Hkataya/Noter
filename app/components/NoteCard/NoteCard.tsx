@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
+import useAlert from 'react-alert';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 
