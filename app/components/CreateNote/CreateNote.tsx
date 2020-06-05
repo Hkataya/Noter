@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-shadow */
+/* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
@@ -6,6 +9,9 @@ import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
 import { NoteActionCreatorType } from '../../actions/notes';
 import { NoteType, VideoType } from '../../reducers/entities/types';
+// eslint-disable-next-line import/no-unresolved
+import TimeStampSort from '../NoteList/NoteList';
+import notes from '../../reducers/entities/notes';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -36,13 +42,14 @@ const StyledTextareaAutosize = styled(TextareaAutosize).attrs({
 type Props = NoteActionCreatorType & {
   videoId: VideoType['id'];
   timestamp: NoteType['timestamp'];
+  notes: Array<NoteType>;
 };
 
 const CreateNote = (props: Props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { addNoteDb, videoId, timestamp } = props;
-
+  const notes = props;
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     const note = {
@@ -52,7 +59,10 @@ const CreateNote = (props: Props) => {
       video: videoId
     };
 
-    if (addNoteDb) addNoteDb(note);
+    if (addNoteDb) {
+      addNoteDb(note);
+      TimeStampSort(notes);
+    }
   };
 
   return (
@@ -77,6 +87,7 @@ const CreateNote = (props: Props) => {
           <button
             type="submit"
             className="w-full focus:outline-none px-3 py-2 bg-purple-900 text-white font-bold uppercase rounded"
+            onClick={() => TimeStampSort(notes)}
           >
             +
           </button>
