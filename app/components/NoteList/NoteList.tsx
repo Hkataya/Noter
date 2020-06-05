@@ -1,7 +1,6 @@
-/* eslint-disable no-shadow */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { VideoType, NoteType } from '../../reducers/entities/types';
-import { NoteActionCreatorType, removeNoteDb } from '../../actions/notes';
+import { NoteActionCreatorType } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
 
