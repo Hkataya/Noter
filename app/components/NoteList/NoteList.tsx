@@ -1,6 +1,7 @@
-import React from 'react';
+/* eslint-disable no-shadow */
+import React, { useEffect } from 'react';
 import { VideoType, NoteType } from '../../reducers/entities/types';
-import { NoteActionCreatorType } from '../../actions/notes';
+import { NoteActionCreatorType, removeNoteDb } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
 
@@ -9,9 +10,8 @@ type Props = NoteActionCreatorType &
     videoId: VideoType['id'];
     notes: Array<NoteType>;
   };
-
 export default function NoteList(props: Props) {
-  const { notes, setTargetTimestamp, videoId } = props;
+  const { notes, setTargetTimestamp, videoId, removeNoteDb } = props;
   return (
     <div>
       {notes.length ? (
@@ -26,6 +26,9 @@ export default function NoteList(props: Props) {
             timestampVisible
             onTimestampClick={() => {
               if (setTargetTimestamp) setTargetTimestamp(note.timestamp);
+            }}
+            onRemoveClick={() => {
+              if (removeNoteDb) removeNoteDb(note.id);
             }}
           />
         ))

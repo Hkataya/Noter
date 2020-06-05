@@ -5,6 +5,7 @@ import TextareaAutosize from 'react-autosize-textarea';
 import useAlert from 'react-alert';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
+import NoteRepository from '../db/NoteRepository';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -40,20 +41,26 @@ type Props = NoteType &
   NoteActionCreatorType & {
     timestampVisible: boolean;
     onTimestampClick: () => void;
+    onRemoveClick: () => void;
   };
-
 const NoteCard = (props: Props) => {
   const {
     title,
     description,
     timestamp,
     timestampVisible,
-    onTimestampClick
+    onTimestampClick,
+    onRemoveClick
   } = props;
   const [editable, setEditable] = useState(false);
   const [updatedTitle, setTitle] = useState(title);
   const [updatedDescription, setDescription] = useState(description);
-
+  const items = [
+    {
+      label: 'remove',
+      action: onRemoveClick
+    }
+  ];
   return (
     <Wrapper>
       {editable ? (
@@ -114,7 +121,11 @@ const NoteCard = (props: Props) => {
             >
               <i className="fas fa-pen mr-5" />
             </button>
-            <button type="button" className="focus:outline-none">
+            <button
+              type="button"
+              onClick={onRemoveClick}
+              className="focus:outline-none"
+            >
               <i className="fas fa-trash  " />
             </button>
           </ButtonWrapper>
