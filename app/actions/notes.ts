@@ -1,6 +1,5 @@
 import { NoteType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-// import { updateNote, createNote, deleteNote } from '../db/db';
 import NoteRepository from '../db/NoteRepository';
 
 export const ADD_NOTE = 'ADD_NOTE';

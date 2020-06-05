@@ -1,9 +1,15 @@
 /* eslint-disable no-shadow */
 import React, { useEffect } from 'react';
 import { VideoType, NoteType } from '../../reducers/entities/types';
-import { NoteActionCreatorType, removeNoteDb } from '../../actions/notes';
+import {
+  NoteActionCreatorType,
+  removeNoteDb,
+  updateNote,
+  updateNoteDb
+} from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
+import { updateCourse } from '../../actions/courses';
 
 type Props = NoteActionCreatorType &
   UIActionCreatorType & {
@@ -29,6 +35,9 @@ export default function NoteList(props: Props) {
             }}
             onRemoveClick={() => {
               if (removeNoteDb) removeNoteDb(note.id);
+            }}
+            onUpdateClick={() => {
+              if (updateNoteDb) updateNoteDb(note);
             }}
           />
         ))

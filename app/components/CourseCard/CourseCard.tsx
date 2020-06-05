@@ -50,6 +50,7 @@ const ListItem = styled.li.attrs({
 type Props = CourseType & {
   removeCourse: () => void;
   directToCoursePage: () => void;
+  updateCourse: () => void;
 };
 
 const CourseCard = (props: Props) => {
@@ -58,13 +59,18 @@ const CourseCard = (props: Props) => {
     thumbnail,
     duration,
     removeCourse,
-    directToCoursePage
+    directToCoursePage,
+    updateCourse
   } = props;
 
   const items = [
     {
       label: 'Remove',
       action: removeCourse
+    },
+    {
+      label: 'update',
+      action: updateCourse
     }
   ];
 

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
-import useAlert from 'react-alert';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 import NoteRepository from '../db/NoteRepository';
@@ -42,6 +41,7 @@ type Props = NoteType &
     timestampVisible: boolean;
     onTimestampClick: () => void;
     onRemoveClick: () => void;
+    onUpdateClick: () => void;
   };
 const NoteCard = (props: Props) => {
   const {
@@ -50,7 +50,8 @@ const NoteCard = (props: Props) => {
     timestamp,
     timestampVisible,
     onTimestampClick,
-    onRemoveClick
+    onRemoveClick,
+    onUpdateClick
   } = props;
   const [editable, setEditable] = useState(false);
   const [updatedTitle, setTitle] = useState(title);
@@ -59,6 +60,10 @@ const NoteCard = (props: Props) => {
     {
       label: 'remove',
       action: onRemoveClick
+    },
+    {
+      label: 'update',
+      action: onUpdateClick
     }
   ];
   return (
@@ -93,7 +98,7 @@ const NoteCard = (props: Props) => {
             <button
               type="button"
               className="focus:outline-none px-3 py-2 bg-purple-900 text-white text-xs font-bold uppercase rounded"
-              onClick={() => setEditable(false)}
+              onClick={onUpdateClick}
             >
               save
             </button>

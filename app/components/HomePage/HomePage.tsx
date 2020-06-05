@@ -23,7 +23,13 @@ type Props = EntityStateType & CourseActionCreatorType;
 export default function HomePage(props: Props) {
   const [modalVisibile, setModalVisible] = useState(false);
   const history = useHistory();
-  const { courses, removeCourseDb, addCourseDb, fetchAllCoursesDb } = props;
+  const {
+    courses,
+    removeCourseDb,
+    addCourseDb,
+    fetchAllCoursesDb,
+    updateCourseDb
+  } = props;
 
   useEffect(() => {
     if (fetchAllCoursesDb) {
@@ -60,6 +66,9 @@ export default function HomePage(props: Props) {
               if (removeCourseDb) removeCourseDb(k);
             }}
             directToCoursePage={() => history.push(`${routes.COURSE}/${k}`)}
+            updateCourse={() => {
+              if (updateCourseDb) updateCourseDb(courses[k]);
+            }}
           />
         ))}
       </CourseWrapper>

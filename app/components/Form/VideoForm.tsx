@@ -49,6 +49,7 @@ const VideoForm = (props: Props) => {
           type="url"
           placeholder="url"
           onChange={e => setUrl(e.target.value)}
+          required
         />
       </div>
 
