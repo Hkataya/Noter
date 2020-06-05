@@ -30,7 +30,7 @@ type UpdateNoteAction = {
 export type NoteActionCreatorType = {
   addNoteDb?: (noteData: Omit<NoteType, 'id'>) => unknown;
   removeNoteDb?: (noteId: NoteType['id']) => unknown;
-  updateNoteDb?: (noteData: NonNullable<NoteType>) => unknown;
+  updateNoteDb?: (noteData: NoteType) => unknown;
 };
 
 export type NoteActionType =
@@ -86,7 +86,7 @@ export function removeNoteDb(noteId: NoteType['id']) {
   };
 }
 
-export function updateNoteDb(noteData: NonNullable<NoteType>) {
+export function updateNoteDb(noteData: NoteType) {
   console.log('updating note', noteData);
   return (dispatch: Dispatch) => {
     NoteRepository.updateEntity(noteData)

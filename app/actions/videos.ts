@@ -142,7 +142,7 @@ export function fetchVideosBySectionDb(sectionId: SectionType['id']) {
     }
   };
 }
-export function updateVideoDb(videoData: NonNullable<VideoType>) {
+export function updateVideoDb(videoData: VideoType) {
   console.log('updating video', videoData);
   return (dispatch: Dispatch) => {
     VideoRepository.updateEntity(videoData)
