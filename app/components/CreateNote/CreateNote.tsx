@@ -62,6 +62,7 @@ const CreateNote = (props: Props) => {
           <TitleInput
             placeholder="title"
             onChange={e => setTitle(e.target.value)}
+            required
           />
         </Header>
         <Body>
@@ -69,6 +70,7 @@ const CreateNote = (props: Props) => {
             placeholder="descrtipion"
             // @ts-ignore
             onChange={e => setDescription(e.target.value)}
+            required
           />
         </Body>
         <ButtonWrapper>
