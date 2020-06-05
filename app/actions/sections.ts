@@ -125,7 +125,9 @@ export function fetchSectionsByCourseDb(courseId: CourseType['id']) {
 export function updateSectionDb(sectionData: SectionType) {
   return (dispatch: Dispatch) => {
     SectionRepository.updateEntity(sectionData)
-      .then(() => dispatch(updateSection(sectionData)))
+      .then(updatedData =>
+        dispatch(updateSection(Object.assign(sectionData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });

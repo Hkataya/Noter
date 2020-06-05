@@ -87,7 +87,9 @@ export function removeNoteDb(noteId: NoteType['id']) {
 export function updateNoteDb(noteData: NoteType) {
   return (dispatch: Dispatch) => {
     NoteRepository.updateEntity(noteData)
-      .then(() => dispatch(updateNote(noteData)))
+      .then(updatedData =>
+        dispatch(updateNote(Object.assign(noteData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });

@@ -107,7 +107,9 @@ export function fetchAllCoursesDb() {
 export function updateCourseDb(courseData: CourseType) {
   return (dispatch: Dispatch) => {
     CourseRepository.updateEntity(courseData)
-      .then(() => dispatch(updateCourse(courseData)))
+      .then(updatedData =>
+        dispatch(updateCourse(Object.assign(courseData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });

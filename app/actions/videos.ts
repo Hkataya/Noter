@@ -144,7 +144,9 @@ export function fetchVideosBySectionDb(sectionId: SectionType['id']) {
 export function updateVideoDb(videoData: VideoType) {
   return (dispatch: Dispatch) => {
     VideoRepository.updateEntity(videoData)
-      .then(() => dispatch(updateVideo(videoData)))
+      .then(updatedData =>
+        dispatch(updateVideo(Object.assign(videoData, updatedData)))
+      )
       .catch(err => {
         console.log(err);
       });
