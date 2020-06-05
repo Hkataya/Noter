@@ -4,7 +4,8 @@ import {
   ADD_SECTION,
   REMOVE_SECTION,
   FETCH_SECTIONS_BY_COURSE,
-  SectionActionType
+  SectionActionType,
+  UPDATE_SECTION
 } from '../../actions/sections';
 
 export default function sections(state = {}, action: SectionActionType) {
@@ -27,6 +28,11 @@ export default function sections(state = {}, action: SectionActionType) {
         });
       }
 
+      return newState;
+
+    case UPDATE_SECTION:
+      if (action.payload && action.payload.sectionData)
+        newState[action.payload.sectionData.id] = action.payload.sectionData;
       return newState;
 
     default:

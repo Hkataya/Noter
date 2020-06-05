@@ -40,10 +40,6 @@ export default class Repository<T> {
   };
 
   updateEntity = (entityData: T) => {
-    return this.relDB.rel.find(this.entityType, entityData.id).then(oldData => {
-      const newData = oldData;
-      newData.notes[0] = entityData;
-      return this.relDB.rel.save(this.entityType, oldData.notes[0]);
-    });
+    return this.relDB.rel.save(this.entityType, entityData);
   };
 }

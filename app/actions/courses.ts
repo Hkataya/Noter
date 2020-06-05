@@ -32,7 +32,7 @@ type FetchAllCoursesAction = {
 export type CourseActionCreatorType = {
   addCourseDb?: (courseData: Omit<CourseType, 'id'>) => unknown;
   removeCourseDb?: (courseId: CourseType['id']) => unknown;
-  updateCourse?: (courseData: CourseType) => void;
+  updateCourseDb?: (courseData: CourseType) => unknown;
   fetchAllCoursesDb?: () => unknown;
 };
 
@@ -105,11 +105,10 @@ export function fetchAllCoursesDb() {
   };
 }
 export function updateCourseDb(courseData: CourseType) {
-  console.log('updating course', courseData);
   return (dispatch: Dispatch) => {
     CourseRepository.updateEntity(courseData)
-      .then(updatedData => dispatch(updateCourse(courseData)))
-      .catch((err: any) => {
+      .then(() => dispatch(updateCourse(courseData)))
+      .catch(err => {
         console.log(err);
       });
   };

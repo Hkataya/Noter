@@ -1,6 +1,5 @@
 import { NoteType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-// import { updateNote, createNote, deleteNote } from '../db/db';
 import NoteRepository from '../db/NoteRepository';
 
 export const ADD_NOTE = 'ADD_NOTE';
@@ -23,7 +22,6 @@ type RemoveNoteAction = {
 type UpdateNoteAction = {
   type: typeof UPDATE_NOTE;
   payload: {
-    noteId: NoteType['id'];
     noteData: NoteType;
   };
 };
@@ -38,7 +36,7 @@ export type NoteActionType =
   | RemoveNoteAction
   | UpdateNoteAction;
 
-export function updateNote(noteData: NoteType, noteId: NoteType['id']) {
+export function updateNote(noteData: NoteType) {
   return {
     type: UPDATE_NOTE,
     payload: {
@@ -87,11 +85,10 @@ export function removeNoteDb(noteId: NoteType['id']) {
 }
 
 export function updateNoteDb(noteData: NoteType) {
-  console.log('updating note', noteData);
   return (dispatch: Dispatch) => {
     NoteRepository.updateEntity(noteData)
-      .then(updatedData => dispatch(updateNote(noteData, updatedData.id)))
-      .catch((err: any) => {
+      .then(() => dispatch(updateNote(noteData)))
+      .catch(err => {
         console.log(err);
       });
   };
