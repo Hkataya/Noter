@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable func-names */
 /* eslint-disable no-shadow */
 import React, { useEffect } from 'react';
@@ -8,6 +9,11 @@ import {
   updateNote,
   updateNoteDb
 } from '../../actions/notes';
+=======
+import React from 'react';
+import { VideoType, NoteType } from '../../reducers/entities/types';
+import { NoteActionCreatorType } from '../../actions/notes';
+>>>>>>> 8b967dc9ea56469c66dcef4cd12d358abd3f75c2
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
 import { updateCourse } from '../../actions/courses';

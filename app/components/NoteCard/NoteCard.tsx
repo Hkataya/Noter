@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
-import NoteRepository from '../db/NoteRepository';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -56,6 +55,7 @@ const NoteCard = (props: Props) => {
   const [editable, setEditable] = useState(false);
   const [updatedTitle, setTitle] = useState(title);
   const [updatedDescription, setDescription] = useState(description);
+<<<<<<< HEAD
   const items = [
     {
       label: 'remove',
@@ -66,6 +66,8 @@ const NoteCard = (props: Props) => {
       action: onUpdateClick
     }
   ];
+=======
+>>>>>>> 8b967dc9ea56469c66dcef4cd12d358abd3f75c2
   return (
     <Wrapper>
       {editable ? (

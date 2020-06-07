@@ -6,6 +6,7 @@ export const ADD_SECTION = 'ADD_SECTION';
 export const REMOVE_SECTION = 'REMOVE_SECTION';
 export const FETCH_SECTIONS_BY_COURSE = 'FETCH_SECTIONS_BY_COURSE';
 export const UPDATE_SECTION = 'UPDATE_SECTION';
+
 type addSectionAction = {
   type: typeof ADD_SECTION;
   payload: {
@@ -14,10 +15,9 @@ type addSectionAction = {
     sectionData: SectionType;
   };
 };
-type updateSection = {
+type updateSectionAction = {
   type: typeof UPDATE_SECTION;
   payload: {
-    sectionId: SectionType['id'];
     sectionData: SectionType;
   };
 };
@@ -39,14 +39,14 @@ export type SectionActionCreatorType = {
   addSectionDb?: (sectionData: Omit<SectionType, 'id'>) => unknown;
   removeSectionDb?: (sectionId: SectionType['id']) => unknown;
   fetchSectionsByCourseDb?: (courseId: CourseType['id']) => unknown;
-  updateSection?: (sectionId: SectionType['id']) => unknown;
+  updateSectionDb?: (sectionData: SectionType) => unknown;
 };
 
 export type SectionActionType =
   | addSectionAction
   | removeSectionAction
   | FetchSectionsByCourseAction
-  | updateSection;
+  | updateSectionAction;
 
 export function addSection(sectionData: SectionType) {
   const sectionId = sectionData.id;
@@ -70,10 +70,7 @@ export function removeSection(sectionId: SectionType['id']) {
     }
   };
 }
-export function updateSection(
-  sectionId: SectionType['id'],
-  sectionData: SectionType
-) {
+export function updateSection(sectionData: SectionType) {
   return {
     type: UPDATE_SECTION,
     payload: {
@@ -125,12 +122,13 @@ export function fetchSectionsByCourseDb(courseId: CourseType['id']) {
     }
   };
 }
-export function updatedDataDb(sectionData: NonNullable<SectionType>) {
-  console.log('updating note', sectionData);
+export function updateSectionDb(sectionData: SectionType) {
   return (dispatch: Dispatch) => {
     SectionRepository.updateEntity(sectionData)
-      .then(updatedData => dispatch(updateSection(sectionData.id, sectionData)))
-      .catch((err: any) => {
+      .then(updatedData =>
+        dispatch(updateSection(Object.assign(sectionData, updatedData)))
+      )
+      .catch(err => {
         console.log(err);
       });
   };

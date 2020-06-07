@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+<<<<<<< HEAD
 
 import {
   ADD_NOTE,
   REMOVE_NOTE,
   NoteActionType,
   UPDATE_NOTE
+=======
+import {
+  ADD_NOTE,
+  REMOVE_NOTE,
+  UPDATE_NOTE,
+  NoteActionType
+>>>>>>> 8b967dc9ea56469c66dcef4cd12d358abd3f75c2
 } from '../../actions/notes';
 
 export default function notes(state = {}, action: NoteActionType) {
@@ -23,6 +31,11 @@ export default function notes(state = {}, action: NoteActionType) {
     case UPDATE_NOTE:
       if (action.payload && action.payload.noteId)
         newState[action.payload.noteId] = action.payload.noteData;
+      return newState;
+
+    case UPDATE_NOTE:
+      if (action.payload && action.payload.noteData)
+        newState[action.payload.noteData.id] = action.payload.noteData;
       return newState;
 
     default:

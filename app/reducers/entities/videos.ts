@@ -5,7 +5,8 @@ import {
   REMOVE_VIDEO,
   VideoActionType,
   TOGGLE_WATCHED,
-  FETCH_VIDEOS_BY_SECTION
+  FETCH_VIDEOS_BY_SECTION,
+  UPDATE_VIDEO
 } from '../../actions/videos';
 import { NoteActionType } from '../../actions/notes';
 
@@ -41,6 +42,11 @@ export default function videos(
           if (video.id) newState[video.id] = video;
         });
       }
+      return newState;
+
+    case UPDATE_VIDEO:
+      if (action.payload && action.payload.videoData)
+        newState[action.payload.videoData.id] = action.payload.videoData;
       return newState;
 
     default:

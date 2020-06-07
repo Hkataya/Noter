@@ -7,7 +7,7 @@ export const REMOVE_VIDEO = 'REMOVE_VIDEO';
 export const TOGGLE_WATCHED = 'TOGGLE_WATCHED';
 export const FETCH_VIDEOS_BY_SECTION = 'FETCH_VIDEOS_BY_SECTION';
 export const UPDATE_VIDEO = 'UPDATE_VIDEO';
-type updateVideo = {
+type UpdateVideoAction = {
   type: typeof UPDATE_VIDEO;
   payload: {
     videoData: VideoType;
@@ -47,7 +47,7 @@ export type VideoActionCreatorType = {
   removeVideoDb?: (videoId: VideoType['id']) => unknown;
   toggleWatched?: (videoId: VideoType['id']) => void;
   fetchVideosBySectionDb?: (sectionId: SectionType['id']) => unknown;
-  updateVideo?: (videoData: VideoType) => unknown;
+  updateVideoDb?: (videoData: VideoType) => unknown;
 };
 
 export type VideoActionType =
@@ -55,7 +55,7 @@ export type VideoActionType =
   | RemoveVideoAction
   | ToggleWatchedAction
   | FetchVideosBySectionAction
-  | updateVideo;
+  | UpdateVideoAction;
 
 export function addVideo(videoData: VideoType) {
   const videoId = videoData.id;
@@ -80,11 +80,10 @@ export function removeVideo(videoId: VideoType['id']) {
     }
   };
 }
-export function updateVideo(videoId: VideoType['id'], videoData: VideoType) {
+export function updateVideo(videoData: VideoType) {
   return {
     type: UPDATE_VIDEO,
     payload: {
-      videoId,
       videoData
     }
   };
@@ -143,11 +142,12 @@ export function fetchVideosBySectionDb(sectionId: SectionType['id']) {
   };
 }
 export function updateVideoDb(videoData: VideoType) {
-  console.log('updating video', videoData);
   return (dispatch: Dispatch) => {
     VideoRepository.updateEntity(videoData)
-      .then(updatedData => dispatch(updateVideo(videoData.id, updatedData.id)))
-      .catch((err: any) => {
+      .then(updatedData =>
+        dispatch(updateVideo(Object.assign(videoData, updatedData)))
+      )
+      .catch(err => {
         console.log(err);
       });
   };

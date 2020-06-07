@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
@@ -6,7 +5,10 @@ import NoteList from './NoteList';
 import { NoteType } from '../../reducers/entities/types';
 import { setTargetTimestamp } from '../../actions/ui';
 import { removeNoteDb } from '../../actions/notes';
+<<<<<<< HEAD
 import TimeStampSort from './NoteList';
+=======
+>>>>>>> 8b967dc9ea56469c66dcef4cd12d358abd3f75c2
 
 function mapStateToProps(state: any, ownProps: any) {
   const { videoId } = ownProps;
