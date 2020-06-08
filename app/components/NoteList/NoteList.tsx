@@ -1,8 +1,10 @@
 import React from 'react';
 import { VideoType, NoteType } from '../../reducers/entities/types';
+import { NoteActionCreatorType, updateNoteDb } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
-import { updateCourse } from '../../actions/courses';
+// import { updateCourse } from '../../actions/courses';
+// import notes from '../../reducers/entities/notes';
 
 type Props = NoteActionCreatorType &
   UIActionCreatorType & {
@@ -10,10 +12,8 @@ type Props = NoteActionCreatorType &
     notes: Array<NoteType>;
   };
 // const [ timeStamp, setTimeStamp] = useState()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const TimeStampSort = (notes: Array<NoteType>) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const timestampsort = notes.sort(function(a, b) {
+const TimeStampSort = (noteArr: Array<NoteType>) => {
+  const timestampsort = noteArr.sort((a, b) => {
     if (a.timestamp < b.timestamp) return -1;
     if (a.timestamp > b.timestamp) return 1;
     return 0;
@@ -21,11 +21,15 @@ const TimeStampSort = (notes: Array<NoteType>) => {
   return timestampsort;
 };
 export default function NoteList(props: Props) {
-  const { notes, setTargetTimestamp, videoId, removeNoteDb } = props;
+  console.error('SAmISIASAISAISAISAISSIA');
+  console.log(props);
+  const { setTargetTimestamp, videoId, removeNoteDb, notes } = props;
+  const sortedNotes = TimeStampSort(notes);
+  console.log('Kataya', sortedNotes);
   return (
     <div>
-      {notes.length ? (
-        notes.map(note => (
+      {sortedNotes.length ? (
+        sortedNotes.map(note => (
           <NoteCard
             id={note.id}
             key={note.id}
@@ -36,7 +40,7 @@ export default function NoteList(props: Props) {
             timestampVisible
             onTimestampClick={() => {
               if (setTargetTimestamp) setTargetTimestamp(note.timestamp);
-              TimeStampSort(notes);
+              // TimeStampSort(notes);
             }}
             onRemoveClick={() => {
               if (removeNoteDb) removeNoteDb(note.id);
