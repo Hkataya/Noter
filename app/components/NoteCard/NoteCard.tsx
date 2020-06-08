@@ -55,7 +55,6 @@ const NoteCard = (props: Props) => {
   const [editable, setEditable] = useState(false);
   const [updatedTitle, setTitle] = useState(title);
   const [updatedDescription, setDescription] = useState(description);
-<<<<<<< HEAD
   const items = [
     {
       label: 'remove',
@@ -66,8 +65,6 @@ const NoteCard = (props: Props) => {
       action: onUpdateClick
     }
   ];
-=======
->>>>>>> 8b967dc9ea56469c66dcef4cd12d358abd3f75c2
   return (
     <Wrapper>
       {editable ? (

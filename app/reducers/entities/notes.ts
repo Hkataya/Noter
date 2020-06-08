@@ -1,18 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-<<<<<<< HEAD
 
 import {
   ADD_NOTE,
   REMOVE_NOTE,
   NoteActionType,
   UPDATE_NOTE
-=======
-import {
-  ADD_NOTE,
-  REMOVE_NOTE,
-  UPDATE_NOTE,
-  NoteActionType
->>>>>>> 8b967dc9ea56469c66dcef4cd12d358abd3f75c2
 } from '../../actions/notes';
 
 export default function notes(state = {}, action: NoteActionType) {
