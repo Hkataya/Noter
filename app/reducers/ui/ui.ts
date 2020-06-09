@@ -10,7 +10,6 @@ import {
 const initialState = {
   modal: {
     visible: false,
-    type: '',
     data: {},
     parentId: ''
   },
@@ -25,7 +24,6 @@ export default function ui(state = initialState, action: UIActionType) {
     case OPEN_MODAL:
       newState.modal = {
         visible: true,
-        type: action.payload.type,
         data: action.payload.data || {},
         parentId: action.payload.parentId || ''
       };

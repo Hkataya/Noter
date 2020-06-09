@@ -1,8 +1,7 @@
 import { CourseType, VideoType, SectionType } from '../entities/types';
 
 export type ModalType = {
-  type: string;
-  data?: CourseType | VideoType | SectionType | {};
+  data: CourseType | VideoType | SectionType | any;
   parentId?: string;
   visible?: boolean;
 };

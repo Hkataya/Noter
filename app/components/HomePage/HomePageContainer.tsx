@@ -5,12 +5,16 @@ import HomePage from './HomePage';
 import {
   addCourseDb,
   removeCourseDb,
-  fetchAllCoursesDb
+  fetchAllCoursesDb,
+  updateCourseDb
 } from '../../actions/courses';
+
+import { openModal, closeModal } from '../../actions/ui';
 
 function mapStateToProps(state: any) {
   return {
-    courses: state.entities.courses
+    courses: state.entities.courses,
+    modal: state.ui.modal
   };
 }
 
@@ -19,7 +23,10 @@ function mapDispatchToProps(dispatch: Dispatch) {
     {
       addCourseDb,
       removeCourseDb,
-      fetchAllCoursesDb
+      updateCourseDb,
+      fetchAllCoursesDb,
+      openModal,
+      closeModal
     },
     dispatch
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../SearchBar/SearchBar';
@@ -7,8 +7,9 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import CourseForm from '../Form/CourseForm';
 import { CourseActionCreatorType } from '../../actions/courses';
-import { EntityStateType } from '../../reducers/types';
+import { EntityStateType, UIStateType } from '../../reducers/types';
 import routes from '../../constants/routes.json';
+import { UIActionCreatorType } from '../../actions/ui';
 
 const CourseWrapper = styled.div.attrs({
   className: 'm-10 flex flex-wrap'
@@ -18,17 +19,22 @@ const HomeWrapper = styled.div.attrs({
   className: 'mx-auto p-5 bg-gray-100 align-center'
 })``;
 
-type Props = EntityStateType & CourseActionCreatorType;
+type Props = EntityStateType &
+  CourseActionCreatorType &
+  UIActionCreatorType &
+  UIStateType;
 
 export default function HomePage(props: Props) {
-  const [modalVisibile, setModalVisible] = useState(false);
   const history = useHistory();
   const {
     courses,
     removeCourseDb,
     addCourseDb,
     fetchAllCoursesDb,
-    updateCourseDb
+    updateCourseDb,
+    openModal,
+    closeModal,
+    modal
   } = props;
 
   useEffect(() => {
@@ -41,17 +47,32 @@ export default function HomePage(props: Props) {
   return (
     <HomeWrapper>
       <h2>Home</h2>
-      {modalVisibile && (
-        <Modal handleClose={() => setModalVisible(false)} title="Add Course">
+      {modal.visible && (
+        <Modal
+          handleClose={() => {
+            if (closeModal) closeModal();
+          }}
+          title="Add Course"
+        >
           <CourseForm
+            updateCourseDb={updateCourseDb}
             addCourseDb={addCourseDb}
-            closeModal={() => setModalVisible(false)}
+            closeModal={() => {
+              if (closeModal) closeModal();
+            }}
+            data={modal.data}
           />
         </Modal>
       )}
       <SearchBar />
       <div className="flex justify-end mt-3">
-        <Button onClick={() => setModalVisible(true)}>Add Course +</Button>
+        <Button
+          onClick={() => {
+            if (openModal) openModal({});
+          }}
+        >
+          Add Course +
+        </Button>
       </div>
 
       <CourseWrapper>
@@ -67,7 +88,7 @@ export default function HomePage(props: Props) {
             }}
             directToCoursePage={() => history.push(`${routes.COURSE}/${k}`)}
             updateCourse={() => {
-              if (updateCourseDb) updateCourseDb(courses[k]);
+              if (openModal) openModal(courses[k]);
             }}
           />
         ))}

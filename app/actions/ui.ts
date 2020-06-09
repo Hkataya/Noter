@@ -34,8 +34,7 @@ type SetTargetTimestampAction = {
 export type UIActionCreatorType = {
   openModal?: (
     data: ModalType['data'],
-    type: ModalType['type'],
-    parentId: ModalType['parentId']
+    parentId?: ModalType['parentId']
   ) => void;
   closeModal?: () => void;
   setCurrentlySelected?: (id: string) => void;
@@ -52,13 +51,11 @@ export type UIActionType =
 
 export function openModal(
   data: OpenModalAction['payload']['data'],
-  type: OpenModalAction['payload']['type'],
   parentId: OpenModalAction['payload']['parentId']
 ) {
   return {
     type: OPEN_MODAL,
     payload: {
-      type,
       data,
       parentId
     }
