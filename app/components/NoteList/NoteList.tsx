@@ -14,8 +14,8 @@ type Props = NoteActionCreatorType &
 // const [ timeStamp, setTimeStamp] = useState()
 const TimeStampSort = (noteArr: Array<NoteType>) => {
   const timestampsort = noteArr.sort((a, b) => {
-    if (a.timestamp < b.timestamp) return -1;
-    if (a.timestamp > b.timestamp) return 1;
+    if (parseFloat(a.timestamp) < parseFloat(b.timestamp)) return -1;
+    if (parseFloat(a.timestamp) > parseFloat(b.timestamp)) return 1;
     return 0;
   });
   return timestampsort;
@@ -23,6 +23,7 @@ const TimeStampSort = (noteArr: Array<NoteType>) => {
 export default function NoteList(props: Props) {
   const { setTargetTimestamp, videoId, removeNoteDb, notes } = props;
   const sortedNotes = TimeStampSort(notes);
+  console.log('sami',sortedNotes);
   return (
     <div>
       {sortedNotes.length ? (
