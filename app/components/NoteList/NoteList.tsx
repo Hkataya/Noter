@@ -23,7 +23,6 @@ const TimeStampSort = (noteArr: Array<NoteType>) => {
 export default function NoteList(props: Props) {
   const { setTargetTimestamp, videoId, removeNoteDb, notes } = props;
   const sortedNotes = TimeStampSort(notes);
-  console.log('sami',sortedNotes);
   return (
     <div>
       {sortedNotes.length ? (
