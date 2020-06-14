@@ -1,8 +1,18 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useState, useRef } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
-import getBlockStyle from './PageContainer.css';
+import React, { useEffect, useState, useRef, CSSProperties } from 'react';
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  ContentBlock,
+  DraftHandleValue,
+  convertToRaw,
+  ContentState,
+  convertFromRaw
+} from 'draft-js';
+import { convertFromEditorStateToString } from './utils';
+// import getBlockStyle from './PageContainer.css';
 
 const styleMap = {
   CODE: {
@@ -18,20 +28,20 @@ const RichEditorRoot = {
   fontFamily: 'Georgia, serif',
   fontSize: '14px',
   padding: '15px'
-};
+} as CSSProperties;
 const RichEditorEditor = {
   borderTop: '1px solid #ddd',
   cursor: 'text',
   fontSize: '16px',
   marginTop: '10px'
-};
+} as CSSProperties;
 const richEditorControls = {
   fontFamily: 'Helvetica, sans-serif',
   fontSize: '14px',
   marginBottom: '5px',
   userSelect: 'none',
   display: 'flex'
-};
+} as CSSProperties;
 const spanStyle = {
   color: '#999',
   cursor: 'pointer',
@@ -39,28 +49,48 @@ const spanStyle = {
   padding: '2px 0',
   display: 'flex',
   flexFlow: 'row wrap'
-};
+} as CSSProperties;
 const spanStyleActive = {
   color: '#5890ff',
   cursor: 'pointer',
   marginRight: '16px',
   padding: '2px 0',
   display: 'flex'
+} as CSSProperties;
+const getBlockStyle = (block: ContentBlock) => {
+  switch (block.getType()) {
+    case 'blockquote':
+      return 'RichEditor-blockquote';
+    default:
+      return '';
+  }
 };
-const RichEditorExample = (props: any) => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+type props = {
+  description: string;
+  setDescription: (description: string) => void;
+};
+
+const RichEditor = (props: props) => {
+  const { description, setDescription } = props;
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(convertFromRaw(JSON.parse(description)))
+  );
   const editorRef = useRef(null);
 
   const focus = () => editorRef.current.focus();
-  const onChange = (e: React.SetStateAction<EditorState>) => setEditorState(e);
+  const onChange = (e: EditorState) => {
+    setDescription(convertFromEditorStateToString(e));
+    setEditorState(e);
+  };
 
-  const handleKeyCommand = (command: any) => {
+  const handleKeyCommand = (command: string): DraftHandleValue => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       onChange(newState);
-      return true;
+      return 'handled';
     }
-    return false;
+    return 'not-handled';
   };
 
   const onTab = (e: React.KeyboardEvent<{}>) => {
@@ -92,7 +122,7 @@ const RichEditorExample = (props: any) => {
       />
       <div style={RichEditorEditor} onClick={focus}>
         <Editor
-          // blockStyleFn={getBlockStyle}
+          blockStyleFn={getBlockStyle}
           customStyleMap={styleMap}
           editorState={editorState}
           handleKeyCommand={handleKeyCommand}
@@ -184,4 +214,4 @@ const InlineStyleControls = (props: {
   );
 };
 
-export default RichEditorExample;
+export default RichEditor;
