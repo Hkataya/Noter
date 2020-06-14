@@ -33,6 +33,14 @@ export default function NoteList(props: Props) {
             title={note.title}
             video={videoId}
             description={note.description}
+            setDescription={(description: string) => {
+              // eslint-disable-next-line no-param-reassign
+              note.description = description;
+            }}
+            setTitle={title => {
+              // eslint-disable-next-line no-param-reassign
+              note.title = title;
+            }}
             timestamp={note.timestamp}
             timestampVisible
             onTimestampClick={() => {

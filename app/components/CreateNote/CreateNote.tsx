@@ -7,11 +7,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import { NoteActionCreatorType } from '../../actions/notes';
 import { NoteType, VideoType } from '../../reducers/entities/types';
 // eslint-disable-next-line import/no-unresolved
 import TimeStampSort from '../NoteList/NoteList';
 import notes from '../../reducers/entities/notes';
+import { InitializeForDraftEditor } from '../RichEditor/utils';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -52,13 +54,14 @@ const CreateNote = (props: Props) => {
   const notes = props;
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
+
     const note = {
       title,
       description,
       timestamp,
       video: videoId
     };
-
+    note.description = InitializeForDraftEditor(note.description);
     if (addNoteDb) {
       addNoteDb(note);
       TimeStampSort(notes);

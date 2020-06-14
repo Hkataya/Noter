@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import TextareaAutosize from 'react-autosize-textarea';
+import { Editor, EditorState } from 'draft-js';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
+import ExpandedNote from './ExpandedNote';
+import { convertToEditorState, extractPlainText } from '../RichEditor/utils';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -29,12 +31,12 @@ const ButtonWrapper = styled.div.attrs({
   className: 'px-3 py-3 flex justify-end'
 })``;
 
-const TitleInput = styled.input.attrs({
+const EditorStyle = styled.div.attrs({
   className:
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
 })``;
 
-const StyledTextareaAutosize = styled(TextareaAutosize).attrs({
+const TitleInput = styled.input.attrs({
   className:
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
 })``;
@@ -45,6 +47,8 @@ type Props = NoteType &
     onTimestampClick: () => void;
     onRemoveClick: () => void;
     onUpdateClick: () => void;
+    setDescription: (description: string) => void;
+    setTitle: (description: string) => void;
   };
 const NoteCard = (props: Props) => {
   const {
@@ -54,15 +58,29 @@ const NoteCard = (props: Props) => {
     timestampVisible,
     onTimestampClick,
     onRemoveClick,
-    onUpdateClick
+    onUpdateClick,
+    setDescription,
+    setTitle
   } = props;
   const [editable, setEditable] = useState(false);
-  const [updatedTitle, setTitle] = useState(title);
-  const [updatedDescription, setDescription] = useState(description);
+  const [updatedTitle, setUpdatedTitle] = useState(title);
+  const [updatedDescription, setUpdatedDescription] = useState(description);
   const [expanded, setExpanded] = useState(false);
+  const [editorState, setEditorState] = useState(
+    convertToEditorState(description)
+  );
+  const editorOnUpdateClick = () => {
+    setDescription(updatedDescription);
+    setEditable(false);
+    onUpdateClick();
+  };
+  const onChange = (e: React.SetStateAction<EditorState>) => setEditorState(e);
+  const onChangeTitle = (e: { target: { value: string } }) => {
+    setTitle(e.target.value);
+    setUpdatedTitle(e.target.value);
+  };
   const toggleExpand = () => {
     setExpanded(!expanded);
-    console.log('changing', expanded);
     return expanded;
   };
   const items = [
@@ -83,17 +101,15 @@ const NoteCard = (props: Props) => {
             <Wrapper>
               <div>
                 <Header>
-                  <TitleInput
-                    onChange={e => setTitle(e.target.value)}
-                    value={updatedTitle}
-                  />
+                  <TitleInput onChange={onChangeTitle} value={updatedTitle} />
                 </Header>
                 <Body>
-                  <StyledTextareaAutosize
-                    // @ts-ignore
-                    onChange={e => setDescription(e.target.value)}
-                    value={updatedDescription}
-                  />
+                  <EditorStyle>
+                    <Editor
+                      editorState={convertToEditorState(updatedDescription)}
+                      onChange={onChange}
+                    />
+                  </EditorStyle>
                   <button
                     type="button"
                     className="w-full focus:outline-none px-3 py-2 bg-purple-900 text-white text-xs font-bold uppercase rounded right:0"
@@ -117,7 +133,7 @@ const NoteCard = (props: Props) => {
                   <button
                     type="button"
                     className="focus:outline-none px-3 py-2 bg-purple-900 text-white text-xs font-bold uppercase rounded"
-                    onClick={onUpdateClick}
+                    onClick={editorOnUpdateClick}
                   >
                     save
                   </button>
@@ -129,56 +145,14 @@ const NoteCard = (props: Props) => {
         if (expanded && editable) {
           return (
             <>
-              <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                  {/* content */}
-                  <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    {/* header */}
-                    <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                      <h3 className="text-3xl font-semibold">Title Position</h3>
-                      <button
-                        type="button"
-                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                        onClick={() => setExpanded(false)}
-                      >
-                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                          ×
-                        </span>
-                      </button>
-                    </div>
-                    {/* body */}
-                    <div className="relative p-6 flex-auto">
-                      <p className="my-4 text-gray-600 text-lg leading-relaxed">
-                        Note description Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Repellat consectetur nemo quam
-                        necessitatibus laborum reiciendis adipisci ipsam animi
-                        unde, esse, accusantium asperiores explicabo doloremque
-                        expedita commodi, ex facilis ea possimus.
-                      </p>
-                    </div>
-                    {/* footer */}
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-                      <button
-                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        style={{ transition: 'all .15s ease' }}
-                        onClick={() => setExpanded(false)}
-                      >
-                        Close
-                      </button>
-                      <button
-                        className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        style={{ transition: 'all .15s ease' }}
-                        onClick={() => setExpanded(false)}
-                      >
-                        Save Changes
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black" />
+              <ExpandedNote
+                title={title}
+                description={updatedDescription}
+                // setEditable={setEditable}
+                setExpanded={setExpanded}
+                onUpdateClick={editorOnUpdateClick}
+                setDescription={setUpdatedDescription}
+              />
             </>
           );
         }
@@ -193,10 +167,10 @@ const NoteCard = (props: Props) => {
                   </button>
                 </h1>
               )}
-              <Title>{title}</Title>
+              <Title>{updatedTitle}</Title>
               {/* more options button */}
             </Header>
-            <Body>{description}</Body>
+            <Body>{extractPlainText(updatedDescription)}</Body>
             <ButtonWrapper>
               <button
                 type="button"
