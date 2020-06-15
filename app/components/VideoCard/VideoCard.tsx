@@ -34,6 +34,7 @@ type Props = VideoType & {
   directToMediaPage: () => void;
   onToggleClick: () => void;
   onVideoCardClick: () => void;
+  onUpdateVideoClick: () => void;
 };
 
 const VideoCard = (props: Props) => {
@@ -44,7 +45,8 @@ const VideoCard = (props: Props) => {
     directToMediaPage,
     onToggleClick,
     onVideoCardClick,
-    watched
+    watched,
+    onUpdateVideoClick
   } = props;
 
   const checkColor: string = watched ? 'text-green-500' : 'text-gray-500';
@@ -52,6 +54,10 @@ const VideoCard = (props: Props) => {
     {
       label: 'remove',
       action: onRemoveClick
+    },
+    {
+      label: 'update',
+      action: onUpdateVideoClick
     }
   ];
   return (

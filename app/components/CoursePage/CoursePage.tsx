@@ -28,6 +28,7 @@ export default function CoursePage(props: Props) {
   const {
     course,
     addSectionDb,
+    updateVideoDb,
     modal,
     currentlySelected,
     closeModal,

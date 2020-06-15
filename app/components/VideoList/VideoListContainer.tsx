@@ -5,7 +5,8 @@ import {
   addVideoDb,
   removeVideoDb,
   toggleWatched,
-  fetchVideosBySectionDb
+  fetchVideosBySectionDb,
+  updateVideoDb
 } from '../../actions/videos';
 import { openModal, closeModal, setCurrentlySelected } from '../../actions/ui';
 import VideoList from './VideoList';
@@ -30,6 +31,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
     {
       addVideoDb,
       removeVideoDb,
+      updateVideoDb,
       fetchVideosBySectionDb,
       openModal,
       closeModal,

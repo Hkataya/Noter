@@ -1,22 +1,37 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { VideoActionCreatorType } from '../../actions/videos';
 import { WrapperForm, FormButton, FormInput, FormLabel } from './FormStyle';
+import { VideoType } from '../../reducers/entities/types';
 
 type Props = VideoActionCreatorType & {
   closeModal: () => void;
   sectionId: string;
+  data: VideoType | any;
 };
 
 const VideoForm = (props: Props) => {
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
 
-  const { addVideoDb, closeModal, sectionId } = props;
-
+  const { addVideoDb, closeModal, sectionId, data, updateVideoDb } = props;
+  useEffect(() => {
+    if (data) {
+      if (data.title) setTitle(data.title);
+    }
+  }, []);
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
+    console.log('updating video');
+    if (data) {
+      const updatedVideo = { ...data };
+      updatedVideo.title = data.title;
+      if (updateVideoDb) {
+        updateVideoDb(updatedVideo);
+        closeModal();
+      }
+    }
     const video = {
       title,
       url,

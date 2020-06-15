@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { addVideoDb } from '../../actions/videos';
+import { addVideoDb, updateVideoDb } from '../../actions/videos';
 import { addSectionDb } from '../../actions/sections';
 import { openModal, closeModal } from '../../actions/ui';
 import CoursePage from './CoursePage';
@@ -19,6 +19,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
       addVideoDb,
+      updateVideoDb,
       addSectionDb,
       openModal,
       closeModal

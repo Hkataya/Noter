@@ -1,7 +1,8 @@
+/* eslint-disable no-shadow */
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { SectionType, VideoType } from '../../reducers/entities/types';
-import { VideoActionCreatorType } from '../../actions/videos';
+import { VideoActionCreatorType, updateVideoDb } from '../../actions/videos';
 import VideoCard from '../VideoCard/VideoCard';
 import routes from '../../constants/routes.json';
 import { UIActionCreatorType } from '../../actions/ui';
@@ -30,7 +31,8 @@ export default function VideoList(props: Props) {
     openModal,
     closeModal,
     setCurrentlySelected,
-    addVideoDb
+    addVideoDb,
+    updateVideoDb
   } = props;
   const history = useHistory();
   useEffect(() => {
@@ -54,6 +56,8 @@ export default function VideoList(props: Props) {
             }}
             sectionId={modal.parentId || ''}
             addVideoDb={addVideoDb}
+            updateVideoDb={updateVideoDb}
+            data={modal.data}
           />
         </Modal>
       )}
@@ -80,6 +84,9 @@ export default function VideoList(props: Props) {
           }}
           onVideoCardClick={() => {
             if (setCurrentlySelected) setCurrentlySelected(video.id || '');
+          }}
+          onUpdateVideoClick={() => {
+            if (openModal) openModal(video, '', 'VIDEO');
           }}
         />
       ))}
