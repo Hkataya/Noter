@@ -11,7 +11,8 @@ const initialState = {
   modal: {
     visible: false,
     data: {},
-    parentId: ''
+    parentId: '',
+    type: ''
   },
   currentlySelected: '',
   currentTimestamp: '',
@@ -25,7 +26,8 @@ export default function ui(state = initialState, action: UIActionType) {
       newState.modal = {
         visible: true,
         data: action.payload.data || {},
-        parentId: action.payload.parentId || ''
+        parentId: action.payload.parentId || '',
+        type: action.payload.type || ''
       };
       return newState;
 

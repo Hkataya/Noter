@@ -7,7 +7,7 @@ import {
   toggleWatched,
   fetchVideosBySectionDb
 } from '../../actions/videos';
-import { openModal, setCurrentlySelected } from '../../actions/ui';
+import { openModal, closeModal, setCurrentlySelected } from '../../actions/ui';
 import VideoList from './VideoList';
 import { VideoType } from '../../reducers/entities/types';
 
@@ -20,7 +20,8 @@ function mapStateToProps(state: any, ownProps: any) {
   });
   return {
     sectionId,
-    videos: filteredVideos
+    videos: filteredVideos,
+    modal: state.ui.modal
   };
 }
 
@@ -31,6 +32,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
       removeVideoDb,
       fetchVideosBySectionDb,
       openModal,
+      closeModal,
       toggleWatched,
       setCurrentlySelected
     },

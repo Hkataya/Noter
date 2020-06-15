@@ -5,12 +5,16 @@ import { VideoActionCreatorType } from '../../actions/videos';
 import VideoCard from '../VideoCard/VideoCard';
 import routes from '../../constants/routes.json';
 import { UIActionCreatorType } from '../../actions/ui';
+import Modal from '../Modal/Modal';
+import { UIStateType } from '../../reducers/types';
+import VideoForm from '../Form/VideoForm';
 
 const placeholderThumbnail =
   'https://i1.wp.com/wp.laravel-news.com/wp-content/uploads/2016/09/vuejs.png?resize=2200%2C1125';
 
 type Props = VideoActionCreatorType &
-  UIActionCreatorType & {
+  UIActionCreatorType &
+  UIStateType & {
     sectionId: SectionType['id'];
     videos: Array<VideoType>;
   };
@@ -19,11 +23,14 @@ export default function VideoList(props: Props) {
   const {
     sectionId,
     videos,
+    modal,
     removeVideoDb,
     fetchVideosBySectionDb,
     toggleWatched,
     openModal,
-    setCurrentlySelected
+    closeModal,
+    setCurrentlySelected,
+    addVideoDb
   } = props;
   const history = useHistory();
   useEffect(() => {
@@ -34,6 +41,23 @@ export default function VideoList(props: Props) {
   }, []);
   return (
     <div>
+      {modal.visible && modal.type === 'VIDEO' && (
+        <Modal
+          title="Add Video"
+          handleClose={() => {
+            if (closeModal) closeModal();
+          }}
+        >
+          <VideoForm
+            closeModal={() => {
+              if (closeModal) closeModal();
+            }}
+            sectionId={modal.parentId || ''}
+            addVideoDb={addVideoDb}
+          />
+        </Modal>
+      )}
+
       {videos.map(video => (
         <VideoCard
           onToggleClick={() => {
@@ -62,7 +86,7 @@ export default function VideoList(props: Props) {
       <div className="'max-w-sm w-full lg:max-w-full lg:flex border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r mr-5 mb-5">
         <button
           onClick={() => {
-            if (openModal) openModal({}, 'VIDEO', sectionId);
+            if (openModal) openModal({}, sectionId, 'VIDEO');
           }}
           type="button"
         >
