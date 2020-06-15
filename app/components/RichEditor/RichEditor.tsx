@@ -1,14 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useState, useRef, CSSProperties } from 'react';
+import React, { useState, useRef, CSSProperties } from 'react';
 import {
   Editor,
   EditorState,
   RichUtils,
   ContentBlock,
   DraftHandleValue,
-  convertToRaw,
-  ContentState,
   convertFromRaw
 } from 'draft-js';
 import { convertFromEditorStateToString } from './utils';
@@ -105,11 +103,7 @@ const RichEditor = (props: props) => {
   const toggleInlineStyle = (inlineStyle: string) => {
     onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
   };
-  useEffect(() => {
-    // If the user changes block type before entering any text, we can
-    // either style the placeholder or hide it. Let's just hide it now.
-    const contentState = editorState.getCurrentContent();
-  });
+
   return (
     <div style={RichEditorRoot}>
       <BlockStyleControls
@@ -137,9 +131,14 @@ const RichEditor = (props: props) => {
   );
 };
 
-const StyleButton = (props: any) => {
+const StyleButton = (props: {
+  label: string;
+  active: boolean;
+  style: string;
+  onToggle: (arg0: string) => void;
+}) => {
   const { label, active, style } = props;
-  const [className, setClassName] = useState('RichEditor-styleButton');
+  // const [] = useState('RichEditor-styleButton');
   const onToggle = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     props.onToggle(style);
@@ -170,7 +169,10 @@ const INLINE_STYLES = [
   { label: 'Monospace', style: 'CODE' }
 ];
 
-const BlockStyleControls = (props: { onToggle?: any; editorState?: any }) => {
+const BlockStyleControls = (props: {
+  onToggle: (arg0: string) => void;
+  editorState: EditorState;
+}) => {
   const { editorState } = props;
   const selection = editorState.getSelection();
   const blockType = editorState
@@ -195,7 +197,7 @@ const BlockStyleControls = (props: { onToggle?: any; editorState?: any }) => {
 
 const InlineStyleControls = (props: {
   editorState: { getCurrentInlineStyle: () => any };
-  onToggle: any;
+  onToggle: (arg0: string) => void;
 }) => {
   const { editorState, onToggle } = props;
   const currentStyle = editorState.getCurrentInlineStyle();

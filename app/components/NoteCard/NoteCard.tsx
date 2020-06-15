@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Editor, EditorState } from 'draft-js';
+import { EditorState, RichUtils } from 'draft-js';
+import EditorJs from '../RichEditor/EditorJs';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 import ExpandedNote from './ExpandedNote';
-import { convertToEditorState, extractPlainText } from '../RichEditor/utils';
+import {
+  convertToEditorState,
+  extractPlainText,
+  convertFromEditorStateToString
+} from '../RichEditor/utils';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -66,15 +71,13 @@ const NoteCard = (props: Props) => {
   const [updatedTitle, setUpdatedTitle] = useState(title);
   const [updatedDescription, setUpdatedDescription] = useState(description);
   const [expanded, setExpanded] = useState(false);
-  const [editorState, setEditorState] = useState(
-    convertToEditorState(description)
-  );
   const editorOnUpdateClick = () => {
     setDescription(updatedDescription);
     setEditable(false);
     onUpdateClick();
   };
-  const onChange = (e: React.SetStateAction<EditorState>) => setEditorState(e);
+  const onChange = (e: EditorState) =>
+    setUpdatedDescription(convertFromEditorStateToString(e));
   const onChangeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
     setUpdatedTitle(e.target.value);
@@ -105,9 +108,9 @@ const NoteCard = (props: Props) => {
                 </Header>
                 <Body>
                   <EditorStyle>
-                    <Editor
-                      editorState={convertToEditorState(updatedDescription)}
-                      onChange={onChange}
+                    <EditorJs
+                      description={updatedDescription}
+                      setDescription={setUpdatedDescription}
                     />
                   </EditorStyle>
                   <button
