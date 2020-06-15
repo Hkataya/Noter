@@ -46,6 +46,7 @@ export const Schemas = {
 export const Repos = Object.keys(Schemas);
 
 // Note that this function works only for One-to-Many Relations and not Many-to-Many
+/*
 export function getRelMany(entity: string | number) {
   let RelMany = null;
   const relations = Object.values(Schemas[entity].relations);
@@ -57,3 +58,4 @@ export function getRelMany(entity: string | number) {
   }
   return RelMany;
 }
+*/

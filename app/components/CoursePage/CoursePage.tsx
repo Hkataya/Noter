@@ -6,7 +6,6 @@ import routes from '../../constants/routes.json';
 import TitleBar from '../TitleBar/TitleBar';
 import { EntityStateType } from '../../reducers/types';
 import { VideoActionCreatorType } from '../../actions/videos';
-import VideoForm from '../Form/VideoForm';
 import { SectionActionCreatorType } from '../../actions/sections';
 import { CourseType } from '../../reducers/entities/types';
 import SectionForm from '../Form/SectionForm';
@@ -28,7 +27,6 @@ type Props = EntityStateType &
 export default function CoursePage(props: Props) {
   const {
     course,
-    addVideoDb,
     addSectionDb,
     modal,
     currentlySelected,

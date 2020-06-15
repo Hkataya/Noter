@@ -1,23 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { EditorState, RichUtils } from 'draft-js';
 import EditorJs from '../RichEditor/EditorJs';
 import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 import ExpandedNote from './ExpandedNote';
-import {
-  convertToEditorState,
-  extractPlainText,
-  convertFromEditorStateToString
-} from '../RichEditor/utils';
+import { extractPlainText } from '../RichEditor/utils';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
-})``;
-
-const ExtendedWrapper = styled.div.attrs({
-  className: 'rounded-lg shadow-lg bg-black my-3'
 })``;
 
 const Header = styled.div.attrs({
@@ -76,8 +67,7 @@ const NoteCard = (props: Props) => {
     setEditable(false);
     onUpdateClick();
   };
-  const onChange = (e: EditorState) =>
-    setUpdatedDescription(convertFromEditorStateToString(e));
+
   const onChangeTitle = (e: { target: { value: string } }) => {
     setTitle(e.target.value);
     setUpdatedTitle(e.target.value);
@@ -86,16 +76,7 @@ const NoteCard = (props: Props) => {
     setExpanded(!expanded);
     return expanded;
   };
-  const items = [
-    {
-      label: 'remove',
-      action: onRemoveClick
-    },
-    {
-      label: 'update',
-      action: onUpdateClick
-    }
-  ];
+
   return (
     <div>
       {(() => {

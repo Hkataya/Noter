@@ -20,13 +20,9 @@ export default function notes(state = {}, action: NoteActionType) {
       if (action.payload && action.payload.noteId)
         delete newState[action.payload.noteId];
       return newState;
-    case UPDATE_NOTE:
-      if (action.payload && action.payload.noteId)
-        newState[action.payload.noteId] = action.payload.noteData;
-      return newState;
 
     case UPDATE_NOTE:
-      if (action.payload && action.payload.noteData)
+      if (action.payload && action.payload.noteData.id)
         newState[action.payload.noteData.id] = action.payload.noteData;
       return newState;
 

@@ -19,7 +19,7 @@ const ExpandedNote = (props: Props) => {
   const [expandedDesctiptionUpdate, setExpandedRichUpdate] = useState(
     description
   );
-  const handleSave = (e: any) => {
+  const handleSave = () => {
     setDescription(expandedDesctiptionUpdate);
     setExpanded(false);
     onUpdateClick();

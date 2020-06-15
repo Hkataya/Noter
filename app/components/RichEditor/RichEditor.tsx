@@ -10,7 +10,6 @@ import {
   convertFromRaw
 } from 'draft-js';
 import { convertFromEditorStateToString } from './utils';
-// import getBlockStyle from './PageContainer.css';
 
 const styleMap = {
   CODE: {
@@ -74,9 +73,11 @@ const RichEditor = (props: props) => {
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(convertFromRaw(JSON.parse(description)))
   );
-  const editorRef = useRef(null);
+  const editorRef = useRef<Editor>(null);
 
-  const focus = () => editorRef.current.focus();
+  const focus = () => {
+    if (editorRef && editorRef.current) editorRef.current.focus();
+  };
   const onChange = (e: EditorState) => {
     setDescription(convertFromEditorStateToString(e));
     setEditorState(e);
