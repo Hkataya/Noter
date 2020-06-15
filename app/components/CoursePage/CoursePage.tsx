@@ -6,7 +6,6 @@ import routes from '../../constants/routes.json';
 import TitleBar from '../TitleBar/TitleBar';
 import { EntityStateType } from '../../reducers/types';
 import { VideoActionCreatorType } from '../../actions/videos';
-import VideoForm from '../Form/VideoForm';
 import { SectionActionCreatorType } from '../../actions/sections';
 import { CourseType } from '../../reducers/entities/types';
 import SectionForm from '../Form/SectionForm';
@@ -28,7 +27,6 @@ type Props = EntityStateType &
 export default function CoursePage(props: Props) {
   const {
     course,
-    addVideoDb,
     addSectionDb,
     modal,
     currentlySelected,
@@ -37,22 +35,6 @@ export default function CoursePage(props: Props) {
   } = props;
   return (
     <div className="h-screen flex flex-col">
-      {modal.visible && modal.type === 'VIDEO' && (
-        <Modal
-          title="Add Video"
-          handleClose={() => {
-            if (closeModal) closeModal();
-          }}
-        >
-          <VideoForm
-            closeModal={() => {
-              if (closeModal) closeModal();
-            }}
-            sectionId={modal.parentId || ''}
-            addVideoDb={addVideoDb}
-          />
-        </Modal>
-      )}
       {modal.visible && modal.type === 'SECTION' && (
         <Modal
           title="Add Section"
@@ -75,7 +57,7 @@ export default function CoursePage(props: Props) {
       <div className="flex justify-end mt-3 mr-5">
         <Button
           onClick={() => {
-            if (openModal) openModal({}, 'SECTION', course.id);
+            if (openModal) openModal({}, course.id, 'SECTION');
           }}
         >
           Add Section +

@@ -187,6 +187,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@babel/register": "^7.9.0",
     "@testing-library/react": "^10.0.4",
+    "@types/draft-js": "^0.10.41",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "^4.7.5",
@@ -281,7 +282,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@hot-loader/react-dom": "^16.13.0",
-    "@types/draft-js": "^0.10.41",
     "autoprefixer": "^9.7.6",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.6.4",

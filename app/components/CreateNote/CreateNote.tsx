@@ -1,18 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-shadow */
-/* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import { NoteActionCreatorType } from '../../actions/notes';
 import { NoteType, VideoType } from '../../reducers/entities/types';
-// eslint-disable-next-line import/no-unresolved
-import TimeStampSort from '../NoteList/NoteList';
-import notes from '../../reducers/entities/notes';
 import { InitializeForDraftEditor } from '../RichEditor/utils';
 
 const Wrapper = styled.div.attrs({
@@ -44,14 +35,12 @@ const StyledTextareaAutosize = styled(TextareaAutosize).attrs({
 type Props = NoteActionCreatorType & {
   videoId: VideoType['id'];
   timestamp: NoteType['timestamp'];
-  notes: Array<NoteType>;
 };
 
 const CreateNote = (props: Props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { addNoteDb, videoId, timestamp } = props;
-  const notes = props;
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
 
@@ -62,10 +51,7 @@ const CreateNote = (props: Props) => {
       video: videoId
     };
     note.description = InitializeForDraftEditor(note.description);
-    if (addNoteDb) {
-      addNoteDb(note);
-      TimeStampSort(notes);
-    }
+    if (addNoteDb) addNoteDb(note);
   };
 
   return (
@@ -90,7 +76,6 @@ const CreateNote = (props: Props) => {
           <button
             type="submit"
             className="w-full focus:outline-none px-3 py-2 bg-purple-900 text-white font-bold uppercase rounded"
-            onClick={() => TimeStampSort(notes)}
           >
             +
           </button>

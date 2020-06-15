@@ -47,7 +47,7 @@ export default function HomePage(props: Props) {
   return (
     <HomeWrapper>
       <h2>Home</h2>
-      {modal.visible && (
+      {modal.visible && modal.type === 'COURSE' && (
         <Modal
           handleClose={() => {
             if (closeModal) closeModal();
@@ -68,7 +68,7 @@ export default function HomePage(props: Props) {
       <div className="flex justify-end mt-3">
         <Button
           onClick={() => {
-            if (openModal) openModal({});
+            if (openModal) openModal({}, '', 'COURSE');
           }}
         >
           Add Course +
@@ -88,7 +88,7 @@ export default function HomePage(props: Props) {
             }}
             directToCoursePage={() => history.push(`${routes.COURSE}/${k}`)}
             updateCourse={() => {
-              if (openModal) openModal(courses[k]);
+              if (openModal) openModal(courses[k], '', 'COURSE');
             }}
           />
         ))}
