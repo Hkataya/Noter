@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions should create new video 1`] = `
+Object {
+  "payload": Object {
+    "videoData": Object {
+      "id": "456",
+      "section": "123",
+      "title": "test",
+      "url": "testurl",
+      "watched": false,
+    },
+    "videoId": "456",
+  },
+  "type": "ADD_VIDEO",
+}
+`;
+
+exports[`actions should remove video 1`] = `
+Object {
+  "payload": Object {
+    "videoId": "456",
+  },
+  "type": "REMOVE_VIDEO",
+}
+`;
+
+exports[`actions should update video 1`] = `
+Object {
+  "payload": Object {
+    "videoData": Object {
+      "id": "456",
+      "section": "123",
+      "title": "Changed",
+      "url": "testurl",
+      "watched": true,
+    },
+  },
+  "type": "UPDATE_VIDEO",
+}
+`;

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions should create new section 1`] = `
+Object {
+  "payload": Object {
+    "sectionData": Object {
+      "course": "123",
+      "id": "456",
+      "title": "test",
+    },
+    "sectionId": "456",
+  },
+  "type": "ADD_SECTION",
+}
+`;
+
+exports[`actions should remove section 1`] = `
+Object {
+  "payload": Object {
+    "sectionId": "456",
+  },
+  "type": "REMOVE_SECTION",
+}
+`;
+
+exports[`actions should update section 1`] = `
+Object {
+  "payload": Object {
+    "sectionData": Object {
+      "course": "123",
+      "id": "456",
+      "title": "Changed",
+    },
+  },
+  "type": "UPDATE_SECTION",
+}
+`;

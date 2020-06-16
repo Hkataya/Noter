@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sections should handle ADD_SECTION 1`] = `
+Object {
+  "456": Object {
+    "course": "123",
+    "id": "456",
+    "title": "test",
+  },
+}
+`;
+
+exports[`sections should handle REMOVE_SECTION 1`] = `Object {}`;
