@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { SectionType, VideoType } from '../../reducers/entities/types';
-import { VideoActionCreatorType, updateVideoDb } from '../../actions/videos';
+import { VideoActionCreatorType } from '../../actions/videos';
 import VideoCard from '../VideoCard/VideoCard';
 import routes from '../../constants/routes.json';
 import { UIActionCreatorType } from '../../actions/ui';

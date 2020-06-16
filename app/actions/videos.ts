@@ -59,15 +59,11 @@ export type VideoActionType =
 
 export function addVideo(videoData: VideoType) {
   const videoId = videoData.id;
-  const video = {
-    id: videoId,
-    ...videoData
-  };
   return {
     type: ADD_VIDEO,
     payload: {
       videoId,
-      videoData: video
+      videoData
     }
   };
 }

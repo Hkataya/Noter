@@ -6,7 +6,7 @@ import {
   convertFromRaw,
   Editor
 } from 'draft-js';
-import { convertFromEditorStateToString, convertToEditorState } from './utils';
+import { convertFromEditorStateToString } from './utils';
 
 export default function EditorJs(props: {
   description: string;
