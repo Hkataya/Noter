@@ -1,6 +1,6 @@
 import { NoteType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import NoteRepository from '../db/NoteRepository';
+import { noteRepository as NoteRepository } from '../db/RepositoryInitializer';
 
 export const ADD_NOTE = 'ADD_NOTE';
 export const REMOVE_NOTE = 'REMOVE_NOTE';
