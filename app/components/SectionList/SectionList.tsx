@@ -5,9 +5,11 @@ import { SectionActionCreatorType } from '../../actions/sections';
 import { VideoActionCreatorType } from '../../actions/videos';
 import VideoListContainer from '../VideoList/VideoListContainer';
 import MenuButton from '../Button/MenuButton';
+import { UIActionCreatorType } from '../../actions/ui';
 
 type Props = SectionActionCreatorType &
-  VideoActionCreatorType & {
+  VideoActionCreatorType &
+  UIActionCreatorType & {
     courseId: string;
     sections: Array<SectionType>;
   };
@@ -17,7 +19,8 @@ export default function SectionList(props: Props) {
     courseId,
     sections,
     removeSectionDb,
-    fetchSectionsByCourseDb
+    fetchSectionsByCourseDb,
+    openModal
   } = props;
   useEffect(() => {
     console.log('Fetching Data from db');
@@ -36,6 +39,12 @@ export default function SectionList(props: Props) {
                   label: 'remove',
                   action: () => {
                     if (removeSectionDb) removeSectionDb(section.id);
+                  }
+                },
+                {
+                  label: 'update',
+                  action: () => {
+                    if (openModal) openModal(section, '', 'SECTION');
                   }
                 }
               ]}

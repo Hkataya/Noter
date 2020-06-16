@@ -14,23 +14,24 @@ type Props = VideoActionCreatorType & {
 const VideoForm = (props: Props) => {
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
-
   const { addVideoDb, closeModal, sectionId, data, updateVideoDb } = props;
   useEffect(() => {
     if (data) {
       if (data.title) setTitle(data.title);
+      if (data.url) setUrl(data.url);
     }
   }, []);
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    console.log('updating video');
-    if (data) {
+    if (Object.keys(data).length) {
       const updatedVideo = { ...data };
-      updatedVideo.title = data.title;
+      updatedVideo.title = title;
+      updatedVideo.url = url;
       if (updateVideoDb) {
         updateVideoDb(updatedVideo);
         closeModal();
       }
+      return;
     }
     const video = {
       title,
@@ -55,6 +56,7 @@ const VideoForm = (props: Props) => {
           placeholder="title"
           onChange={e => setTitle(e.target.value)}
           required
+          defaultValue={data.title || ''}
         />
       </div>
 
@@ -65,6 +67,7 @@ const VideoForm = (props: Props) => {
           placeholder="url"
           onChange={e => setUrl(e.target.value)}
           required
+          defaultValue={data.url || ''}
         />
       </div>
 

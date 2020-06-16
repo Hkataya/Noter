@@ -28,7 +28,7 @@ export default function CoursePage(props: Props) {
   const {
     course,
     addSectionDb,
-    updateVideoDb,
+    updateSectionDb,
     modal,
     currentlySelected,
     closeModal,
@@ -49,6 +49,8 @@ export default function CoursePage(props: Props) {
             }}
             courseId={modal.parentId || ''}
             addSectionDb={addSectionDb}
+            updateSectionDb={updateSectionDb}
+            data={modal.data}
           />
         </Modal>
       )}
