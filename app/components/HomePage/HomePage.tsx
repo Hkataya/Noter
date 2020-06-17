@@ -78,6 +78,7 @@ export default function HomePage(props: Props) {
       <CourseWrapper>
         {Object.keys(courses).map(k => (
           <CourseCard
+            description={courses[k].description}
             key={k}
             title={courses[k].title}
             id={k}

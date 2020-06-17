@@ -45,9 +45,7 @@ exports[`loads and displays course card 1`] = `
         <hr />
         <p
           class="sc-fzozJi jxgYyc mt-4 text-gray-600 text-sm text-justify break-all"
-        >
-          description
-        </p>
+        />
         <div
           class="sc-fzoLsD fqEnxe mt-4 text-gray-600 text-sm mt-4 text-justify"
         >
