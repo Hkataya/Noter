@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -6,6 +7,7 @@ import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 import ExpandedNote from './ExpandedNote';
 import { extractPlainText } from '../RichEditor/utils';
+import AudioRecorder from '../Recorder/Recorder';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -156,6 +158,7 @@ const NoteCard = (props: Props) => {
             </Header>
             <Body>{extractPlainText(updatedDescription)}</Body>
             <ButtonWrapper>
+            <AudioRecorder />
               <button
                 type="button"
                 className="focus:outline-none"
