@@ -3,6 +3,7 @@ import { VideoType, NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType, updateNoteDb } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
+import AudioRecorder from '../Recorder/Recorder';
 // import { updateCourse } from '../../actions/courses';
 // import notes from '../../reducers/entities/notes';
 
@@ -58,6 +59,9 @@ export default function NoteList(props: Props) {
       ) : (
         <span> please select a video | selected video has no notes </span>
       )}
+      <div>
+        <AudioRecorder />
+      </div>
     </div>
   );
 }

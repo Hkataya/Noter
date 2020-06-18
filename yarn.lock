@@ -14052,6 +14052,10 @@ re-resizable@^6.4.0:
   dependencies:
     fast-memoize "^2.5.1"
 
+"react-audio-recorder@github:MatrixFrog/react-audio-recorder#master":
+  version "2.1.0"
+  resolved "https://codeload.github.com/MatrixFrog/react-audio-recorder/tar.gz/fad7a2c5e595a894f7acc084ab7fba6b02868216"
+
 react-autosize-textarea@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/react-autosize-textarea/-/react-autosize-textarea-7.0.0.tgz#4f633e4238de7ba73c1da8fdc307353c50f1c5ab"
