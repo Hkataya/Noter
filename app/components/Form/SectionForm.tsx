@@ -1,21 +1,37 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SectionActionCreatorType } from '../../actions/sections';
 import { FormInput, WrapperForm, FormLabel, FormButton } from './FormStyle';
+import { SectionType } from '../../reducers/entities/types';
 
 type Props = SectionActionCreatorType & {
   closeModal: () => void;
   courseId: string;
+  data: SectionType | any;
 };
 
 const AddSectionForm = (props: Props) => {
   const [title, setTitle] = useState('');
+  const { addSectionDb, updateSectionDb, closeModal, courseId, data } = props;
 
-  const { addSectionDb, closeModal, courseId } = props;
+  useEffect(() => {
+    if (data && data.title) setTitle(data.title);
+  }, []);
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
+
+    if (Object.keys(data).length !== 0) {
+      const updatedSection = { ...data };
+      updatedSection.title = title;
+      if (updateSectionDb) {
+        updateSectionDb(updatedSection);
+        closeModal();
+      }
+      return;
+    }
+
     const section = {
       title,
       course: courseId
@@ -36,6 +52,7 @@ const AddSectionForm = (props: Props) => {
           placeholder="title"
           onChange={e => setTitle(e.target.value)}
           required
+          defaultValue={data.title || ''}
         />
       </div>
       <div className="mt-5">

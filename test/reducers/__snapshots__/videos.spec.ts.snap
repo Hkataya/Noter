@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`videos should handle ADD_VIDEO 1`] = `
+Object {
+  "456": Object {
+    "id": "456",
+    "section": "123",
+    "title": "test",
+    "url": "testurl",
+    "watched": false,
+  },
+}
+`;
+
+exports[`videos should handle REMOVE_VIDEO 1`] = `Object {}`;

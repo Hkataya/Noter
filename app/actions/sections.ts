@@ -1,6 +1,6 @@
 import { SectionType, CourseType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import SectionRepository from '../db/SectionRepository';
+import { sectionRepository as SectionRepository } from '../db/RepositoryInitializer';
 
 export const ADD_SECTION = 'ADD_SECTION';
 export const REMOVE_SECTION = 'REMOVE_SECTION';

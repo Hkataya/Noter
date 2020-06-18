@@ -22,7 +22,8 @@ const CourseForm = (props: Props) => {
 
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    if (data) {
+
+    if (Object.keys(data).length) {
       const updatedCourse = { ...data };
       updatedCourse.title = title;
       updatedCourse.description = description;

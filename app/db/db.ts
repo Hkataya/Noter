@@ -10,8 +10,8 @@ import { Schemas } from './Schema';
 PouchDB.plugin(find).plugin(rel);
 
 if (process.env.NODE_ENV !== 'production') {
-  PouchDB.plugin(debug);
-  PouchDB.debug.enable('pouchdb:api');
+  // PouchDB.plugin(debug);
+  // PouchDB.debug.enable('pouchdb:api');
 }
 
 // Initialize DB

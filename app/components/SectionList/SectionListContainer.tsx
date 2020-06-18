@@ -7,6 +7,7 @@ import {
 } from '../../actions/sections';
 import SectionList from './SectionList';
 import { SectionType } from '../../reducers/entities/types';
+import { openModal } from '../../actions/ui';
 
 function mapStateToProps(state: any, ownProps: any) {
   const { courseId } = ownProps;
@@ -27,7 +28,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
       removeSectionDb,
-      fetchSectionsByCourseDb
+      fetchSectionsByCourseDb,
+      openModal
     },
     dispatch
   );

@@ -7,6 +7,8 @@ test('loads and displays course card', async () => {
     <CourseCard
       id="123"
       title="test"
+      description="test"
+      updateCourse={() => {}}
       removeCourse={() => {}}
       directToCoursePage={() => {}}
     />
@@ -22,6 +24,7 @@ test('clicks direct to course page button', async () => {
       id="123"
       title="test"
       description="description"
+      updateCourse={() => {}}
       removeCourse={() => {}}
       directToCoursePage={directToCoursePage}
     />

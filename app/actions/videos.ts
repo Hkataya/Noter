@@ -1,6 +1,6 @@
 import { VideoType, SectionType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
-import VideoRepository from '../db/VideoRepository';
+import { videoRepository as VideoRepository } from '../db/RepositoryInitializer';
 
 export const ADD_VIDEO = 'ADD_VIDEO';
 export const REMOVE_VIDEO = 'REMOVE_VIDEO';
@@ -59,15 +59,11 @@ export type VideoActionType =
 
 export function addVideo(videoData: VideoType) {
   const videoId = videoData.id;
-  const video = {
-    id: videoId,
-    ...videoData
-  };
   return {
     type: ADD_VIDEO,
     payload: {
       videoId,
-      videoData: video
+      videoData
     }
   };
 }

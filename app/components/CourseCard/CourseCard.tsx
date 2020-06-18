@@ -58,6 +58,7 @@ const CourseCard = (props: Props) => {
     title,
     thumbnail,
     duration,
+    description,
     removeCourse,
     directToCoursePage,
     updateCourse
@@ -86,7 +87,7 @@ const CourseCard = (props: Props) => {
             <Title>{title}</Title>
           </TitleWrapper>
           <hr />
-          <Description>description</Description>
+          <Description>{description}</Description>
           <ListItemWrapper>
             <ul>
               <ListItem>

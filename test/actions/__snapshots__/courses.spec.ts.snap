@@ -11,9 +11,35 @@ Object {
 }
 `;
 
+exports[`actions should fetch all courses 1`] = `
+Object {
+  "payload": Object {
+    "courses": Array [
+      Object {
+        "description": "test",
+        "id": "123",
+        "title": "test",
+      },
+    ],
+  },
+  "type": "FETCH_ALL_COURSES",
+}
+`;
+
 exports[`actions should remove course 1`] = `
 Object {
   "payload": "123",
   "type": "REMOVE_COURSE",
+}
+`;
+
+exports[`actions should update course 1`] = `
+Object {
+  "payload": Object {
+    "description": "test",
+    "id": "123",
+    "title": "Changed",
+  },
+  "type": "UPDATE_COURSE",
 }
 `;
