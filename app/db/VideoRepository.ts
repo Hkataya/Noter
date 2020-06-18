@@ -11,6 +11,12 @@ class VideoRepository extends Repository<VideoType> {
       .findHasMany('video', 'section', sectionId)
       .then(data => data.videos);
   };
+
+  getRelatedCourseId = (sectionId: string) => {
+    return this.relDB.rel
+      .find('section', sectionId)
+      .then(data => data.sections[0].course);
+  };
 }
 
 export default VideoRepository;
