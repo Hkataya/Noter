@@ -2,7 +2,7 @@ export type CourseType = {
   id: string;
   title: string;
   description?: string;
-  duration?: string;
+  videoCount?: number;
   progress?: number;
   thumbnail?: string;
 };

@@ -37,7 +37,8 @@ const CourseForm = (props: Props) => {
     const course = {
       title,
       description,
-      duration: '0'
+      progress: 0,
+      videoCount: 0
     };
 
     if (addCourseDb) {

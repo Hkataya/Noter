@@ -82,7 +82,6 @@ export default function HomePage(props: Props) {
             key={k}
             title={courses[k].title}
             id={k}
-            duration={courses[k].duration}
             thumbnail={courses[k].thumbnail}
             removeCourse={() => {
               if (removeCourseDb) removeCourseDb(k);
