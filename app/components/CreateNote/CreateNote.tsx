@@ -43,7 +43,6 @@ const CreateNote = (props: Props) => {
   const { addNoteDb, videoId, timestamp } = props;
   const handleSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-
     const note = {
       title,
       description,

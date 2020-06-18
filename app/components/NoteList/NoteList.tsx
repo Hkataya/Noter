@@ -3,7 +3,6 @@ import { VideoType, NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType, updateNoteDb } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
-import AudioRecorder from '../Recorder/Recorder';
 // import { updateCourse } from '../../actions/courses';
 // import notes from '../../reducers/entities/notes';
 
