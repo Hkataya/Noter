@@ -4,7 +4,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import {
   addVideoDb,
   removeVideoDb,
-  toggleWatched,
+  toggleWatchedDb,
   fetchVideosBySectionDb,
   updateVideoDb
 } from '../../actions/videos';
@@ -35,7 +35,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
       fetchVideosBySectionDb,
       openModal,
       closeModal,
-      toggleWatched,
+      toggleWatchedDb,
       setCurrentlySelected
     },
     dispatch

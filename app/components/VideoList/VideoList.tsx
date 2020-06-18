@@ -27,7 +27,7 @@ export default function VideoList(props: Props) {
     modal,
     removeVideoDb,
     fetchVideosBySectionDb,
-    toggleWatched,
+    toggleWatchedDb,
     openModal,
     closeModal,
     setCurrentlySelected,
@@ -65,7 +65,7 @@ export default function VideoList(props: Props) {
       {videos.map(video => (
         <VideoCard
           onToggleClick={() => {
-            if (toggleWatched) toggleWatched(video.id);
+            if (toggleWatchedDb) toggleWatchedDb(video);
           }}
           thumbnail={placeholderThumbnail}
           key={video.id}
