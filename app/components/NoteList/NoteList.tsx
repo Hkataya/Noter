@@ -59,9 +59,6 @@ export default function NoteList(props: Props) {
       ) : (
         <span> please select a video | selected video has no notes </span>
       )}
-      <div>
-        <AudioRecorder />
-      </div>
     </div>
   );
 }
