@@ -8,14 +8,9 @@ const Wrapper = styled.div.attrs({
     'w-full flex border-r border-b border-l border-gray-400 border-l-0 border-t border-gray-400 bg-white rounded-b rounded-b-none rounded-r mr-5 mb-5'
 })``;
 
-type BgProps = {
-  thumbnail: string;
-};
 const First = styled.div.attrs({
   className: 'w-32 h-auto bg-cover bg-center rounded-t rounded-l'
-})<BgProps>`
-  background-image: url(${p => p.thumbnail});
-`;
+})``;
 
 const Second = styled.div.attrs({
   className: 'p-3 flex-auto flex flex-col justify-between'
@@ -39,7 +34,6 @@ type Props = VideoType & {
 
 const VideoCard = (props: Props) => {
   const {
-    thumbnail,
     title,
     onRemoveClick,
     directToMediaPage,
@@ -62,7 +56,6 @@ const VideoCard = (props: Props) => {
   ];
   return (
     <Wrapper onClick={onVideoCardClick}>
-      <First thumbnail={thumbnail || ''} />
       <Second>
         <div className="mb-8">
           <div className="text-gray-900 font-bold text-lg mb-2">

@@ -12,7 +12,7 @@ export type VideoType = {
   title: string;
   url: string;
   watched: boolean;
-  thumbnail?: string;
+  online: boolean;
   section: SectionType['id'];
 };
 

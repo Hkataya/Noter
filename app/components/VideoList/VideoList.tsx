@@ -10,9 +10,6 @@ import Modal from '../Modal/Modal';
 import { UIStateType } from '../../reducers/types';
 import VideoForm from '../Form/VideoForm';
 
-const placeholderThumbnail =
-  'https://i1.wp.com/wp.laravel-news.com/wp-content/uploads/2016/09/vuejs.png?resize=2200%2C1125';
-
 type Props = VideoActionCreatorType &
   UIActionCreatorType &
   UIStateType & {
@@ -67,7 +64,7 @@ export default function VideoList(props: Props) {
           onToggleClick={() => {
             if (toggleWatchedDb) toggleWatchedDb(video);
           }}
-          thumbnail={placeholderThumbnail}
+          online={video.online}
           key={video.id}
           id={video.id}
           watched={video.watched}
