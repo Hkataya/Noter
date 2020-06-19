@@ -57,6 +57,7 @@ const CourseCard = (props: Props) => {
   const {
     title,
     thumbnail,
+    videoCount,
     description,
     removeCourse,
     directToCoursePage,
@@ -92,6 +93,7 @@ const CourseCard = (props: Props) => {
               <ListItem>
                 <i className="fas fa-clock mr-3" />
                 videos: &nbsp;
+                {videoCount}
               </ListItem>
             </ul>
           </ListItemWrapper>

@@ -19,7 +19,7 @@ export default class Repository<T> {
     return this.relDB.rel.save(this.entityType, entityData);
   }
 
-  deleteEntity = (entityId: string) => {
+  deleteEntity(entityId: string) {
     /*
     return this.relDB.rel
       .findHasMany(getRelMany(this.entityType), this.entityType, entityId)
@@ -43,9 +43,9 @@ export default class Repository<T> {
     return this.db
       .get(generatedEntityId)
       .then(entity => this.db.remove(entity));
-  };
+  }
 
-  updateEntity = (entityData: T) => {
+  updateEntity(entityData: T) {
     return this.relDB.rel.save(this.entityType, entityData);
-  };
+  }
 }
