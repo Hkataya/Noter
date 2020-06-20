@@ -1,6 +1,7 @@
 /* eslint-disable promise/no-nesting */
 import Repository from './Repository';
 import { VideoType, SectionType } from '../reducers/entities/types';
+import sortArrayByDateCreated from '../utils/sortUtil';
 
 class VideoRepository extends Repository<VideoType> {
   constructor(db: PouchDB.Database, relDB: PouchDB.RelDatabase) {
@@ -28,9 +29,13 @@ class VideoRepository extends Repository<VideoType> {
   }
 
   getVideosBySectionId = (sectionId: SectionType['id']) => {
-    return this.relDB.rel
-      .findHasMany('video', 'section', sectionId)
-      .then(data => data.videos);
+    return this.db
+      .createIndex({ index: { fields: ['data.section', '_id'] } })
+      .then(() => {
+        return this.relDB.rel
+          .findHasMany('video', 'section', sectionId)
+          .then(data => sortArrayByDateCreated(data.videos));
+      });
   };
 
   getRelatedCourseId = (sectionId: string) => {

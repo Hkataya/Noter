@@ -12,13 +12,15 @@ describe('Test', () => {
         title: 'course',
         description: 'desc',
         videoCount: 0,
-        progress: 0
+        progress: 0,
+        createdAt: new Date()
       })
       .then(() =>
         testrelDB.rel.save('section', {
           id: '456',
           title: 'section',
-          course: '123'
+          course: '123',
+          createdAt: new Date()
         })
       )
       .catch(e => {
@@ -33,7 +35,8 @@ describe('Test', () => {
         title: 'test',
         url: 'testurl',
         watched: false,
-        section: '456'
+        section: '456',
+        createdAt: new Date()
       })
       .then(res => {
         expect(res.id).toBeTruthy();
@@ -49,7 +52,8 @@ describe('Test', () => {
         title: 'test2',
         url: 'testurl',
         watched: false,
-        section: '456'
+        section: '456',
+        createdAt: new Date()
       })
       .then(res => {
         return videoRepository.getRelatedCourseId('456').then(returnedId => {
@@ -68,7 +72,8 @@ describe('Test', () => {
         title: 'test3',
         url: 'testurl',
         watched: false,
-        section: '456'
+        section: '456',
+        createdAt: new Date()
       })
       .then(res => {
         return videoRepository.getRelatedCourseId('456').then(returnedId => {
@@ -101,6 +106,15 @@ describe('Test', () => {
             });
         });
       });
+    });
+  });
+
+  it('should get all videos sorted by date', () => {
+    return videoRepository.getVideosBySectionId('456').then(videos => {
+      expect(new Date(videos[0].createdAt).getTime().valueOf()).toBeLessThan(
+        new Date(videos[1].createdAt).getTime().valueOf()
+      );
+      return null;
     });
   });
 });

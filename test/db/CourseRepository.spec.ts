@@ -6,7 +6,11 @@ describe('Test', () => {
   const courseRepository = new CourseRepository(testdb, testrelDB);
   it('should create a course and return rev and id', () => {
     return courseRepository
-      .createEntity({ title: 'test', description: 'desc' })
+      .createEntity({
+        title: 'test',
+        description: 'desc',
+        createdAt: new Date()
+      })
       .then(res => {
         expect(res.id).toBeTruthy();
         return null;
@@ -15,7 +19,11 @@ describe('Test', () => {
 
   it('should create a course and an accompanying default section', () => {
     return courseRepository
-      .createEntity({ title: 'test2', description: 'desc2' })
+      .createEntity({
+        title: 'test2',
+        description: 'desc2',
+        createdAt: new Date()
+      })
       .then(res => {
         return courseRepository.relDB.rel
           .find('course', res.id)
@@ -30,7 +38,11 @@ describe('Test', () => {
 
   it('should delete a course', () => {
     return courseRepository
-      .createEntity({ title: 'test', description: 'desc' })
+      .createEntity({
+        title: 'test',
+        description: 'desc',
+        createdAt: new Date()
+      })
       .then(res => {
         return courseRepository.deleteEntity(res.id).then(() => {
           return courseRepository.relDB.rel
@@ -45,13 +57,18 @@ describe('Test', () => {
 
   it('should update a course', () => {
     return courseRepository
-      .createEntity({ title: 'test', description: 'desc' })
+      .createEntity({
+        title: 'test',
+        description: 'desc',
+        createdAt: new Date()
+      })
       .then(res => {
         const updatedCourseData = {
           id: res.id,
           rev: res.rev,
           title: 'UpdatedTest',
-          description: 'UpdatedDesc'
+          description: 'UpdatedDesc',
+          createdAt: new Date()
         };
         return courseRepository.updateEntity(updatedCourseData).then(() => {
           return courseRepository.relDB.rel
