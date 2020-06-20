@@ -61,7 +61,8 @@ const VideoForm = (props: Props) => {
       url: submittedUrl,
       online: urlSelected,
       watched: false,
-      section: sectionId
+      section: sectionId,
+      createdAt: new Date()
     };
 
     if (addVideoDb) {

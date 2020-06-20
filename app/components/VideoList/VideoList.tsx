@@ -64,6 +64,7 @@ export default function VideoList(props: Props) {
           onToggleClick={() => {
             if (toggleWatchedDb) toggleWatchedDb(video);
           }}
+          createdAt={video.createdAt}
           online={video.online}
           key={video.id}
           id={video.id}
