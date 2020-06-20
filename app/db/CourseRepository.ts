@@ -1,5 +1,6 @@
 import Repository from './Repository';
 import { CourseType } from '../reducers/entities/types';
+import sortArrayByDateCreated from '../utils/sortUtil';
 
 class CourseRepository extends Repository<CourseType> {
   constructor(db: PouchDB.Database, relDB: PouchDB.RelDatabase) {
@@ -7,7 +8,9 @@ class CourseRepository extends Repository<CourseType> {
   }
 
   getAllCourses = () => {
-    return this.relDB.rel.find('course').then(data => data.courses);
+    return this.relDB.rel
+      .find('course')
+      .then(data => sortArrayByDateCreated(data.courses));
   };
 
   createEntity(entityData: Omit<CourseType, 'id'>) {

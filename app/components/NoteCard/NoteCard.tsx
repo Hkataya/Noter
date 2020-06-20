@@ -158,7 +158,7 @@ const NoteCard = (props: Props) => {
             </Header>
             <Body>{extractPlainText(updatedDescription)}</Body>
             <ButtonWrapper>
-            <AudioRecorder />
+              <AudioRecorder />
               <button
                 type="button"
                 className="focus:outline-none"

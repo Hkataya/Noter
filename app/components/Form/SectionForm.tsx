@@ -34,7 +34,8 @@ const AddSectionForm = (props: Props) => {
 
     const section = {
       title,
-      course: courseId
+      course: courseId,
+      createdAt: new Date()
     };
 
     if (addSectionDb) {

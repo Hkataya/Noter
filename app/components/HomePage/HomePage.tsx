@@ -82,11 +82,12 @@ export default function HomePage(props: Props) {
       <CourseWrapper>
         {Object.keys(courses).map(k => (
           <CourseCard
+            createdAt={courses[k].createdAt}
+            videoCount={courses[k].videoCount}
             description={courses[k].description}
             key={k}
             title={courses[k].title}
             id={k}
-            duration={courses[k].duration}
             thumbnail={courses[k].thumbnail}
             removeCourse={() => {
               if (removeCourseDb) removeCourseDb(k);

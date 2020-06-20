@@ -2,9 +2,10 @@ export type CourseType = {
   id: string;
   title: string;
   description?: string;
-  duration?: string;
+  videoCount?: number;
   progress?: number;
   thumbnail?: string;
+  createdAt: Date;
 };
 
 export type VideoType = {
@@ -12,8 +13,9 @@ export type VideoType = {
   title: string;
   url: string;
   watched: boolean;
-  thumbnail?: string;
+  online: boolean;
   section: SectionType['id'];
+  createdAt: Date;
 };
 
 export type NoteType = {
@@ -28,4 +30,5 @@ export type SectionType = {
   id: string;
   title: string;
   course: CourseType['id'];
+  createdAt: Date;
 };

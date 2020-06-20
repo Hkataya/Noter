@@ -45,7 +45,7 @@ type FetchVideosBySectionAction = {
 export type VideoActionCreatorType = {
   addVideoDb?: (videoData: Omit<VideoType, 'id'>) => unknown;
   removeVideoDb?: (videoId: VideoType['id']) => unknown;
-  toggleWatched?: (videoId: VideoType['id']) => void;
+  toggleWatchedDb?: (videoData: VideoType) => unknown;
   fetchVideosBySectionDb?: (sectionId: SectionType['id']) => unknown;
   updateVideoDb?: (videoData: VideoType) => unknown;
 };
@@ -142,6 +142,21 @@ export function updateVideoDb(videoData: VideoType) {
     VideoRepository.updateEntity(videoData)
       .then(updatedData =>
         dispatch(updateVideo(Object.assign(videoData, updatedData)))
+      )
+      .catch(err => {
+        console.log(err);
+      });
+  };
+}
+
+export function toggleWatchedDb(videoData: VideoType) {
+  const updateVideoData = { ...videoData };
+  updateVideoData.watched = !updateVideoData.watched;
+
+  return (dispatch: Dispatch) => {
+    return VideoRepository.updateEntity(updateVideoData)
+      .then(updatedData =>
+        dispatch(updateVideo(Object.assign(updateVideoData, updatedData)))
       )
       .catch(err => {
         console.log(err);

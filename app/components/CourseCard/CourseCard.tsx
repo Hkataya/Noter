@@ -57,7 +57,7 @@ const CourseCard = (props: Props) => {
   const {
     title,
     thumbnail,
-    duration,
+    videoCount,
     description,
     removeCourse,
     directToCoursePage,
@@ -91,13 +91,9 @@ const CourseCard = (props: Props) => {
           <ListItemWrapper>
             <ul>
               <ListItem>
-                <i className="fas fa-stream mr-3" />
-                Sections: &nbsp; 0
-              </ListItem>
-              <ListItem>
                 <i className="fas fa-clock mr-3" />
-                duration: &nbsp;
-                {duration}
+                videos: &nbsp;
+                {videoCount}
               </ListItem>
             </ul>
           </ListItemWrapper>
@@ -108,12 +104,6 @@ const CourseCard = (props: Props) => {
           </div>
         </RightItem>
       </Background>
-      <div className="shadow w-full rounded-b-lg bg-grey-light">
-        <div
-          className="bg-purple-900 py-1 text-center rounded-b-lg"
-          style={{ width: '45%' }}
-        />
-      </div>
     </div>
   );
 };

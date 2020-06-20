@@ -6,9 +6,6 @@ exports[`loads and displays video card 1`] = `
     class="sc-AxhCb ccMvAG w-full flex border-r border-b border-l border-gray-400 border-l-0 border-t border-gray-400 bg-white rounded-b rounded-b-none rounded-r mr-5 mb-5"
   >
     <div
-      class="sc-AxhUy dBRLnL w-32 h-auto bg-cover bg-center rounded-t rounded-l"
-    />
-    <div
       class="sc-AxgMl fFPQpl p-3 flex-auto flex flex-col justify-between"
     >
       <div
