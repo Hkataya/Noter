@@ -14156,6 +14156,16 @@ react-router@5.1.2, react-router@^5.1.2:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-speech-kit@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-speech-kit/-/react-speech-kit-3.0.0.tgz#4c0ccbe07e5cb8f02e85f47f0f177304c5cc3c2e"
+  integrity sha512-xnnWXcTWf7Bcy/KoIncmOZ4fwprhHPhX6wjBo+GJSJ+XRKZDI96JG/8wxYYkYBPgVgmRxMSyd0Dywic3vA3AQA==
+
+react-speech-recognition@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-speech-recognition/-/react-speech-recognition-2.0.4.tgz#34ae2652cacef7ca6ca1c57659ded2fafec4c16d"
+  integrity sha512-CVIcNZuRf/zbsg2bMIOxwLTHvHVlcCXlB8DaVPdqKhNFJNeIOVcuNX1Lc4925HTDO1ZkQiaMD/xadMmYdx3DHQ==
+
 react-test-renderer@^16.0.0-0, react-test-renderer@^16.12.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.12.0.tgz#11417ffda579306d4e841a794d32140f3da1b43f"

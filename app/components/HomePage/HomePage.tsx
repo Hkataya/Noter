@@ -10,6 +10,10 @@ import { CourseActionCreatorType } from '../../actions/courses';
 import { EntityStateType, UIStateType } from '../../reducers/types';
 import routes from '../../constants/routes.json';
 import { UIActionCreatorType } from '../../actions/ui';
+import AudioRecorder from '../Recorder/Recorder';
+import SpeechRecognition from '../SpeechRecognition/SpeechRecognition';
+import RecognitionKit from '../SpeechRecognition/recognitionkit';
+import SynthesisKit from '../SpeechRecognition/synthesisKit';
 
 const CourseWrapper = styled.div.attrs({
   className: 'm-10 flex flex-wrap'
@@ -94,6 +98,19 @@ export default function HomePage(props: Props) {
           />
         ))}
       </CourseWrapper>
+      <div>
+        <AudioRecorder />
+      </div>
+      <div>
+        <p> react-speech-recognition package</p>
+        <SpeechRecognition />
+      </div>
+
+      <div>
+        <p>react-speech-kit package</p> 
+        <SynthesisKit />
+        <RecognitionKit />
+      </div>
     </HomeWrapper>
   );
 }
