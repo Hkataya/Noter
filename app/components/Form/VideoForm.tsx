@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import React, { useState, useEffect } from 'react';
-import ReactPlayer from 'react-player';
 import { VideoActionCreatorType } from '../../actions/videos';
 import { WrapperForm, FormButton, FormInput, FormLabel } from './FormStyle';
 import { VideoType } from '../../reducers/entities/types';
+import LightMediaPlayer from '../MediaPlayer/LightMediaPlayer';
 
 type Props = VideoActionCreatorType & {
   closeModal: () => void;
@@ -83,8 +83,8 @@ const VideoForm = (props: Props) => {
     setTitle('video');
   };
 
-  const checkUrlButton: string = urlSelected ? 'bg-green-500' : 'bg-gray-500';
-  const checkFileButton: string = urlSelected ? 'bg-gray-500' : 'bg-green-500';
+  const checkUrlButton: string = urlSelected ? 'bg-purple-500' : 'bg-gray-500';
+  const checkFileButton: string = urlSelected ? 'bg-gray-500' : 'bg-purple-500';
 
   return (
     <WrapperForm onSubmit={handleSubmit}>
@@ -92,14 +92,14 @@ const VideoForm = (props: Props) => {
         <button
           type="button"
           onClick={() => setUrlSelected(true)}
-          className={`bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l ${checkUrlButton}`}
+          className={`bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l focus:outline-none ${checkUrlButton}`}
         >
           Online
         </button>
         <button
           type="button"
           onClick={() => setUrlSelected(false)}
-          className={`bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r ${checkFileButton}`}
+          className={`bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r focus:outline-none ${checkFileButton}`}
         >
           Offline
         </button>
@@ -107,24 +107,27 @@ const VideoForm = (props: Props) => {
       {urlSelected ? (
         <div className="mt-5">
           <FormLabel>URL</FormLabel>
-          <div>
-            <FormInput
-              type="url"
-              placeholder="url"
-              onChange={e => handleUrlInputChange(e)}
-              required
-              defaultValue={url || ''}
-            />
-          </div>
-          <ReactPlayer url={url} light />
+          <FormInput
+            type="url"
+            placeholder="url"
+            onChange={e => handleUrlInputChange(e)}
+            required
+            defaultValue={url || ''}
+          />
+          {url && (
+            <div className="w-auto h-72 bg-gray-200 mt-4">
+              <LightMediaPlayer url={url} />
+            </div>
+          )}
         </div>
       ) : (
-        <div>
-          <input type="file" onChange={e => handleFileInputChange(e)} />
+        <div className="mt-5">
+          <FormLabel>File</FormLabel>
+          <FormInput type="file" onChange={e => handleFileInputChange(e)} />
         </div>
       )}
 
-      <div>
+      <div className="mt-5 flex justify-end">
         <FormButton type="submit">Done</FormButton>
       </div>
     </WrapperForm>
