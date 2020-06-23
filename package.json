@@ -282,6 +282,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@hot-loader/react-dom": "^16.13.0",
+    "@kunukn/react-collapse": "^2.2.9",
     "autoprefixer": "^9.7.6",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.6.4",

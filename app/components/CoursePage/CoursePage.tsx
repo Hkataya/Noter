@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Resizable } from 're-resizable';
+import Collapse from '@kunukn/react-collapse';
 import Modal from '../Modal/Modal';
 import routes from '../../constants/routes.json';
 import TitleBar from '../TitleBar/TitleBar';
@@ -34,6 +35,9 @@ export default function CoursePage(props: Props) {
     closeModal,
     openModal
   } = props;
+
+  const [open, setOpen] = useState(true);
+
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       {modal.visible && modal.type === 'SECTION' && (
@@ -75,6 +79,22 @@ export default function CoursePage(props: Props) {
           </div>
         </Resizable>
         <div className="bg-gray-800 h-full p-5 overflow-y-scroll overflow-x-hidden flex-auto">
+          <div className="bg-gray-100 rounded-lg p-2 ">
+            <button
+              className="focus:outline-none"
+              type="button"
+              onClick={() => setOpen(!open)}
+            >
+              Description
+            </button>
+            <Collapse
+              transition="height 300ms cubic-bezier(.4, 0, .2, 1)"
+              isOpen={open}
+            >
+              <p>{course.description}</p>
+            </Collapse>
+          </div>
+
           <TabList itemId={currentlySelected} />
         </div>
       </div>
