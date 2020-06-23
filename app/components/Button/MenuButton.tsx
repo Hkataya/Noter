@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const ButtonWrapper = styled.button.attrs({
@@ -8,7 +8,7 @@ const ButtonWrapper = styled.button.attrs({
 
 const DropdownWrapper = styled.div.attrs({
   className:
-    'origin-top-right absolute left-0 mt-2 min-w-64 rounded-md shadow-lg'
+    'origin-top-right absolute left-0 mt-2 min-w-64 rounded-md shadow-lg z-10'
 })``;
 
 const DropdownItem = styled.button.attrs({
@@ -27,9 +27,21 @@ type Props = {
 
 function MenuButton(props: Props) {
   const [dropdown, setDropdown] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (e: any) => {
+    if (divRef.current && !divRef.current.contains(e.target))
+      setDropdown(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  });
+
   const { items } = props;
   return (
-    <div className="relative inline-block">
+    <div ref={divRef} className="relative inline-block">
       <div>
         <ButtonWrapper
           role="button"

@@ -3,7 +3,7 @@
 exports[`loads modal 1`] = `
 <DocumentFragment>
   <div
-    class="sc-AxjAm StDqN flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-900 z-10"
+    class="sc-AxjAm StDqN flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-900 z-20"
   >
     <div
       class="sc-AxirZ ktnnZK bg-white rounded-lg w-1/2"
