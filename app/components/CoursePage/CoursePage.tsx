@@ -35,7 +35,7 @@ export default function CoursePage(props: Props) {
     openModal
   } = props;
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col overflow-hidden">
       {modal.visible && modal.type === 'SECTION' && (
         <Modal
           title="Add Section"
@@ -68,14 +68,13 @@ export default function CoursePage(props: Props) {
       </div>
 
       <TitleBar title={course.title} />
-      <div className="w-full bg-gray-100 flex-grow flex">
-        <Resizable minWidth={450}>
-          <div className="h-full p-4">
+      <div className="w-full h-full bg-gray-100 flex-grow flex overflow-visible">
+        <Resizable minWidth="30%" maxWidth="70%">
+          <div className="h-full p-4 overflow-y-scroll overflow-x-hidden">
             <SectionListContainer courseId={course.id} />
           </div>
         </Resizable>
-
-        <div className="bg-gray-800 h-full p-5 flex-auto">
+        <div className="bg-gray-800 h-full p-5 overflow-y-scroll overflow-x-hidden flex-auto">
           <TabList itemId={currentlySelected} />
         </div>
       </div>

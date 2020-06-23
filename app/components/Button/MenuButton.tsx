@@ -8,7 +8,7 @@ const ButtonWrapper = styled.button.attrs({
 
 const DropdownWrapper = styled.div.attrs({
   className:
-    'origin-top-right absolute left-0 mt-2 min-w-64 rounded-md shadow-lg z-10'
+    'origin-top-right absolute right-0 mt-2 min-w-64 rounded-md shadow-lg z-10'
 })``;
 
 const DropdownItem = styled.button.attrs({
