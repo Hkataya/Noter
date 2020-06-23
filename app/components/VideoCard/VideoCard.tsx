@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LightMediaPlayer from '../MediaPlayer/LightMediaPlayer';
 import { VideoType } from '../../reducers/entities/types';
 import MenuButton from '../Button/MenuButton';
 
@@ -9,7 +10,7 @@ const Wrapper = styled.div.attrs({
 })``;
 
 const First = styled.div.attrs({
-  className: 'w-32 h-auto bg-cover bg-center rounded-t rounded-l'
+  className: 'h-auto w-32 border border-gray-200 p-1'
 })``;
 
 const Second = styled.div.attrs({
@@ -40,6 +41,7 @@ const VideoCard = (props: Props) => {
     onToggleClick,
     onVideoCardClick,
     watched,
+    url,
     onUpdateVideoClick
   } = props;
 
@@ -56,6 +58,16 @@ const VideoCard = (props: Props) => {
   ];
   return (
     <Wrapper onClick={onVideoCardClick}>
+      <First
+        onClick={e => {
+          e.stopPropagation();
+          directToMediaPage();
+        }}
+      >
+        <span className="pointer-events-none">
+          <LightMediaPlayer url={url} />
+        </span>
+      </First>
       <Second>
         <div className="mb-8">
           <div className="text-gray-900 font-bold text-lg mb-2">
