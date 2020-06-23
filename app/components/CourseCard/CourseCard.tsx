@@ -8,13 +8,13 @@ type BgProps = {
   thumbnail: string;
 };
 const Background = styled.div.attrs({
-  className: 'flex  bg-cover bg-center rounded-t-lg'
+  className: 'flex bg-cover bg-center rounded-lg '
 })<BgProps>`
   background-image: url(${p => p.thumbnail});
 `;
 
 const LeftItem = styled.div.attrs({
-  className: 'w-1/3'
+  className: 'w-1/3 rounded-lg'
 })``;
 
 const RightItem = styled.div.attrs({
@@ -36,11 +36,11 @@ const Title = styled.h1.attrs({
 })``;
 
 const Description = styled.p.attrs({
-  className: 'mt-4 text-gray-600 text-sm text-justify break-all'
+  className: 'mt-4 text-gray-600 text-sm break-word whitespace-pre-wrap'
 })``;
 
 const ListItemWrapper = styled.div.attrs({
-  className: 'mt-4 text-gray-600 text-sm mt-4 text-justify'
+  className: 'mt-5 text-gray-600 text-sm mt-4 text-justify'
 })``;
 
 const ListItem = styled.li.attrs({
@@ -53,11 +53,23 @@ type Props = CourseType & {
   updateCourse: () => void;
 };
 
+const maximumCharactersAllowed = (text: string) => {
+  if (!text.length) return 'no description\n';
+  if (text.length < 30) return `${text}\n\n`;
+  if (text.length < 60) return `${text}`;
+  return `${text.substring(0, Math.min(text.length, 60))}...`;
+};
+
+const getFormattedDate = (dt: Date) => {
+  return `${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}`;
+};
+
 const CourseCard = (props: Props) => {
   const {
     title,
     thumbnail,
     videoCount,
+    createdAt,
     description,
     removeCourse,
     directToCoursePage,
@@ -87,17 +99,26 @@ const CourseCard = (props: Props) => {
             <Title>{title}</Title>
           </TitleWrapper>
           <hr />
-          <Description>{description}</Description>
+          <Description>
+            {maximumCharactersAllowed(description || '')}
+          </Description>
           <ListItemWrapper>
             <ul>
               <ListItem>
-                <i className="fas fa-clock mr-3" />
+                <i className="fas fa-video  mr-3" />
                 videos: &nbsp;
                 {videoCount}
               </ListItem>
             </ul>
+            <ul>
+              <ListItem>
+                <i className="fas fa-clock mr-3" />
+                created on: &nbsp;
+                {getFormattedDate(new Date(createdAt))}
+              </ListItem>
+            </ul>
           </ListItemWrapper>
-          <div className="flex justify-end mt-3">
+          <div className="flex justify-end mt-6">
             <Button type="button" onClick={directToCoursePage}>
               Watch
             </Button>

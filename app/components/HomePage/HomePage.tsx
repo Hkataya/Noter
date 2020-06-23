@@ -84,7 +84,7 @@ export default function HomePage(props: Props) {
             key={k}
             title={courses[k].title}
             id={k}
-            thumbnail={courses[k].thumbnail}
+            thumbnail="static/images/background-01.png"
             removeCourse={() => {
               if (removeCourseDb) removeCourseDb(k);
             }}
