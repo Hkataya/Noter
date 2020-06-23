@@ -33,7 +33,7 @@ class SectionRepository extends Repository<SectionType> {
   getCourseAndUpdateVideoCount = (courseId: string) => {
     return this.relDB.rel.find('course', courseId).then(data => {
       const course = data.courses[0];
-      const videoCount = data.videos.length;
+      const videoCount = data.videos ? data.videos.length : 0;
       course.videoCount = videoCount;
       return this.relDB.rel.save('course', course);
     });
