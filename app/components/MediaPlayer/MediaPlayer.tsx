@@ -31,16 +31,14 @@ const MediaPlayer = ({
   };
 
   return (
-    <div>
-      <div>
-        <ReactPlayer
-          url={url}
-          onProgress={logCurrentTime}
-          ref={player}
-          controls
-        />
-      </div>
-    </div>
+    <ReactPlayer
+      url={url}
+      width="100%"
+      height="100%"
+      onProgress={logCurrentTime}
+      ref={player}
+      controls
+    />
   );
 };
 

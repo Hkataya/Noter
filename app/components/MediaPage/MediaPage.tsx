@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { Resizable } from 're-resizable';
 import MediaPlayer from '../MediaPlayer/MediaPlayer';
 import { VideoType, NoteType } from '../../reducers/entities/types';
 import NoteListContainer from '../NoteList/NoteListContainer';
@@ -34,9 +35,9 @@ export default function MediaPage(props: Props) {
         </button>
       </div>
       <TitleBar title={video.title} />
-      <div className="w-full bg-gray-100 flex-grow">
-        <div className="h-full flex flex-row">
-          <div className="w-3/4 h-full p-5">
+      <div className="h-full flex overflow-visible">
+        <Resizable minWidth="70%" maxWidth="80%">
+          <div className="h-full p-2 bg-gray-800">
             <MediaPlayer
               targetTimestamp={targetTimestamp}
               setCurrentTimestamp={setCurrentTimestamp}
@@ -44,17 +45,18 @@ export default function MediaPage(props: Props) {
               url={video.url}
             />
           </div>
-          <div className="bg-purple-700 w-1/4 h-full flex flex-col p-1">
-            <div className=" flex-auto">
-              <NoteListContainer videoId={video.id} />
-            </div>
-            <div>
-              <CreateNote
-                timestamp={currentTimestamp}
-                addNoteDb={addNoteDb}
-                videoId={video.id || ''}
-              />
-            </div>
+        </Resizable>
+
+        <div className="bg-gray-800 h-full flex flex-col flex-auto ">
+          <div className="flex-auto p-3 overflow-y-scroll">
+            <NoteListContainer videoId={video.id} />
+          </div>
+          <div className="pt-2 pl-2 pr-2 pb-0">
+            <CreateNote
+              timestamp={currentTimestamp}
+              addNoteDb={addNoteDb}
+              videoId={video.id || ''}
+            />
           </div>
         </div>
       </div>

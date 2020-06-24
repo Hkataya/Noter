@@ -66,6 +66,7 @@ const CreateNote = (props: Props) => {
         <Body>
           <StyledTextareaAutosize
             placeholder="descrtipion"
+            maxRows={4}
             // @ts-ignore
             onChange={e => setDescription(e.target.value)}
             required
