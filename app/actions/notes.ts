@@ -1,10 +1,12 @@
-import { NoteType } from '../reducers/entities/types';
+import { NoteType, VideoType } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
 import { noteRepository as NoteRepository } from '../db/RepositoryInitializer';
 
 export const ADD_NOTE = 'ADD_NOTE';
 export const REMOVE_NOTE = 'REMOVE_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const FETCH_NOTES_BY_VIDEO = 'FETCH_NOTES_BY_VIDEO';
+
 type AddNoteAction = {
   type: typeof ADD_NOTE;
   payload: {
@@ -25,16 +27,26 @@ type UpdateNoteAction = {
     noteData: NoteType;
   };
 };
+
+type FetchNotesByVideoAction = {
+  type: typeof FETCH_NOTES_BY_VIDEO;
+  payload: {
+    notes: Array<NoteType>;
+  };
+};
+
 export type NoteActionCreatorType = {
   addNoteDb?: (noteData: Omit<NoteType, 'id'>) => unknown;
   removeNoteDb?: (noteId: NoteType['id']) => unknown;
   updateNoteDb?: (noteData: NoteType) => unknown;
+  fetchNotesByVideoDb?: (videoId: VideoType['id']) => unknown;
 };
 
 export type NoteActionType =
   | AddNoteAction
   | RemoveNoteAction
-  | UpdateNoteAction;
+  | UpdateNoteAction
+  | FetchNotesByVideoAction;
 
 export function updateNote(noteData: NoteType) {
   return {
@@ -63,6 +75,16 @@ function removeNote(noteId: NoteType['id']) {
     }
   };
 }
+
+export function fetchNotesByVideo(notesData: Array<NoteType>) {
+  return {
+    type: FETCH_NOTES_BY_VIDEO,
+    payload: {
+      notes: notesData
+    }
+  };
+}
+
 export function addNoteDb(noteData: Omit<NoteType, 'id'>) {
   return (dispatch: Dispatch) => {
     NoteRepository.createEntity(noteData)
@@ -90,6 +112,18 @@ export function updateNoteDb(noteData: NoteType) {
       .then(updatedData =>
         dispatch(updateNote(Object.assign(noteData, updatedData)))
       )
+      .catch(err => {
+        console.log(err);
+      });
+  };
+}
+
+export function fetchNotesByVideoDb(videoId: VideoType['id']) {
+  return (dispatch: Dispatch) => {
+    NoteRepository.getNotesByVideoId(videoId)
+      .then((notes: Array<NoteType>) => {
+        return dispatch(fetchNotesByVideo(notes));
+      })
       .catch(err => {
         console.log(err);
       });

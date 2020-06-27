@@ -4,7 +4,8 @@ import {
   ADD_NOTE,
   REMOVE_NOTE,
   NoteActionType,
-  UPDATE_NOTE
+  UPDATE_NOTE,
+  FETCH_NOTES_BY_VIDEO
 } from '../../actions/notes';
 
 export default function notes(state = {}, action: NoteActionType) {
@@ -24,6 +25,14 @@ export default function notes(state = {}, action: NoteActionType) {
     case UPDATE_NOTE:
       if (action.payload && action.payload.noteData.id)
         newState[action.payload.noteData.id] = action.payload.noteData;
+      return newState;
+
+    case FETCH_NOTES_BY_VIDEO:
+      if (action.payload && action.payload.notes) {
+        action.payload.notes.forEach(note => {
+          if (note.id) newState[note.id] = note;
+        });
+      }
       return newState;
 
     default:

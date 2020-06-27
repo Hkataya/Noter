@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { VideoType, NoteType } from '../../reducers/entities/types';
-import { NoteActionCreatorType, updateNoteDb } from '../../actions/notes';
+import { NoteActionCreatorType } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
 
@@ -20,8 +20,22 @@ const TimeStampSort = (noteArr: Array<NoteType>) => {
 };
 
 export default function NoteList(props: Props) {
-  const { setTargetTimestamp, videoId, removeNoteDb, notes } = props;
+  const {
+    setTargetTimestamp,
+    videoId,
+    removeNoteDb,
+    fetchNotesByVideoDb,
+    updateNoteDb,
+    notes
+  } = props;
   const sortedNotes = TimeStampSort(notes);
+  useEffect(() => {
+    if (fetchNotesByVideoDb) {
+      console.log('Fetching Note Data from db');
+      console.log(videoId);
+      fetchNotesByVideoDb(videoId);
+    }
+  }, []);
   return (
     <div>
       {sortedNotes.length ? (

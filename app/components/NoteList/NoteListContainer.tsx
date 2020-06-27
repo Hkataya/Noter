@@ -4,7 +4,11 @@ import { bindActionCreators, Dispatch } from 'redux';
 import NoteList from './NoteList';
 import { NoteType } from '../../reducers/entities/types';
 import { setTargetTimestamp } from '../../actions/ui';
-import { removeNoteDb } from '../../actions/notes';
+import {
+  removeNoteDb,
+  fetchNotesByVideoDb,
+  updateNoteDb
+} from '../../actions/notes';
 
 function mapStateToProps(state: any, ownProps: any) {
   const { videoId, type } = ownProps;
@@ -28,9 +32,10 @@ function mapStateToProps(state: any, ownProps: any) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
+      fetchNotesByVideoDb,
       setTargetTimestamp,
-      // TimeStampSort,
-      removeNoteDb
+      removeNoteDb,
+      updateNoteDb
     },
     dispatch
   );
