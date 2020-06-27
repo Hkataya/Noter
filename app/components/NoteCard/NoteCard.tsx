@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import EditorJs from '../RichEditor/EditorJs';
@@ -7,7 +5,6 @@ import { NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 import ExpandedNote from './ExpandedNote';
 import { extractPlainText } from '../RichEditor/utils';
-import AudioRecorder from '../Recorder/Recorder';
 
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
@@ -48,6 +45,14 @@ type Props = NoteType &
     setDescription: (description: string) => void;
     setTitle: (description: string) => void;
   };
+
+const formatTimestamp = (timestamp: string) => {
+  const date = new Date(0);
+  date.setSeconds(Math.round(Number(timestamp)));
+  const timeString = date.toISOString().substr(14, 5);
+  return timeString;
+};
+
 const NoteCard = (props: Props) => {
   const {
     title,
@@ -146,19 +151,19 @@ const NoteCard = (props: Props) => {
         return (
           <Wrapper>
             <Header>
-              {timestampVisible && (
-                <h1>
-                  <button type="button" onClick={onTimestampClick}>
-                    {timestamp}
-                  </button>
-                </h1>
-              )}
               <Title>{updatedTitle}</Title>
-              {/* more options button */}
+              {timestampVisible && (
+                <button
+                  className="bg-purple-500 text-white rounded-lg text-xs p-1"
+                  type="button"
+                  onClick={onTimestampClick}
+                >
+                  {formatTimestamp(timestamp)}
+                </button>
+              )}
             </Header>
             <Body>{extractPlainText(updatedDescription)}</Body>
             <ButtonWrapper>
-              <AudioRecorder />
               <button
                 type="button"
                 className="focus:outline-none"

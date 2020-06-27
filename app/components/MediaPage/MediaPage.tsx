@@ -2,7 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Resizable } from 're-resizable';
 import MediaPlayer from '../MediaPlayer/MediaPlayer';
-import { VideoType, NoteType } from '../../reducers/entities/types';
+import {
+  VideoType,
+  NoteType,
+  NoteShapeType
+} from '../../reducers/entities/types';
 import NoteListContainer from '../NoteList/NoteListContainer';
 import TitleBar from '../TitleBar/TitleBar';
 import CreateNote from '../CreateNote/CreateNote';
@@ -49,7 +53,7 @@ export default function MediaPage(props: Props) {
 
         <div className="bg-gray-800 h-full flex flex-col flex-auto ">
           <div className="flex-auto p-3 overflow-y-scroll">
-            <NoteListContainer videoId={video.id} />
+            <NoteListContainer videoId={video.id} type={NoteShapeType.note} />
           </div>
           <div className="pt-2 pl-2 pr-2 pb-0">
             <CreateNote
