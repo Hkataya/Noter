@@ -18,17 +18,26 @@ export type VideoType = {
   createdAt: Date;
 };
 
-export type NoteType = {
-  id: string;
-  title: string;
-  description: string;
-  timestamp: string;
-  video: VideoType['id'];
-};
-
 export type SectionType = {
   id: string;
   title: string;
   course: CourseType['id'];
   createdAt: Date;
+};
+
+export enum NoteShapeType {
+  note = 'NOTE',
+  audio = 'AUDIO',
+  image = 'IMAGE'
+}
+
+export type NoteType = {
+  id: string;
+  title: string;
+  description: string;
+  audio?: string;
+  image?: string;
+  type: NoteShapeType;
+  timestamp: string;
+  video: VideoType['id'];
 };

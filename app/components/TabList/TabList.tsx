@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NoteListContainer from '../NoteList/NoteListContainer';
+import { NoteShapeType } from '../../reducers/entities/types';
 
 const Wrapper = styled.div.attrs({
   className: 'flex flex-wrap'
@@ -60,28 +61,10 @@ export default function TabList(props: Props) {
               Notes
             </TabItem>
           </Tab>
-          <Tab>
-            <TabItem
-              color={openTab === 2 ? 'white' : 'blue'}
-              bgcolor={openTab === 2 ? 'blue' : 'white'}
-              onClick={e => {
-                e.preventDefault();
-                setOpenTab(2);
-              }}
-              data-toggle="tab"
-              href="#link2"
-              role="tablist"
-            >
-              other
-            </TabItem>
-          </Tab>
         </TabBar>
         <TabContent>
           <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
-            <NoteListContainer videoId={itemId} />
-          </div>
-          <div className={openTab === 2 ? 'block' : 'hidden'} id="link2">
-            other...
+            <NoteListContainer videoId={itemId} type={NoteShapeType.note} />
           </div>
         </TabContent>
       </InnerWrapper>

@@ -7,11 +7,14 @@ import { setTargetTimestamp } from '../../actions/ui';
 import { removeNoteDb } from '../../actions/notes';
 
 function mapStateToProps(state: any, ownProps: any) {
-  const { videoId } = ownProps;
+  const { videoId, type } = ownProps;
   const filteredNotes: Array<NoteType> = [];
   if (videoId !== '' && state.entities.videos[videoId]) {
     Object.keys(state.entities.notes).forEach((noteId: string) => {
-      if (state.entities.notes[noteId].video === videoId)
+      if (
+        state.entities.notes[noteId].video === videoId &&
+        state.entities.notes[noteId].type === type
+      )
         filteredNotes.push(state.entities.notes[noteId]);
     });
   }

@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-autosize-textarea';
 import { NoteActionCreatorType } from '../../actions/notes';
-import { NoteType, VideoType } from '../../reducers/entities/types';
+import {
+  NoteType,
+  VideoType,
+  NoteShapeType
+} from '../../reducers/entities/types';
 import { InitializeForDraftEditor } from '../RichEditor/utils';
 
 const Wrapper = styled.div.attrs({
@@ -47,7 +51,8 @@ const CreateNote = (props: Props) => {
       title,
       description,
       timestamp,
-      video: videoId
+      video: videoId,
+      type: NoteShapeType.note
     };
     note.description = InitializeForDraftEditor(note.description);
     if (addNoteDb) addNoteDb(note);
