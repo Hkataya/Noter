@@ -27,7 +27,7 @@ const TabItem = styled.a.attrs({
 `;
 
 const TabContent = styled.div.attrs({
-  className: 'relative flex flex-col min-w-0 w-full shadow-lg'
+  className: 'relative min-w-0 w-full shadow-lg'
 })``;
 
 type ItemProps = {

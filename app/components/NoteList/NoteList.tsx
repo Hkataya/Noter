@@ -37,7 +37,7 @@ export default function NoteList(props: Props) {
     }
   }, []);
   return (
-    <div>
+    <div className="flex flex-wrap justify-center">
       {sortedNotes.length ? (
         sortedNotes.map(note => (
           <NoteCard

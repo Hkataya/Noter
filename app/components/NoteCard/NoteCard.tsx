@@ -85,7 +85,7 @@ const NoteCard = (props: Props) => {
   };
 
   return (
-    <div>
+    <div className="w-96">
       {(() => {
         if (editable && !expanded) {
           return (
