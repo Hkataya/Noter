@@ -41,31 +41,51 @@ type Props = {
 
 export default function TabList(props: Props) {
   const { itemId } = props;
-  const [openTab, setOpenTab] = React.useState(1);
+  const [openTab, setOpenTab] = React.useState(0);
+
+  const tabItems = [
+    {
+      title: 'Notes',
+      type: NoteShapeType.note
+    },
+    {
+      title: 'Voice Notes',
+      type: NoteShapeType.audio
+    }
+  ];
+
   return (
     <Wrapper>
       <InnerWrapper>
         <TabBar role="tablist">
-          <Tab>
-            <TabItem
-              color={openTab === 1 ? 'white' : 'blue'}
-              bgcolor={openTab === 1 ? 'blue' : 'white'}
-              onClick={e => {
-                e.preventDefault();
-                setOpenTab(1);
-              }}
-              data-toggle="tab"
-              href="#link1"
-              role="tablist"
-            >
-              Notes
-            </TabItem>
-          </Tab>
+          {tabItems.map((tabItem, index) => (
+            <Tab key={tabItem.title}>
+              <TabItem
+                color={openTab === index ? 'white' : 'blue'}
+                bgcolor={openTab === index ? 'blue' : 'white'}
+                onClick={e => {
+                  e.preventDefault();
+                  setOpenTab(index);
+                }}
+                data-toggle="tab"
+                href={`#link${index}`}
+                role="tablist"
+              >
+                {tabItem.title}
+              </TabItem>
+            </Tab>
+          ))}
         </TabBar>
         <TabContent>
-          <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
-            <NoteListContainer videoId={itemId} type={NoteShapeType.note} />
-          </div>
+          {tabItems.map((tabItem, index) => (
+            <div
+              key={tabItem.title}
+              className={openTab === index ? 'block' : 'hidden'}
+              id={`link${index}`}
+            >
+              <NoteListContainer videoId={itemId} type={tabItem.type} />
+            </div>
+          ))}
         </TabContent>
       </InnerWrapper>
     </Wrapper>
