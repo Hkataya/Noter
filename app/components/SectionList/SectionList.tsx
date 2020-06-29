@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { SectionType } from '../../reducers/entities/types';
 import { SectionActionCreatorType } from '../../actions/sections';
@@ -15,17 +15,7 @@ type Props = SectionActionCreatorType &
   };
 
 export default function SectionList(props: Props) {
-  const {
-    courseId,
-    sections,
-    removeSectionDb,
-    fetchSectionsByCourseDb,
-    openModal
-  } = props;
-  useEffect(() => {
-    console.log('Fetching Data from db');
-    if (fetchSectionsByCourseDb) fetchSectionsByCourseDb(courseId);
-  }, []);
+  const { courseId, sections, removeSectionDb, openModal } = props;
 
   return (
     <div>

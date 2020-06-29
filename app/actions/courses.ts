@@ -1,4 +1,9 @@
-import { CourseType } from '../reducers/entities/types';
+import {
+  CourseType,
+  SectionType,
+  NoteType,
+  VideoType
+} from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
 import { courseRepository as CourseRepository } from '../db/RepositoryInitializer';
 
@@ -6,6 +11,7 @@ export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
 export const UPDATE_COURSE = 'UPDATE_COURSE';
 export const FETCH_ALL_COURSES = 'FETCH_ALL_COURSES';
+export const FETCH_COURSE_CONTENT = 'FETCH_COURSE_CONTENT';
 
 type AddCourseAction = {
   type: typeof ADD_COURSE;
@@ -29,18 +35,33 @@ type FetchAllCoursesAction = {
   };
 };
 
+type FetchedCourseData = {
+  sections: Array<SectionType>;
+  notes: Array<NoteType>;
+  videos: Array<VideoType>;
+};
+
+type FetchCourseContentAction = {
+  type: typeof FETCH_COURSE_CONTENT;
+  payload: {
+    data: FetchedCourseData;
+  };
+};
+
 export type CourseActionCreatorType = {
   addCourseDb?: (courseData: Omit<CourseType, 'id'>) => unknown;
   removeCourseDb?: (courseId: CourseType['id']) => unknown;
   updateCourseDb?: (courseData: CourseType) => unknown;
   fetchAllCoursesDb?: () => unknown;
+  fetchCourseContentDb?: (courseId: CourseType['id']) => unknown;
 };
 
 export type CourseActionType =
   | AddCourseAction
   | RemoveCourseAction
   | UpdateCourseAction
-  | FetchAllCoursesAction;
+  | FetchAllCoursesAction
+  | FetchCourseContentAction;
 
 export function addCourse(courseData: CourseType) {
   return {
@@ -68,6 +89,15 @@ export function fetchAllCourses(coursesData: Array<CourseType>) {
     type: FETCH_ALL_COURSES,
     payload: {
       courses: coursesData
+    }
+  };
+}
+
+export function fetchCourseContent(data: FetchedCourseData) {
+  return {
+    type: FETCH_COURSE_CONTENT,
+    payload: {
+      data
     }
   };
 }
@@ -111,6 +141,18 @@ export function updateCourseDb(courseData: CourseType) {
         dispatch(updateCourse(Object.assign(courseData, updatedData)))
       )
       .catch(err => {
+        console.log(err);
+      });
+  };
+}
+
+export function fetchCourseContentDb(courseId: CourseType['id']) {
+  return (dispatch: Dispatch) => {
+    CourseRepository.getCourseContent(courseId)
+      .then((data: FetchedCourseData) => {
+        return dispatch(fetchCourseContent(data));
+      })
+      .catch((err: any) => {
         console.log(err);
       });
   };

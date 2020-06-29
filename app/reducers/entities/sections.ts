@@ -8,7 +8,12 @@ import {
   UPDATE_SECTION
 } from '../../actions/sections';
 
-export default function sections(state = {}, action: SectionActionType) {
+import { FETCH_COURSE_CONTENT, CourseActionType } from '../../actions/courses';
+
+export default function sections(
+  state = {},
+  action: SectionActionType | CourseActionType
+) {
   const newState: any = { ...state };
   switch (action.type) {
     case ADD_SECTION:
@@ -33,6 +38,18 @@ export default function sections(state = {}, action: SectionActionType) {
     case UPDATE_SECTION:
       if (action.payload && action.payload.sectionData)
         newState[action.payload.sectionData.id] = action.payload.sectionData;
+      return newState;
+
+    case FETCH_COURSE_CONTENT:
+      if (
+        action.payload &&
+        action.payload.data &&
+        action.payload.data.sections
+      ) {
+        action.payload.data.sections.forEach((section: any) => {
+          newState[section.id] = section;
+        });
+      }
       return newState;
 
     default:

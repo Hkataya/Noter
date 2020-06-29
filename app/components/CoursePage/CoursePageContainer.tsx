@@ -2,7 +2,8 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { addSectionDb, updateSectionDb } from '../../actions/sections';
-import { openModal, closeModal } from '../../actions/ui';
+import { fetchCourseContentDb } from '../../actions/courses';
+import { openModal, closeModal, setCurrentlySelected } from '../../actions/ui';
 import CoursePage from './CoursePage';
 
 function mapStateToProps(state: any, ownProps: any) {
@@ -20,7 +21,9 @@ function mapDispatchToProps(dispatch: Dispatch) {
       addSectionDb,
       updateSectionDb,
       openModal,
-      closeModal
+      closeModal,
+      fetchCourseContentDb,
+      setCurrentlySelected
     },
     dispatch
   );

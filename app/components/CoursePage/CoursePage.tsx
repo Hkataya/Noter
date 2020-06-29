@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Resizable } from 're-resizable';
 import Collapse from '@kunukn/react-collapse';
@@ -15,10 +15,12 @@ import { UIActionCreatorType } from '../../actions/ui';
 import { ModalType } from '../../reducers/ui/types';
 import Button from '../Button/Button';
 import TabList from '../TabList/TabList';
+import { CourseActionCreatorType } from '../../actions/courses';
 
 type Props = EntityStateType &
   VideoActionCreatorType &
   UIActionCreatorType &
+  CourseActionCreatorType &
   SectionActionCreatorType & {
     course: CourseType;
     modal: ModalType;
@@ -32,9 +34,19 @@ export default function CoursePage(props: Props) {
     updateSectionDb,
     modal,
     currentlySelected,
+    fetchCourseContentDb,
     closeModal,
-    openModal
+    openModal,
+    setCurrentlySelected
   } = props;
+
+  useEffect(() => {
+    if (fetchCourseContentDb) {
+      console.log('Fetching All Course Data');
+      fetchCourseContentDb(course.id);
+    }
+    if (setCurrentlySelected) setCurrentlySelected('');
+  }, []);
 
   const [open, setOpen] = useState(true);
 

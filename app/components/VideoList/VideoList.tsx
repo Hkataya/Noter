@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { SectionType, VideoType } from '../../reducers/entities/types';
 import { VideoActionCreatorType } from '../../actions/videos';
@@ -23,7 +23,6 @@ export default function VideoList(props: Props) {
     videos,
     modal,
     removeVideoDb,
-    fetchVideosBySectionDb,
     toggleWatchedDb,
     openModal,
     closeModal,
@@ -32,12 +31,7 @@ export default function VideoList(props: Props) {
     updateVideoDb
   } = props;
   const history = useHistory();
-  useEffect(() => {
-    if (fetchVideosBySectionDb) {
-      console.log('Fetching Data');
-      fetchVideosBySectionDb(sectionId);
-    }
-  }, []);
+
   return (
     <div>
       {modal.visible && modal.type === 'VIDEO' && (

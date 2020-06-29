@@ -17,11 +17,25 @@ class CourseRepository extends Repository<CourseType> {
     return super.createEntity(entityData).then(updatedData => {
       this.relDB.rel.save('section', {
         title: 'Default Section',
-        course: updatedData.id
+        course: updatedData.id,
+        createdAt: new Date()
       });
       return updatedData;
     });
   }
+
+  getCourseContent = (courseId: CourseType['id']) => {
+    return this.relDB.rel.find('course', courseId).then(data => {
+      const sections = sortArrayByDateCreated(data.sections || []);
+      const notes = sortArrayByDateCreated(data.notes || []);
+      const videos = sortArrayByDateCreated(data.videos || []);
+      return {
+        sections,
+        notes,
+        videos
+      };
+    });
+  };
 }
 
 export default CourseRepository;

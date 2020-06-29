@@ -8,7 +8,12 @@ import {
   FETCH_NOTES_BY_VIDEO
 } from '../../actions/notes';
 
-export default function notes(state = {}, action: NoteActionType) {
+import { FETCH_COURSE_CONTENT, CourseActionType } from '../../actions/courses';
+
+export default function notes(
+  state = {},
+  action: NoteActionType | CourseActionType
+) {
   const newState: any = { ...state };
   switch (action.type) {
     case ADD_NOTE:
@@ -31,6 +36,14 @@ export default function notes(state = {}, action: NoteActionType) {
       if (action.payload && action.payload.notes) {
         action.payload.notes.forEach(note => {
           if (note.id) newState[note.id] = note;
+        });
+      }
+      return newState;
+
+    case FETCH_COURSE_CONTENT:
+      if (action.payload && action.payload.data && action.payload.data.notes) {
+        action.payload.data.notes.forEach((note: any) => {
+          newState[note.id] = note;
         });
       }
       return newState;

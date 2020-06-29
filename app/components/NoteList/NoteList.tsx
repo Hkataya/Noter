@@ -24,18 +24,11 @@ export default function NoteList(props: Props) {
     setTargetTimestamp,
     videoId,
     removeNoteDb,
-    fetchNotesByVideoDb,
     updateNoteDb,
     notes
   } = props;
   const sortedNotes = TimeStampSort(notes);
-  useEffect(() => {
-    if (fetchNotesByVideoDb) {
-      console.log('Fetching Note Data from db');
-      console.log(videoId);
-      fetchNotesByVideoDb(videoId);
-    }
-  }, []);
+
   return (
     <div className="flex flex-wrap justify-center">
       {sortedNotes.length ? (
