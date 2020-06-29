@@ -8,7 +8,7 @@ import TitleBar from '../TitleBar/TitleBar';
 import { EntityStateType } from '../../reducers/types';
 import { VideoActionCreatorType } from '../../actions/videos';
 import { SectionActionCreatorType } from '../../actions/sections';
-import { CourseType } from '../../reducers/entities/types';
+import { CourseType, NoteShapeType } from '../../reducers/entities/types';
 import SectionForm from '../Form/SectionForm';
 import SectionListContainer from '../SectionList/SectionListContainer';
 import { UIActionCreatorType } from '../../actions/ui';
@@ -16,6 +16,7 @@ import { ModalType } from '../../reducers/ui/types';
 import Button from '../Button/Button';
 import TabList from '../TabList/TabList';
 import { CourseActionCreatorType } from '../../actions/courses';
+import NoteListContainer from '../NoteList/NoteListContainer';
 
 type Props = EntityStateType &
   VideoActionCreatorType &
@@ -107,7 +108,30 @@ export default function CoursePage(props: Props) {
             </Collapse>
           </div>
 
-          <TabList itemId={currentlySelected} />
+          <TabList
+            tabItems={[
+              {
+                title: 'Notes',
+                type: NoteShapeType.note
+              },
+              {
+                title: 'Voice Notes',
+                type: NoteShapeType.audio
+              }
+            ]}
+            componentsArray={[
+              <NoteListContainer
+                key={0}
+                videoId={currentlySelected}
+                type={NoteShapeType.note}
+              />,
+              <NoteListContainer
+                key={1}
+                videoId={currentlySelected}
+                type={NoteShapeType.audio}
+              />
+            ]}
+          />
         </div>
       </div>
     </div>

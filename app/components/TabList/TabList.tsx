@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import NoteListContainer from '../NoteList/NoteListContainer';
-import { NoteShapeType } from '../../reducers/entities/types';
 
 const Wrapper = styled.div.attrs({
   className: 'flex flex-wrap'
@@ -36,23 +34,13 @@ type ItemProps = {
 };
 
 type Props = {
-  itemId: string;
+  componentsArray: Array<any>;
+  tabItems: Array<any>;
 };
 
 export default function TabList(props: Props) {
-  const { itemId } = props;
+  const { componentsArray, tabItems } = props;
   const [openTab, setOpenTab] = React.useState(0);
-
-  const tabItems = [
-    {
-      title: 'Notes',
-      type: NoteShapeType.note
-    },
-    {
-      title: 'Voice Notes',
-      type: NoteShapeType.audio
-    }
-  ];
 
   return (
     <Wrapper>
@@ -77,13 +65,13 @@ export default function TabList(props: Props) {
           ))}
         </TabBar>
         <TabContent>
-          {tabItems.map((tabItem, index) => (
+          {componentsArray.map((component, index) => (
             <div
-              key={tabItem.title}
+              key={component.key}
               className={openTab === index ? 'block' : 'hidden'}
               id={`link${index}`}
             >
-              <NoteListContainer videoId={itemId} type={tabItem.type} />
+              {component}
             </div>
           ))}
         </TabContent>
