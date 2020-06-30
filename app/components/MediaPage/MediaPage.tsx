@@ -12,6 +12,8 @@ import TitleBar from '../TitleBar/TitleBar';
 import CreateNote from '../CreateNote/CreateNote';
 import { NoteActionCreatorType } from '../../actions/notes';
 import { UIActionCreatorType } from '../../actions/ui';
+import CreateVoiceNote from '../CreateNote/CreateVoiceNote';
+import TabList from '../TabList/TabList';
 
 type Props = NoteActionCreatorType &
   UIActionCreatorType & {
@@ -39,7 +41,7 @@ export default function MediaPage(props: Props) {
         </button>
       </div>
       <TitleBar title={video.title} />
-      <div className="h-full flex overflow-visible">
+      <div className="h-full flex">
         <Resizable minWidth="70%" maxWidth="80%">
           <div className="h-full p-2 bg-gray-800">
             <MediaPlayer
@@ -52,16 +54,41 @@ export default function MediaPage(props: Props) {
         </Resizable>
 
         <div className="bg-gray-800 h-full flex flex-col flex-auto ">
-          <div className="flex-auto p-3 overflow-y-scroll">
-            <NoteListContainer videoId={video.id} type={NoteShapeType.note} />
-          </div>
-          <div className="pt-2 pl-2 pr-2 pb-0">
-            <CreateNote
-              timestamp={currentTimestamp}
-              addNoteDb={addNoteDb}
-              videoId={video.id || ''}
-            />
-          </div>
+          <TabList
+            tabItems={['Notes', 'Voice Notes']}
+            componentsArray={[
+              <div className="h-full flex flex-col justify-between" key={0}>
+                <div className="p-3">
+                  <NoteListContainer
+                    videoId={video.id}
+                    type={NoteShapeType.note}
+                  />
+                </div>
+                <div className="pt-2 pl-2 pr-2 pb-0">
+                  <CreateNote
+                    timestamp={currentTimestamp}
+                    addNoteDb={addNoteDb}
+                    videoId={video.id || ''}
+                  />
+                </div>
+              </div>,
+              <div className="h-full flex flex-col justify-between" key={1}>
+                <div className="p-3">
+                  <NoteListContainer
+                    videoId={video.id}
+                    type={NoteShapeType.audio}
+                  />
+                </div>
+                <div className="pt-2 pl-2 pr-2 pb-0">
+                  <CreateVoiceNote
+                    timestamp={currentTimestamp}
+                    addNoteDb={addNoteDb}
+                    videoId={video.id || ''}
+                  />
+                </div>
+              </div>
+            ]}
+          />
         </div>
       </div>
     </div>
