@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div.attrs({
-  className: 'flex flex-wrap'
+  className: 'flex flex-wrap h-full'
 })``;
 
 const InnerWrapper = styled.div.attrs({
-  className: 'w-full'
+  className: 'w-full h-full flex flex-col'
 })``;
 
 const TabBar = styled.ul.attrs({
@@ -25,7 +25,7 @@ const TabItem = styled.a.attrs({
 `;
 
 const TabContent = styled.div.attrs({
-  className: 'relative min-w-0 w-full shadow-lg'
+  className: 'relative min-w-0 w-full shadow-lg h-full'
 })``;
 
 type ItemProps = {
@@ -35,7 +35,7 @@ type ItemProps = {
 
 type Props = {
   componentsArray: Array<any>;
-  tabItems: Array<any>;
+  tabItems: Array<string>;
 };
 
 export default function TabList(props: Props) {
@@ -47,7 +47,7 @@ export default function TabList(props: Props) {
       <InnerWrapper>
         <TabBar role="tablist">
           {tabItems.map((tabItem, index) => (
-            <Tab key={tabItem.title}>
+            <Tab key={tabItem}>
               <TabItem
                 color={openTab === index ? 'white' : 'blue'}
                 bgcolor={openTab === index ? 'blue' : 'white'}
@@ -59,7 +59,7 @@ export default function TabList(props: Props) {
                 href={`#link${index}`}
                 role="tablist"
               >
-                {tabItem.title}
+                {tabItem}
               </TabItem>
             </Tab>
           ))}
@@ -68,7 +68,9 @@ export default function TabList(props: Props) {
           {componentsArray.map((component, index) => (
             <div
               key={component.key}
-              className={openTab === index ? 'block' : 'hidden'}
+              className={
+                openTab === index ? 'block h-full  overflow-y-scroll' : 'hidden'
+              }
               id={`link${index}`}
             >
               {component}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { VideoType, NoteType } from '../../reducers/entities/types';
 import { NoteActionCreatorType } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
@@ -30,7 +30,7 @@ export default function NoteList(props: Props) {
   const sortedNotes = TimeStampSort(notes);
 
   return (
-    <div className="flex flex-wrap justify-center">
+    <div>
       {sortedNotes.length ? (
         sortedNotes.map(note => (
           <NoteCard

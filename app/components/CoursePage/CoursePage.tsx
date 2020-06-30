@@ -91,7 +91,7 @@ export default function CoursePage(props: Props) {
             <SectionListContainer courseId={course.id} />
           </div>
         </Resizable>
-        <div className="bg-gray-800 h-full p-5 overflow-y-scroll overflow-x-hidden flex-auto">
+        <div className="bg-gray-800 h-full p-5 flex flex-col flex-auto">
           <div className="bg-gray-100 rounded-lg p-2 ">
             <button
               className="focus:outline-none"
@@ -109,16 +109,7 @@ export default function CoursePage(props: Props) {
           </div>
 
           <TabList
-            tabItems={[
-              {
-                title: 'Notes',
-                type: NoteShapeType.note
-              },
-              {
-                title: 'Voice Notes',
-                type: NoteShapeType.audio
-              }
-            ]}
+            tabItems={['Notes', 'Voice Notes']}
             componentsArray={[
               <NoteListContainer
                 key={0}
