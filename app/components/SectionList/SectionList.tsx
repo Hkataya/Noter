@@ -6,7 +6,9 @@ import { VideoActionCreatorType } from '../../actions/videos';
 import VideoListContainer from '../VideoList/VideoListContainer';
 import MenuButton from '../Button/MenuButton';
 import { UIActionCreatorType } from '../../actions/ui';
+import formType from '../../constants/form-types.json';
 
+// **** Prop Types Section **** //
 type Props = SectionActionCreatorType &
   VideoActionCreatorType &
   UIActionCreatorType & {
@@ -14,8 +16,9 @@ type Props = SectionActionCreatorType &
     sections: Array<SectionType>;
   };
 
+// **** Component Section **** //
 export default function SectionList(props: Props) {
-  const { courseId, sections, removeSectionDb, openModal } = props;
+  const { sections, removeSectionDb, openModal } = props;
 
   return (
     <div>
@@ -34,7 +37,7 @@ export default function SectionList(props: Props) {
                 {
                   label: 'update',
                   action: () => {
-                    if (openModal) openModal(section, '', 'SECTION');
+                    if (openModal) openModal(section, '', formType.SECTION);
                   }
                 }
               ]}

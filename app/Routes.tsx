@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
 import HomePageContainer from './components/HomePage/HomePageContainer';
-import CounterPage from './containers/CounterPage';
 import CoursePageContainer from './components/CoursePage/CoursePageContainer';
 import MediaPageContainer from './components/MediaPage/MediaPageContainer';
 
@@ -16,7 +15,6 @@ export default function Routes() {
           component={MediaPageContainer}
         />
         <Route path={`${routes.COURSE}/:id`} component={CoursePageContainer} />
-        <Route path={routes.COUNTER} component={CounterPage} />
         <Route path={routes.HOME} component={HomePageContainer} />
       </Switch>
     </App>

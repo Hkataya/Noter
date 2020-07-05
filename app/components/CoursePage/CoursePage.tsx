@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Resizable } from 're-resizable';
 import Collapse from '@kunukn/react-collapse';
@@ -17,6 +18,32 @@ import Button from '../Button/Button';
 import TabList from '../TabList/TabList';
 import { CourseActionCreatorType } from '../../actions/courses';
 import NoteListContainer from '../NoteList/NoteListContainer';
+import formType from '../../constants/form-types.json';
+
+// **** Style Section **** //
+
+const CoursePageWrapper = styled.div.attrs({
+  className: 'h-screen flex flex-col overflow-hidden'
+})``;
+const ButtonWrapper = styled.div.attrs({
+  className: 'flex justify-end mt-3 mr-5'
+})``;
+const MainView = styled.div.attrs({
+  className: 'w-full h-full bg-gray-100 flex-grow flex overflow-visible'
+})``;
+const LeftWrapper = styled.div.attrs({
+  className: 'h-full p-4 overflow-y-scroll overflow-x-hidden'
+})``;
+const RightWrapper = styled.div.attrs({
+  className: 'bg-gray-800 h-full p-4 flex flex-col flex-auto'
+})``;
+const CourseDescriptionWrapper = styled.div.attrs({
+  className: 'bg-purple-600 text-white rounded-lg p-2'
+})``;
+const CourseDescriptionHeader = styled.div.attrs({
+  className: 'flex justify-between'
+})``;
+// **** Prop Types Section **** //
 
 type Props = EntityStateType &
   VideoActionCreatorType &
@@ -27,6 +54,8 @@ type Props = EntityStateType &
     modal: ModalType;
     currentlySelected: string;
   };
+
+// **** Component Section **** //
 
 export default function CoursePage(props: Props) {
   const {
@@ -42,18 +71,15 @@ export default function CoursePage(props: Props) {
   } = props;
 
   useEffect(() => {
-    if (fetchCourseContentDb) {
-      console.log('Fetching All Course Data');
-      fetchCourseContentDb(course.id);
-    }
+    if (fetchCourseContentDb) fetchCourseContentDb(course.id);
     if (setCurrentlySelected) setCurrentlySelected('');
   }, []);
 
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
-      {modal.visible && modal.type === 'SECTION' && (
+    <CoursePageWrapper>
+      {modal.visible && modal.type === formType.SECTION && (
         <Modal
           title="Add Section"
           handleClose={() => {
@@ -71,42 +97,62 @@ export default function CoursePage(props: Props) {
           />
         </Modal>
       )}
+
       <Link to={routes.HOME}>
         <i className="fa fa-arrow-left fa-x mt-3 ml-3" />
       </Link>
-      <div className="flex justify-end mt-3 mr-5">
+
+      <ButtonWrapper>
         <Button
           onClick={() => {
-            if (openModal) openModal({}, course.id, 'SECTION');
+            if (openModal) openModal({}, course.id, formType.SECTION);
           }}
         >
           Add Section +
         </Button>
-      </div>
+      </ButtonWrapper>
 
       <TitleBar title={course.title} />
-      <div className="w-full h-full bg-gray-100 flex-grow flex overflow-visible">
-        <Resizable minWidth="30%" maxWidth="70%">
-          <div className="h-full p-4 overflow-y-scroll overflow-x-hidden">
+
+      <MainView>
+        <Resizable
+          defaultSize={{
+            width: '60%',
+            height: 'auto'
+          }}
+          minWidth="40%"
+          maxWidth="70%"
+        >
+          <LeftWrapper>
             <SectionListContainer courseId={course.id} />
-          </div>
+          </LeftWrapper>
         </Resizable>
-        <div className="bg-gray-800 h-full p-5 flex flex-col flex-auto">
-          <div className="bg-gray-100 rounded-lg p-2 ">
-            <button
-              className="focus:outline-none"
-              type="button"
-              onClick={() => setOpen(!open)}
-            >
-              Description
-            </button>
+
+        <RightWrapper>
+          <CourseDescriptionWrapper>
+            <CourseDescriptionHeader>
+              <h1 className="font-semibold"> Course Description </h1>
+              <button
+                className="focus:outline-none pr-2"
+                type="button"
+                onClick={() => setOpen(!open)}
+              >
+                <i
+                  className={`fas fa-chevron-right  ${
+                    open ? 'icon-rotate down' : 'icon-rotate'
+                  }`}
+                />
+              </button>
+            </CourseDescriptionHeader>
             <Collapse
               transition="height 300ms cubic-bezier(.4, 0, .2, 1)"
               isOpen={open}
             >
-              <p>{course.description}</p>
+              <hr className="mt-3 border-gray-500" />
+
+              <p className="mt-3">{course.description}</p>
             </Collapse>
-          </div>
+          </CourseDescriptionWrapper>
 
           <TabList
             tabItems={['Notes', 'Voice Notes']}
@@ -123,8 +169,8 @@ export default function CoursePage(props: Props) {
               />
             ]}
           />
-        </div>
-      </div>
-    </div>
+        </RightWrapper>
+      </MainView>
+    </CoursePageWrapper>
   );
 }

@@ -4,6 +4,12 @@ import { CourseType } from '../../reducers/entities/types';
 import MenuButton from '../Button/MenuButton';
 import Button from '../Button/Button';
 
+// **** Style Section **** //
+
+const Wrapper = styled.div.attrs({
+  className: 'w-96 shadow-lg rounded-t-lg m-5'
+})``;
+
 type BgProps = {
   thumbnail: string;
 };
@@ -32,11 +38,11 @@ const TitleWrapper = styled.div.attrs({
   className: 'flex text-white mb-4'
 })``;
 const Title = styled.h1.attrs({
-  className: 'text-white font-bold text-lg text-justify break-all'
+  className: 'text-white font-bold text-lg text-justify truncate'
 })``;
 
 const Description = styled.p.attrs({
-  className: 'mt-4 text-gray-600 text-sm break-word whitespace-pre-wrap'
+  className: 'mt-4 text-gray-600 text-sm break-all whitespace-pre-wrap'
 })``;
 
 const ListItemWrapper = styled.div.attrs({
@@ -47,22 +53,32 @@ const ListItem = styled.li.attrs({
   className: 'mt-1'
 })``;
 
-type Props = CourseType & {
-  removeCourse: () => void;
-  directToCoursePage: () => void;
-  updateCourse: () => void;
-};
+const ButtonWrapper = styled.div.attrs({
+  className: 'flex justify-end mt-6'
+})``;
+
+// **** Component Specific Utilities **** //
 
 const maximumCharactersAllowed = (text: string) => {
   if (!text.length) return 'no description\n';
-  if (text.length < 30) return `${text}\n\n`;
-  if (text.length < 60) return `${text}`;
+  if (text.length < 34) return `${text}\n `;
+  if (text.length < 60) return `${text} `;
   return `${text.substring(0, Math.min(text.length, 60))}...`;
 };
 
 const getFormattedDate = (dt: Date) => {
   return `${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}`;
 };
+
+// **** Prop Types **** //
+
+type Props = CourseType & {
+  removeCourse: () => void;
+  directToCoursePage: () => void;
+  updateCourse: () => void;
+};
+
+// **** Component Function **** //
 
 const CourseCard = (props: Props) => {
   const {
@@ -88,7 +104,7 @@ const CourseCard = (props: Props) => {
   ];
 
   return (
-    <div className="w-96 shadow-lg rounded-t-lg m-5">
+    <Wrapper>
       <Background thumbnail={thumbnail || ''}>
         <LeftItem />
         <RightItem>
@@ -98,7 +114,7 @@ const CourseCard = (props: Props) => {
           <TitleWrapper>
             <Title>{title}</Title>
           </TitleWrapper>
-          <hr />
+          <hr className="border-gray-700" />
           <Description>
             {maximumCharactersAllowed(description || '')}
           </Description>
@@ -118,14 +134,14 @@ const CourseCard = (props: Props) => {
               </ListItem>
             </ul>
           </ListItemWrapper>
-          <div className="flex justify-end mt-6">
+          <ButtonWrapper>
             <Button type="button" onClick={directToCoursePage}>
               Watch
             </Button>
-          </div>
+          </ButtonWrapper>
         </RightItem>
       </Background>
-    </div>
+    </Wrapper>
   );
 };
 

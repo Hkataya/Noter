@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import React from 'react';
+import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { SectionType, VideoType } from '../../reducers/entities/types';
 import { VideoActionCreatorType } from '../../actions/videos';
@@ -9,6 +10,12 @@ import { UIActionCreatorType } from '../../actions/ui';
 import Modal from '../Modal/Modal';
 import { UIStateType } from '../../reducers/types';
 import VideoForm from '../Form/VideoForm';
+import formType from '../../constants/form-types.json';
+
+const AddVideoButtonWrapper = styled.div.attrs({
+  className:
+    'max-w-sm w-full lg:max-w-full lg:flex rounded border border-gray-400 bg-white p-2 mr-5 mb-5'
+})``;
 
 type Props = VideoActionCreatorType &
   UIActionCreatorType &
@@ -34,7 +41,7 @@ export default function VideoList(props: Props) {
 
   return (
     <div>
-      {modal.visible && modal.type === 'VIDEO' && (
+      {modal.visible && modal.type === formType.VIDEO && (
         <Modal
           title="Add Video"
           handleClose={() => {
@@ -78,20 +85,21 @@ export default function VideoList(props: Props) {
             if (setCurrentlySelected) setCurrentlySelected(video.id || '');
           }}
           onUpdateVideoClick={() => {
-            if (openModal) openModal(video, '', 'VIDEO');
+            if (openModal) openModal(video, '', formType.VIDEO);
           }}
         />
       ))}
-      <div className="'max-w-sm w-full lg:max-w-full lg:flex border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r mr-5 mb-5">
+      <AddVideoButtonWrapper>
         <button
+          className=" w-full text-center focus:outline-none"
           onClick={() => {
-            if (openModal) openModal({}, sectionId, 'VIDEO');
+            if (openModal) openModal({}, sectionId, formType.VIDEO);
           }}
           type="button"
         >
-          Add New Video +
+          Add new video +
         </button>
-      </div>
+      </AddVideoButtonWrapper>
     </div>
   );
 }

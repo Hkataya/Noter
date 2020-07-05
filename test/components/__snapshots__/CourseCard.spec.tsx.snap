@@ -3,16 +3,16 @@
 exports[`loads and displays course card 1`] = `
 <DocumentFragment>
   <div
-    class="w-96 shadow-lg rounded-t-lg m-5"
+    class="sc-AxhUy kMyssT w-96 shadow-lg rounded-t-lg m-5"
   >
     <div
-      class="sc-AxhUy dBRLnL flex bg-cover bg-center rounded-lg "
+      class="sc-AxgMl cKqXdV flex bg-cover bg-center rounded-lg "
     >
       <div
-        class="sc-AxgMl fFPQpl w-1/3 rounded-lg"
+        class="sc-AxheI fniENP w-1/3 rounded-lg"
       />
       <div
-        class="sc-AxheI bMWDco w-2/3 p-5 bg-white rounded-lg"
+        class="sc-Axmtr bYBIiP w-2/3 p-5 bg-white rounded-lg"
       >
         <div
           class="flex justify-end -mt-4"
@@ -34,28 +34,29 @@ exports[`loads and displays course card 1`] = `
           </div>
         </div>
         <div
-          class="sc-Axmtr hBVTto flex text-white mb-4"
+          class="sc-AxmLO cAKCgh flex text-white mb-4"
         >
           <h1
-            class="sc-AxmLO cAKCgh text-white font-bold text-lg text-justify break-all"
+            class="sc-fzozJi jxgYyc text-white font-bold text-lg text-justify truncate"
           >
             test
           </h1>
         </div>
-        <hr />
+        <hr
+          class="border-gray-700"
+        />
         <p
-          class="sc-fzozJi jxgYyc mt-4 text-gray-600 text-sm break-word whitespace-pre-wrap"
+          class="sc-fzoLsD fqEnxe mt-4 text-gray-600 text-sm break-all whitespace-pre-wrap"
         >
           test
-
-
+ 
         </p>
         <div
-          class="sc-fzoLsD fqEnxe mt-5 text-gray-600 text-sm mt-4 text-justify"
+          class="sc-fzpans kkFAbe mt-5 text-gray-600 text-sm mt-4 text-justify"
         >
           <ul>
             <li
-              class="sc-fzpans kkFAbe mt-1"
+              class="sc-fzplWN kfkaqr mt-1"
             >
               <i
                 class="fas fa-video  mr-3"
@@ -65,7 +66,7 @@ exports[`loads and displays course card 1`] = `
           </ul>
           <ul>
             <li
-              class="sc-fzpans kkFAbe mt-1"
+              class="sc-fzplWN kfkaqr mt-1"
             >
               <i
                 class="fas fa-clock mr-3"
@@ -75,7 +76,7 @@ exports[`loads and displays course card 1`] = `
           </ul>
         </div>
         <div
-          class="flex justify-end mt-6"
+          class="sc-fznyAO hdDwJr flex justify-end mt-6"
         >
           <button
             class="sc-AxhCb ccMvAG px-3 py-2 bg-purple-900 text-white text-xs font-bold uppercase rounded"

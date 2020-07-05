@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// **** Style Section **** //
 const Wrapper = styled.div.attrs({
   className: 'flex flex-wrap h-full'
 })``;
@@ -28,6 +29,8 @@ const TabContent = styled.div.attrs({
   className: 'relative min-w-0 w-full shadow-lg h-full'
 })``;
 
+// **** Prop Types Section **** //
+
 type ItemProps = {
   color: string;
   bgcolor: string;
@@ -37,6 +40,8 @@ type Props = {
   componentsArray: Array<any>;
   tabItems: Array<string>;
 };
+
+// **** Component Section **** //
 
 export default function TabList(props: Props) {
   const { componentsArray, tabItems } = props;
@@ -49,8 +54,8 @@ export default function TabList(props: Props) {
           {tabItems.map((tabItem, index) => (
             <Tab key={tabItem}>
               <TabItem
-                color={openTab === index ? 'white' : 'blue'}
-                bgcolor={openTab === index ? 'blue' : 'white'}
+                color={openTab === index ? 'whitesmoke' : 'purple'}
+                bgcolor={openTab === index ? 'purple' : 'whitesmoke '}
                 onClick={e => {
                   e.preventDefault();
                   setOpenTab(index);
@@ -69,7 +74,9 @@ export default function TabList(props: Props) {
             <div
               key={component.key}
               className={
-                openTab === index ? 'block h-full  overflow-y-scroll' : 'hidden'
+                openTab === index
+                  ? 'block h-full  overflow-y-scroll p-2'
+                  : 'hidden'
               }
               id={`link${index}`}
             >

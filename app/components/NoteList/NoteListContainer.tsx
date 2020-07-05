@@ -11,7 +11,8 @@ import {
 } from '../../actions/notes';
 
 function mapStateToProps(state: any, ownProps: any) {
-  const { videoId, type } = ownProps;
+  const { videoId, type, timestampVisible } = ownProps;
+
   const filteredNotes: Array<NoteType> = [];
   if (videoId !== '' && state.entities.videos[videoId]) {
     Object.keys(state.entities.notes).forEach((noteId: string) => {
@@ -25,7 +26,8 @@ function mapStateToProps(state: any, ownProps: any) {
 
   return {
     videoId,
-    notes: filteredNotes
+    notes: filteredNotes,
+    timestampVisible
   };
 }
 
