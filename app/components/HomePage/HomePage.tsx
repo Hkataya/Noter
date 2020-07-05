@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../SearchBar/SearchBar';
 import CourseCard from '../CourseCard/CourseCard';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
+import LoginModal from '../LoginModal';
 import CourseForm from '../Form/CourseForm';
+import LoginForm from '../Form/LoginForm';
 import { CourseActionCreatorType } from '../../actions/courses';
 import { EntityStateType, UIStateType } from '../../reducers/types';
 import routes from '../../constants/routes.json';
@@ -26,6 +28,7 @@ type Props = EntityStateType &
 
 export default function HomePage(props: Props) {
   const history = useHistory();
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(true);
   const {
     courses,
     removeCourseDb,
@@ -64,6 +67,19 @@ export default function HomePage(props: Props) {
           />
         </Modal>
       )}
+
+      {isOpenLoginModal ? (
+        <Modal
+          handleClose={() => {
+            setIsOpenLoginModal(false);
+          }}
+          title="Login"
+        >
+          <LoginForm />
+        </Modal>
+      ) : (
+        ''
+      )}
       <SearchBar />
       <div className="flex justify-end mt-3">
         <Button
@@ -72,6 +88,13 @@ export default function HomePage(props: Props) {
           }}
         >
           Add Course +
+        </Button>
+        <Button
+          onClick={() => {
+            if (!isOpenLoginModal) setIsOpenLoginModal(true);
+          }}
+        >
+          Login
         </Button>
       </div>
 
