@@ -10,6 +10,9 @@ import { CourseActionCreatorType } from '../../actions/courses';
 import { EntityStateType, UIStateType } from '../../reducers/types';
 import routes from '../../constants/routes.json';
 import { UIActionCreatorType } from '../../actions/ui';
+import formTypes from '../../constants/form-types.json';
+
+// **** Style Section **** //
 
 const CourseWrapper = styled.div.attrs({
   className: 'm-10 flex flex-wrap'
@@ -18,11 +21,18 @@ const CourseWrapper = styled.div.attrs({
 const HomeWrapper = styled.div.attrs({
   className: 'mx-auto p-5 bg-gray-100 align-center'
 })``;
+const ButtonWrapper = styled.div.attrs({
+  className: 'flex justify-end mt-3'
+})``;
+
+// **** Prop Types Section **** //
 
 type Props = EntityStateType &
   CourseActionCreatorType &
   UIActionCreatorType &
   UIStateType;
+
+// **** Component Section **** //
 
 export default function HomePage(props: Props) {
   const history = useHistory();
@@ -38,16 +48,12 @@ export default function HomePage(props: Props) {
   } = props;
 
   useEffect(() => {
-    if (fetchAllCoursesDb) {
-      console.log('Fetching Data');
-      fetchAllCoursesDb();
-    }
+    if (fetchAllCoursesDb) fetchAllCoursesDb();
   }, []);
 
   return (
     <HomeWrapper>
-      <h2>Home</h2>
-      {modal.visible && modal.type === 'COURSE' && (
+      {modal.visible && modal.type === formTypes.COURSE && (
         <Modal
           handleClose={() => {
             if (closeModal) closeModal();
@@ -65,15 +71,15 @@ export default function HomePage(props: Props) {
         </Modal>
       )}
       <SearchBar />
-      <div className="flex justify-end mt-3">
+      <ButtonWrapper>
         <Button
           onClick={() => {
-            if (openModal) openModal({}, '', 'COURSE');
+            if (openModal) openModal({}, '', formTypes.COURSE);
           }}
         >
           Add Course +
         </Button>
-      </div>
+      </ButtonWrapper>
 
       <CourseWrapper>
         {Object.keys(courses).map(k => (
@@ -90,7 +96,7 @@ export default function HomePage(props: Props) {
             }}
             directToCoursePage={() => history.push(`${routes.COURSE}/${k}`)}
             updateCourse={() => {
-              if (openModal) openModal(courses[k], '', 'COURSE');
+              if (openModal) openModal(courses[k], '', formTypes.COURSE);
             }}
           />
         ))}

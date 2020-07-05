@@ -10,6 +10,8 @@ import {
 } from '../../reducers/entities/types';
 import { InitializeForDraftEditor } from '../RichEditor/utils';
 
+// **** Style Section **** //
+
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
 })``;
@@ -26,6 +28,11 @@ const ButtonWrapper = styled.div.attrs({
   className: 'px-3 py-2'
 })``;
 
+const Button = styled.button.attrs({
+  className:
+    'w-full focus:outline-none px-3 py-2 bg-purple-900 text-white font-bold uppercase rounded'
+})``;
+
 const TitleInput = styled.input.attrs({
   className:
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
@@ -36,10 +43,14 @@ const StyledTextareaAutosize = styled(TextareaAutosize).attrs({
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
 })``;
 
+// **** Prop Types Section **** //
+
 type Props = NoteActionCreatorType & {
   videoId: VideoType['id'];
   timestamp: NoteType['timestamp'];
 };
+
+// **** Component Section **** //
 
 const CreateNote = (props: Props) => {
   const [title, setTitle] = useState('');
@@ -71,19 +82,14 @@ const CreateNote = (props: Props) => {
         <Body>
           <StyledTextareaAutosize
             placeholder="descrtipion"
-            maxRows={4}
+            maxRows={5}
             // @ts-ignore
             onChange={e => setDescription(e.target.value)}
             required
           />
         </Body>
         <ButtonWrapper>
-          <button
-            type="submit"
-            className="w-full focus:outline-none px-3 py-2 bg-purple-900 text-white font-bold uppercase rounded"
-          >
-            +
-          </button>
+          <Button type="submit">+</Button>
         </ButtonWrapper>
       </Wrapper>
     </form>

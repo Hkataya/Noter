@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Resizable } from 're-resizable';
 import MediaPlayer from '../MediaPlayer/MediaPlayer';
@@ -15,12 +16,31 @@ import { UIActionCreatorType } from '../../actions/ui';
 import CreateVoiceNote from '../CreateNote/CreateVoiceNote';
 import TabList from '../TabList/TabList';
 
+// **** Style Section **** //
+
+const MediaPageWrapper = styled.div.attrs({
+  className: 'h-screen flex flex-col overflow-hidden'
+})``;
+const MainView = styled.div.attrs({
+  className: 'h-full flex'
+})``;
+
+const LeftView = styled.div.attrs({
+  className: 'h-full p-2 bg-gray-800'
+})``;
+const RightView = styled.div.attrs({
+  className: 'bg-gray-800 h-full flex flex-col flex-auto'
+})``;
+
+// **** Prop Types Section **** //
 type Props = NoteActionCreatorType &
   UIActionCreatorType & {
     video: VideoType;
     currentTimestamp: NoteType['timestamp'];
     targetTimestamp: NoteType['timestamp'];
   };
+
+// **** Component Section **** //
 
 export default function MediaPage(props: Props) {
   const {
@@ -34,26 +54,35 @@ export default function MediaPage(props: Props) {
   const history = useHistory();
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <MediaPageWrapper>
       <div>
         <button type="button" onClick={() => history.goBack()}>
           <i className="fa fa-arrow-left fa-x mt-3 ml-3" />
         </button>
       </div>
+
       <TitleBar title={video.title} />
-      <div className="h-full flex">
-        <Resizable minWidth="70%" maxWidth="80%">
-          <div className="h-full p-2 bg-gray-800">
+
+      <MainView>
+        <Resizable
+          defaultSize={{
+            width: '80%',
+            height: 'auto'
+          }}
+          minWidth="70%"
+          maxWidth="80%"
+        >
+          <LeftView>
             <MediaPlayer
               targetTimestamp={targetTimestamp}
               setCurrentTimestamp={setCurrentTimestamp}
               setTargetTimestamp={setTargetTimestamp}
               url={video.url}
             />
-          </div>
+          </LeftView>
         </Resizable>
 
-        <div className="bg-gray-800 h-full flex flex-col flex-auto ">
+        <RightView>
           <TabList
             tabItems={['Notes', 'Voice Notes']}
             componentsArray={[
@@ -91,8 +120,9 @@ export default function MediaPage(props: Props) {
               </div>
             ]}
           />
-        </div>
-      </div>
-    </div>
+          <br />
+        </RightView>
+      </MainView>
+    </MediaPageWrapper>
   );
 }

@@ -4,12 +4,16 @@ import { NoteActionCreatorType } from '../../actions/notes';
 import NoteCard from '../NoteCard/NoteCard';
 import { UIActionCreatorType } from '../../actions/ui';
 
+// **** Prop Types Section **** //
+
 type Props = NoteActionCreatorType &
   UIActionCreatorType & {
     videoId: VideoType['id'];
     notes: Array<NoteType>;
     timestampVisible: boolean;
   };
+
+// **** Component Utilities Section **** //
 
 const TimeStampSort = (noteArr: Array<NoteType>) => {
   const timestampsort = noteArr.sort((a, b) => {
@@ -19,6 +23,8 @@ const TimeStampSort = (noteArr: Array<NoteType>) => {
   });
   return timestampsort;
 };
+
+// **** Component Section **** //
 
 export default function NoteList(props: Props) {
   const {
@@ -55,7 +61,6 @@ export default function NoteList(props: Props) {
             timestamp={note.timestamp}
             onTimestampClick={() => {
               if (setTargetTimestamp) setTargetTimestamp(note.timestamp);
-              // TimeStampSort(notes);
             }}
             onRemoveClick={() => {
               if (removeNoteDb) removeNoteDb(note.id);

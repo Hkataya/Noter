@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// **** Style Section **** //
 const Wrapper = styled.div.attrs({
   className: 'flex flex-wrap h-full'
 })``;
@@ -28,6 +29,8 @@ const TabContent = styled.div.attrs({
   className: 'relative min-w-0 w-full shadow-lg h-full'
 })``;
 
+// **** Prop Types Section **** //
+
 type ItemProps = {
   color: string;
   bgcolor: string;
@@ -37,6 +40,8 @@ type Props = {
   componentsArray: Array<any>;
   tabItems: Array<string>;
 };
+
+// **** Component Section **** //
 
 export default function TabList(props: Props) {
   const { componentsArray, tabItems } = props;

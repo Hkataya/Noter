@@ -6,6 +6,8 @@ import { NoteActionCreatorType } from '../../actions/notes';
 import ExpandedNote from './ExpandedNote';
 import { extractPlainText } from '../RichEditor/utils';
 
+// **** Style Section **** //
+
 const Wrapper = styled.div.attrs({
   className: 'rounded-lg shadow-lg bg-white my-3'
 })``;
@@ -36,6 +38,8 @@ const TitleInput = styled.input.attrs({
     'appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-700'
 })``;
 
+// **** Prop Types Section **** //
+
 type Props = NoteType &
   NoteActionCreatorType & {
     timestampVisible: boolean;
@@ -52,6 +56,8 @@ const formatTimestamp = (timestamp: string) => {
   const timeString = date.toISOString().substr(14, 5);
   return timeString;
 };
+
+// **** Component Section **** //
 
 const NoteCard = (props: Props) => {
   const {
@@ -87,7 +93,7 @@ const NoteCard = (props: Props) => {
   return (
     <div>
       {(() => {
-        if (editable && !expanded) {
+        if (editable) {
           return (
             <Wrapper>
               <div>
@@ -101,13 +107,6 @@ const NoteCard = (props: Props) => {
                       setDescription={setUpdatedDescription}
                     />
                   </EditorStyle>
-                  <button
-                    type="button"
-                    className="w-full focus:outline-none px-3 py-2 bg-purple-900 text-white text-xs font-bold uppercase rounded right:0"
-                    onClick={toggleExpand}
-                  >
-                    <i className="fa fa-palette" />
-                  </button>
                 </Body>
                 <ButtonWrapper>
                   <button
@@ -133,13 +132,12 @@ const NoteCard = (props: Props) => {
             </Wrapper>
           );
         }
-        if (expanded && editable) {
+        if (expanded) {
           return (
             <>
               <ExpandedNote
                 title={title}
                 description={updatedDescription}
-                // setEditable={setEditable}
                 setExpanded={setExpanded}
                 onUpdateClick={editorOnUpdateClick}
                 setDescription={setUpdatedDescription}
@@ -149,14 +147,17 @@ const NoteCard = (props: Props) => {
         }
 
         return (
-          <Wrapper>
+          <Wrapper onClick={toggleExpand}>
             <Header>
               <Title>{updatedTitle}</Title>
               {timestampVisible && (
                 <button
                   className="bg-purple-500 text-white rounded-lg text-xs p-1"
                   type="button"
-                  onClick={onTimestampClick}
+                  onClick={e => {
+                    e.stopPropagation();
+                    onTimestampClick();
+                  }}
                 >
                   {formatTimestamp(timestamp)}
                 </button>
@@ -167,13 +168,19 @@ const NoteCard = (props: Props) => {
               <button
                 type="button"
                 className="focus:outline-none"
-                onClick={() => setEditable(true)}
+                onClick={e => {
+                  e.stopPropagation();
+                  setEditable(true);
+                }}
               >
                 <i className="fas fa-pen mr-5" />
               </button>
               <button
                 type="button"
-                onClick={onRemoveClick}
+                onClick={e => {
+                  e.stopPropagation();
+                  onRemoveClick();
+                }}
                 className="focus:outline-none"
               >
                 <i className="fas fa-trash  " />
