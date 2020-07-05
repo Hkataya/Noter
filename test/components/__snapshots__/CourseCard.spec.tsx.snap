@@ -44,11 +44,10 @@ exports[`loads and displays course card 1`] = `
         </div>
         <hr />
         <p
-          class="sc-fzozJi jxgYyc mt-4 text-gray-600 text-sm break-word whitespace-pre-wrap"
+          class="sc-fzozJi jxgYyc mt-4 text-gray-600 text-sm break-all whitespace-pre-wrap"
         >
           test
-
-
+ 
         </p>
         <div
           class="sc-fzoLsD fqEnxe mt-5 text-gray-600 text-sm mt-4 text-justify"

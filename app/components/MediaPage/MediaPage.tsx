@@ -62,6 +62,7 @@ export default function MediaPage(props: Props) {
                   <NoteListContainer
                     videoId={video.id}
                     type={NoteShapeType.note}
+                    timestampVisible
                   />
                 </div>
                 <div className="pt-2 pl-2 pr-2 pb-0">
@@ -77,6 +78,7 @@ export default function MediaPage(props: Props) {
                   <NoteListContainer
                     videoId={video.id}
                     type={NoteShapeType.audio}
+                    timestampVisible
                   />
                 </div>
                 <div className="pt-2 pl-2 pr-2 pb-0">

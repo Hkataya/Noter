@@ -15,11 +15,11 @@ const Header = styled.div.attrs({
 })``;
 
 const Title = styled.span.attrs({
-  className: 'font-bold text-gray-700 text-sm'
+  className: 'font-bold text-gray-700 text-sm break-all'
 })``;
 
 const Body = styled.div.attrs({
-  className: 'px-3 py-2 text-gray-600 text-sm'
+  className: 'px-3 py-2 text-gray-600 text-sm break-all'
 })``;
 
 const ButtonWrapper = styled.div.attrs({

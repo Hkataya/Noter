@@ -49,8 +49,8 @@ export default function TabList(props: Props) {
           {tabItems.map((tabItem, index) => (
             <Tab key={tabItem}>
               <TabItem
-                color={openTab === index ? 'white' : 'blue'}
-                bgcolor={openTab === index ? 'blue' : 'white'}
+                color={openTab === index ? 'whitesmoke' : 'purple'}
+                bgcolor={openTab === index ? 'purple' : 'whitesmoke '}
                 onClick={e => {
                   e.preventDefault();
                   setOpenTab(index);
@@ -69,7 +69,9 @@ export default function TabList(props: Props) {
             <div
               key={component.key}
               className={
-                openTab === index ? 'block h-full  overflow-y-scroll' : 'hidden'
+                openTab === index
+                  ? 'block h-full  overflow-y-scroll p-2'
+                  : 'hidden'
               }
               id={`link${index}`}
             >

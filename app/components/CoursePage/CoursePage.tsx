@@ -86,25 +86,33 @@ export default function CoursePage(props: Props) {
 
       <TitleBar title={course.title} />
       <div className="w-full h-full bg-gray-100 flex-grow flex overflow-visible">
-        <Resizable minWidth="30%" maxWidth="70%">
+        <Resizable minWidth="40%" maxWidth="70%">
           <div className="h-full p-4 overflow-y-scroll overflow-x-hidden">
             <SectionListContainer courseId={course.id} />
           </div>
         </Resizable>
-        <div className="bg-gray-800 h-full p-5 flex flex-col flex-auto">
-          <div className="bg-gray-100 rounded-lg p-2 ">
-            <button
-              className="focus:outline-none"
-              type="button"
-              onClick={() => setOpen(!open)}
-            >
-              Description
-            </button>
+        <div className="bg-gray-800 h-full p-4 flex flex-col flex-auto">
+          <div className="bg-purple-600 text-white rounded-lg p-2 ">
+            <div className="flex justify-between">
+              <h1 className="font-semibold"> Course Description </h1>
+              <button
+                className="focus:outline-none pr-2"
+                type="button"
+                onClick={() => setOpen(!open)}
+              >
+                <i
+                  className={`fas fa-chevron-right  ${
+                    open ? 'icon-rotate down' : 'icon-rotate'
+                  }`}
+                />
+              </button>
+            </div>
             <Collapse
               transition="height 300ms cubic-bezier(.4, 0, .2, 1)"
               isOpen={open}
             >
-              <p>{course.description}</p>
+              <hr className="mt-3 border-gray-500" />
+              <p className="mt-3">{course.description}</p>
             </Collapse>
           </div>
 

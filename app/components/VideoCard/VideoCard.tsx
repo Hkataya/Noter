@@ -6,15 +6,15 @@ import MenuButton from '../Button/MenuButton';
 
 const Wrapper = styled.div.attrs({
   className:
-    'w-full flex border-r border-b border-l border-gray-400 border-l-0 border-t border-gray-400 bg-white rounded-b rounded-b-none rounded-r mr-5 mb-5'
+    'w-full h-24 flex flex-wrap border-r border-b border-l border-gray-400 border-l-0 border-t border-gray-400 bg-white rounded-b rounded-b-none rounded-r mr-5 mb-5'
 })``;
 
 const First = styled.div.attrs({
-  className: 'h-auto w-32 border border-gray-200 p-1'
+  className: 'border w-40 h-24 border-gray-200'
 })``;
 
 const Second = styled.div.attrs({
-  className: 'p-3 flex-auto flex flex-col justify-between'
+  className: 'p-3 flex-1 h-24 overflow-hidden'
 })``;
 
 const Third = styled.div.attrs({
@@ -69,19 +69,16 @@ const VideoCard = (props: Props) => {
         </span>
       </First>
       <Second>
-        <div className="mb-8">
-          <div className="text-gray-900 font-bold text-lg mb-2">
-            <button
-              onClick={e => {
-                e.stopPropagation();
-                directToMediaPage();
-              }}
-              type="button"
-            >
-              {title}
-            </button>
-          </div>
-        </div>
+        <button
+          className="-mt-6 text-left break-all"
+          onClick={e => {
+            e.stopPropagation();
+            directToMediaPage();
+          }}
+          type="button"
+        >
+          {title}
+        </button>
       </Second>
       <Third>
         <button

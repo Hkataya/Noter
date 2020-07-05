@@ -36,7 +36,7 @@ const Title = styled.h1.attrs({
 })``;
 
 const Description = styled.p.attrs({
-  className: 'mt-4 text-gray-600 text-sm break-word whitespace-pre-wrap'
+  className: 'mt-4 text-gray-600 text-sm break-all whitespace-pre-wrap'
 })``;
 
 const ListItemWrapper = styled.div.attrs({
@@ -55,8 +55,8 @@ type Props = CourseType & {
 
 const maximumCharactersAllowed = (text: string) => {
   if (!text.length) return 'no description\n';
-  if (text.length < 30) return `${text}\n\n`;
-  if (text.length < 60) return `${text}`;
+  if (text.length < 34) return `${text}\n `;
+  if (text.length < 60) return `${text} `;
   return `${text.substring(0, Math.min(text.length, 60))}...`;
 };
 

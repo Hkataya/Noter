@@ -8,6 +8,7 @@ type Props = NoteActionCreatorType &
   UIActionCreatorType & {
     videoId: VideoType['id'];
     notes: Array<NoteType>;
+    timestampVisible: boolean;
   };
 
 const TimeStampSort = (noteArr: Array<NoteType>) => {
@@ -25,8 +26,10 @@ export default function NoteList(props: Props) {
     videoId,
     removeNoteDb,
     updateNoteDb,
-    notes
+    notes,
+    timestampVisible
   } = props;
+
   const sortedNotes = TimeStampSort(notes);
 
   return (
@@ -39,6 +42,7 @@ export default function NoteList(props: Props) {
             title={note.title}
             video={videoId}
             type={note.type}
+            timestampVisible={timestampVisible}
             description={note.description}
             setDescription={(description: string) => {
               // eslint-disable-next-line no-param-reassign
@@ -49,7 +53,6 @@ export default function NoteList(props: Props) {
               note.title = title;
             }}
             timestamp={note.timestamp}
-            timestampVisible
             onTimestampClick={() => {
               if (setTargetTimestamp) setTargetTimestamp(note.timestamp);
               // TimeStampSort(notes);
@@ -63,7 +66,10 @@ export default function NoteList(props: Props) {
           />
         ))
       ) : (
-        <span> please select a video | selected video has no notes </span>
+        <div className="bg-yellow-600 rounded p-3 text-white">
+          <i className="fa fa-exclamation-circle mr-3" aria-hidden="true" />
+          Selected Video Has No Notes!
+        </div>
       )}
     </div>
   );
