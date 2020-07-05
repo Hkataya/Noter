@@ -5,7 +5,7 @@ import { CourseType } from '../../reducers/entities/types';
 
 type Props = CourseActionCreatorType & {
   // closeModal: () => void;
-  data: CourseType | any | undefined;
+  // data: CourseType | any | undefined;
 };
 
 const LoginForm = (props: Props) => {

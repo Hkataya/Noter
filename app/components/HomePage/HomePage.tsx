@@ -5,7 +5,6 @@ import SearchBar from '../SearchBar/SearchBar';
 import CourseCard from '../CourseCard/CourseCard';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
-import LoginModal from '../LoginModal';
 import CourseForm from '../Form/CourseForm';
 import LoginForm from '../Form/LoginForm';
 import { CourseActionCreatorType } from '../../actions/courses';
@@ -38,7 +37,7 @@ type Props = EntityStateType &
 
 export default function HomePage(props: Props) {
   const history = useHistory();
-  const [isOpenLoginModal, setIsOpenLoginModal] = useState(true);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const {
     courses,
     removeCourseDb,
@@ -102,7 +101,6 @@ export default function HomePage(props: Props) {
         >
           Login
         </Button>
-      </div>
       </ButtonWrapper>
 
       <CourseWrapper>
