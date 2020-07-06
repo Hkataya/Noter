@@ -12,6 +12,7 @@ import { EntityStateType, UIStateType } from '../../reducers/types';
 import routes from '../../constants/routes.json';
 import { UIActionCreatorType } from '../../actions/ui';
 import formTypes from '../../constants/form-types.json';
+import Alert from '../Alert/Alert';
 
 // **** Style Section **** //
 
@@ -56,8 +57,11 @@ export default function HomePage(props: Props) {
 
   return (
     <HomeWrapper>
-      {alert.visible && <div className="bg-yellow-500">This is an Alert</div>}
-
+      <Alert
+        status={alert.status}
+        message={alert.message}
+        visible={alert.visible}
+      />
       {modal.visible && modal.type === formTypes.COURSE && (
         <Modal
           handleClose={() => {
