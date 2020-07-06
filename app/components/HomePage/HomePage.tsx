@@ -46,7 +46,8 @@ export default function HomePage(props: Props) {
     updateCourseDb,
     openModal,
     closeModal,
-    modal
+    modal,
+    alert
   } = props;
 
   useEffect(() => {
@@ -55,6 +56,8 @@ export default function HomePage(props: Props) {
 
   return (
     <HomeWrapper>
+      {alert.visible && <div className="bg-yellow-500">This is an Alert</div>}
+
       {modal.visible && modal.type === formTypes.COURSE && (
         <Modal
           handleClose={() => {

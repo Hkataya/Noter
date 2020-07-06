@@ -6,6 +6,7 @@ import {
 } from '../reducers/entities/types';
 import { Dispatch } from '../reducers/types';
 import { courseRepository as CourseRepository } from '../db/RepositoryInitializer';
+import { showAlert } from './ui';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
@@ -105,9 +106,10 @@ export function fetchCourseContent(data: FetchedCourseData) {
 export function addCourseDb(courseData: Omit<CourseType, 'id'>) {
   return (dispatch: Dispatch) => {
     CourseRepository.createEntity(courseData)
-      .then(updatedData =>
-        dispatch(addCourse(Object.assign(courseData, updatedData)))
-      )
+      .then(updatedData => {
+        dispatch<any>(showAlert('OK', 'Course Added Successfully'));
+        return dispatch(addCourse(Object.assign(courseData, updatedData)));
+      })
       .catch(err => {
         console.log(err);
       });

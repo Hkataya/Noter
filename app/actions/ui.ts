@@ -1,11 +1,14 @@
-import { ModalType } from '../reducers/ui/types';
+import { ModalType, AlertType } from '../reducers/ui/types';
 import { NoteType } from '../reducers/entities/types';
+import { Dispatch } from '../reducers/types';
 
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const SET_CURRENTLY_SELECTED = 'SET_CURRENTLY_SELECTED';
 export const SET_CURRENT_TIMESTAMP = 'SET_CURRENT_TIMESTAMP';
 export const SET_TARGET_TIMESTAMP = 'SET_TARGET_TIMESTAMP';
+export const SHOW_ALERT = 'SHOW_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';
 
 type SetCurrentlySelected = {
   type: typeof SET_CURRENTLY_SELECTED;
@@ -31,6 +34,15 @@ type SetTargetTimestampAction = {
   payload: NoteType['timestamp'];
 };
 
+type ShowAlertAction = {
+  type: typeof SHOW_ALERT;
+  payload: AlertType;
+};
+
+type HideAlertAction = {
+  type: typeof HIDE_ALERT;
+};
+
 export type UIActionCreatorType = {
   openModal?: (
     data: ModalType['data'],
@@ -41,6 +53,13 @@ export type UIActionCreatorType = {
   setCurrentlySelected?: (id: string) => void;
   setCurrentTimestamp?: (time: NoteType['timestamp']) => void;
   setTargetTimestamp?: (time: NoteType['timestamp']) => void;
+  showAlert?: (
+    status: AlertType['status'],
+    message: AlertType['message'],
+    data?: AlertType['data'],
+    error?: AlertType['error']
+  ) => void;
+  hideAlert?: () => void;
 };
 
 export type UIActionType =
@@ -48,7 +67,9 @@ export type UIActionType =
   | CloseModalAction
   | SetCurrentlySelected
   | SetCurrentTimestampAction
-  | SetTargetTimestampAction;
+  | SetTargetTimestampAction
+  | ShowAlertAction
+  | HideAlertAction;
 
 export function openModal(
   data: OpenModalAction['payload']['data'],
@@ -89,5 +110,42 @@ export function setTargetTimestamp(time: NoteType['timestamp']) {
   return {
     type: SET_TARGET_TIMESTAMP,
     payload: time
+  };
+}
+
+function showAlertSync(
+  status: ShowAlertAction['payload']['status'],
+  message: ShowAlertAction['payload']['message'],
+  data?: ShowAlertAction['payload']['data'],
+  error?: ShowAlertAction['payload']['error']
+) {
+  return {
+    type: SHOW_ALERT,
+    payload: {
+      data,
+      status,
+      error,
+      message
+    }
+  };
+}
+
+function hideAlert() {
+  return {
+    type: HIDE_ALERT
+  };
+}
+
+export function showAlert(
+  status: ShowAlertAction['payload']['status'],
+  message: ShowAlertAction['payload']['message'],
+  data?: ShowAlertAction['payload']['data'],
+  error?: ShowAlertAction['payload']['error']
+) {
+  return (dispatch: Dispatch) => {
+    dispatch(showAlertSync(status, message, data, error));
+    setTimeout(() => {
+      dispatch(hideAlert());
+    }, 2000);
   };
 }

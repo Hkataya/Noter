@@ -4,7 +4,9 @@ import {
   UIActionType,
   SET_CURRENTLY_SELECTED,
   SET_CURRENT_TIMESTAMP,
-  SET_TARGET_TIMESTAMP
+  SET_TARGET_TIMESTAMP,
+  SHOW_ALERT,
+  HIDE_ALERT
 } from '../../actions/ui';
 
 const initialState = {
@@ -13,6 +15,13 @@ const initialState = {
     data: {},
     parentId: '',
     type: ''
+  },
+  alert: {
+    visible: false,
+    data: {},
+    status: '',
+    message: '',
+    error: ''
   },
   currentlySelected: '',
   currentTimestamp: '',
@@ -45,6 +54,20 @@ export default function ui(state = initialState, action: UIActionType) {
 
     case SET_TARGET_TIMESTAMP:
       newState.targetTimestamp = action.payload;
+      return newState;
+
+    case SHOW_ALERT:
+      newState.alert = {
+        visible: true,
+        data: action.payload.data || {},
+        message: action.payload.message || '',
+        status: action.payload.status || '',
+        error: action.payload.error || ''
+      };
+      return newState;
+
+    case HIDE_ALERT:
+      newState.alert = initialState.alert;
       return newState;
 
     default:

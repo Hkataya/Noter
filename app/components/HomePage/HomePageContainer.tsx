@@ -14,7 +14,8 @@ import { openModal, closeModal } from '../../actions/ui';
 function mapStateToProps(state: any) {
   return {
     courses: state.entities.courses,
-    modal: state.ui.modal
+    modal: state.ui.modal,
+    alert: state.ui.alert
   };
 }
 

@@ -6,3 +6,11 @@ export type ModalType = {
   visible?: boolean;
   type?: string;
 };
+
+export type AlertType = {
+  data?: any;
+  visible: boolean;
+  status: string;
+  error?: string;
+  message: string;
+};

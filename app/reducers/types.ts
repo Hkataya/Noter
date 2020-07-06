@@ -1,6 +1,6 @@
 import { Dispatch as ReduxDispatch, Store as ReduxStore, Action } from 'redux';
 import { CourseType, VideoType, NoteType, SectionType } from './entities/types';
-import { ModalType } from './ui/types';
+import { ModalType, AlertType } from './ui/types';
 
 export type EntityStateType = {
   courses: Record<string, CourseType>;
@@ -11,6 +11,7 @@ export type EntityStateType = {
 
 export type UIStateType = {
   modal: ModalType;
+  alert: AlertType;
   currentlySelected: string;
   currentTimestamp: string;
   targetTimestamp: string;
