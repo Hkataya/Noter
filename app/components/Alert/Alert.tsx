@@ -1,22 +1,31 @@
 import React from 'react';
-import styled from 'styled-components';
 import { AlertType } from '../../reducers/ui/types';
+import AlertStatusTypes from '../../constants/alert-types.json';
 
 type Props = AlertType;
 
 const Alert = (props: Props) => {
   const { status, message, visible } = props;
+  let statusColor;
+
+  if (status === AlertStatusTypes.INFO)
+    statusColor = 'bg-teal-100 border-teal-500 text-teal-900 ';
+  else if (status === AlertStatusTypes.WARNING)
+    statusColor = 'bg-yellow-100 border-yellow-500 text-yellow-900 ';
+  if (status === AlertStatusTypes.ERROR)
+    statusColor = 'bg-red-100 border-red-500 text-red-900 ';
+
   return (
     <>
       {visible ? (
         <div
-          className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
+          className={`${statusColor} absolute mb-10 ml-10 bottom-0 left-0 border-t-4 rounded-b px-4 py-3 shadow-md`}
           role="alert"
         >
           <div className="flex">
             <div className="py-1">
               <svg
-                className="fill-current h-6 w-6 text-teal-500 mr-4"
+                className="fill-current h-6 w-6  mr-4"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
               >

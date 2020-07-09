@@ -8,9 +8,7 @@ export type ModalType = {
 };
 
 export type AlertType = {
-  data?: any;
   visible: boolean;
   status: string;
-  error?: string;
   message: string;
 };

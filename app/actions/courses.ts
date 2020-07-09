@@ -7,6 +7,7 @@ import {
 import { Dispatch } from '../reducers/types';
 import { courseRepository as CourseRepository } from '../db/RepositoryInitializer';
 import { showAlert } from './ui';
+import AlertStatusTypes from '../constants/alert-types.json';
 
 export const ADD_COURSE = 'ADD_COURSE';
 export const REMOVE_COURSE = 'REMOVE_COURSE';
@@ -107,7 +108,9 @@ export function addCourseDb(courseData: Omit<CourseType, 'id'>) {
   return (dispatch: Dispatch) => {
     CourseRepository.createEntity(courseData)
       .then(updatedData => {
-        dispatch<any>(showAlert('OK', 'Course Added Successfully'));
+        dispatch<any>(
+          showAlert(AlertStatusTypes.INFO, 'Course Added Successfully')
+        );
         return dispatch(addCourse(Object.assign(courseData, updatedData)));
       })
       .catch(err => {
@@ -119,9 +122,16 @@ export function addCourseDb(courseData: Omit<CourseType, 'id'>) {
 export function removeCourseDb(courseId: CourseType['id']) {
   return (dispatch: Dispatch) => {
     CourseRepository.deleteEntity(courseId)
-      .then(() => dispatch(removeCourse(courseId)))
+      .then(() => {
+        dispatch<any>(
+          showAlert(AlertStatusTypes.INFO, 'Course Removed Successfully')
+        );
+        return dispatch(removeCourse(courseId));
+      })
       .catch(err => {
-        console.log(err);
+        dispatch<any>(
+          showAlert(AlertStatusTypes.ERROR, 'Error In Revoming Course')
+        );
       });
   };
 }
@@ -139,9 +149,12 @@ export function fetchAllCoursesDb() {
 export function updateCourseDb(courseData: CourseType) {
   return (dispatch: Dispatch) => {
     CourseRepository.updateEntity(courseData)
-      .then(updatedData =>
-        dispatch(updateCourse(Object.assign(courseData, updatedData)))
-      )
+      .then(updatedData => {
+        dispatch<any>(
+          showAlert(AlertStatusTypes.INFO, 'Course Updated Successfully')
+        );
+        return dispatch(updateCourse(Object.assign(courseData, updatedData)));
+      })
       .catch(err => {
         console.log(err);
       });

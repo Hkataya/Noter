@@ -55,9 +55,7 @@ export type UIActionCreatorType = {
   setTargetTimestamp?: (time: NoteType['timestamp']) => void;
   showAlert?: (
     status: AlertType['status'],
-    message: AlertType['message'],
-    data?: AlertType['data'],
-    error?: AlertType['error']
+    message: AlertType['message']
   ) => void;
   hideAlert?: () => void;
 };
@@ -115,16 +113,12 @@ export function setTargetTimestamp(time: NoteType['timestamp']) {
 
 function showAlertSync(
   status: ShowAlertAction['payload']['status'],
-  message: ShowAlertAction['payload']['message'],
-  data?: ShowAlertAction['payload']['data'],
-  error?: ShowAlertAction['payload']['error']
+  message: ShowAlertAction['payload']['message']
 ) {
   return {
     type: SHOW_ALERT,
     payload: {
-      data,
       status,
-      error,
       message
     }
   };
@@ -138,12 +132,10 @@ function hideAlert() {
 
 export function showAlert(
   status: ShowAlertAction['payload']['status'],
-  message: ShowAlertAction['payload']['message'],
-  data?: ShowAlertAction['payload']['data'],
-  error?: ShowAlertAction['payload']['error']
+  message: ShowAlertAction['payload']['message']
 ) {
   return (dispatch: Dispatch) => {
-    dispatch(showAlertSync(status, message, data, error));
+    dispatch(showAlertSync(status, message));
     setTimeout(() => {
       dispatch(hideAlert());
     }, 2000);

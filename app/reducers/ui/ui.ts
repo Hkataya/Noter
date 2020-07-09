@@ -18,10 +18,8 @@ const initialState = {
   },
   alert: {
     visible: false,
-    data: {},
     status: '',
-    message: '',
-    error: ''
+    message: ''
   },
   currentlySelected: '',
   currentTimestamp: '',
@@ -59,10 +57,8 @@ export default function ui(state = initialState, action: UIActionType) {
     case SHOW_ALERT:
       newState.alert = {
         visible: true,
-        data: action.payload.data || {},
         message: action.payload.message || '',
-        status: action.payload.status || '',
-        error: action.payload.error || ''
+        status: action.payload.status || ''
       };
       return newState;
 
