@@ -2,6 +2,20 @@
 
 This project uses https://github.com/electron-react-boilerplate/electron-react-boilerplate
 
+![Home](https://user-images.githubusercontent.com/33978594/121772275-1c3c5a80-cb7d-11eb-8a65-1284d6be8931.png)
+
+
+## Tech Stack
+
+* Backend:  Node.js/Electron (For Cross-Platform Capabilities)
+* Frontend: TypeScript + React.js + Redux(Type safety + state management)
+* Database: PouchDB/CouchDB ( Great offline data sync strategy)
+* Testing Tools: Jest (unit, integration), React-Testing-Library (UI)
+* CI/CD pipeline: Github Actions
+
+## High Level Architecture
+
+![image](https://user-images.githubusercontent.com/33978594/121772089-fcf0fd80-cb7b-11eb-91eb-051647a959f7.png)
 
 ## Install
 
@@ -30,7 +44,6 @@ yarn package
 ```
 
 
-
 ## Folder Structure
 
 ### The top-level directory layout
@@ -41,3 +54,5 @@ yarn package
     ├── app                     # Source files
     ├── test                    # Automated tests (`spec`)
     ├── resources               # Assets directory
+    
+
